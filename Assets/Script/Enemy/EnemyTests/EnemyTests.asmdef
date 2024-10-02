@@ -1,0 +1,6 @@
+{
+    "name": "EnemyTests",
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}
