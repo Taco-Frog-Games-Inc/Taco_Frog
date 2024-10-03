@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class EnemyController : MonoBehaviour, IAttack
+public abstract class EnemyController : MonoBehaviour, IAttack, IDamager
 {
     public GameObject player;
-    protected internal EnemyStateMachine stateMachine;    
+    protected internal EnemyStateMachine stateMachine;
     protected internal NavMeshAgent navMeshAgent;
 
     //Testing purposes
@@ -15,7 +15,7 @@ public abstract class EnemyController : MonoBehaviour, IAttack
     protected internal float cosEnemyFOVover2InRAD;
     public float closeEnoughEngageCutoff = 30f;
     public float closeEnoughSenseCutoff = 45f;
-    protected internal bool isDead = false;    
+    protected internal bool isDead = false;
 
     [Header("Path")]
     public GameObject path;
@@ -23,6 +23,9 @@ public abstract class EnemyController : MonoBehaviour, IAttack
 
     [Header("InGame Properties")]
     public int health = 100;
+    [SerializeField] private int damageToApply;
+
+    public int DamageToApply { get { return damageToApply;  } }
 
     private void Awake()
     {
@@ -39,9 +42,7 @@ public abstract class EnemyController : MonoBehaviour, IAttack
     {
         stateMachine.FixedUpdate();
     }
-
-    public abstract void Attack();
-
+    
     protected internal bool SensePlayer()
     {        
         return EnemyUtilities.SenseOther(gameObject, player, cosEnemyFOVover2InRAD, closeEnoughSenseCutoff);
@@ -51,4 +52,13 @@ public abstract class EnemyController : MonoBehaviour, IAttack
     {
         return EnemyUtilities.SenseOther(gameObject, player, cosEnemyFOVover2InRAD, closeEnoughEngageCutoff);
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        IDamageTaker damageTaker = other.gameObject.GetComponent<IDamageTaker>();
+        damageTaker?.TakeDamage(DamageToApply);
+    }
+    //Abstract classes
+    public abstract void Attack();
+    public abstract void ApplyDamage(int damage);
 }

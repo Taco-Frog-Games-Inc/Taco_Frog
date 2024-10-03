@@ -1,28 +1,25 @@
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 
 public class EnemyUtilitiesTests
 {
     [Test]
-    public void SenseOther_ReturnsTrue_WhenOtherIsInFrontAndClose()
-    {
-        // Arrange
-        GameObject obj = new GameObject("Obj");
-        GameObject other = new GameObject("Other");
+    public void SenseOther_ReturnsTrue_WhenOtherIsInCloseEnoughCutoffRange()
+    {        
+        GameObject obj = new("Obj");
+        GameObject other = new("Other");
         obj.transform.position = Vector3.zero;
-        other.transform.position = new Vector3(1, 0, 0); // Positioned in front
+        other.transform.position = new Vector3(0, 0, 1); // Positioned in front
 
-        float cosFOV = Mathf.Cos(30 * Mathf.Deg2Rad); // Example FOV
-        float distance = 2f; // Distance to other
+        float EnemyFOV = 89f;
+        float cosFOV = Mathf.Cos(EnemyFOV / 2f * Mathf.Deg2Rad);
+        float closeEnoughSenseCutoff = 45f;
 
-        // Act
-        
-        //bool result = EnemyUtilities.SenseOther(obj, other, cosFOV, distance);
+        bool result = EnemyUtilities.SenseOther(obj, other, cosFOV, closeEnoughSenseCutoff);
 
-        // Assert
-        //Assert.IsTrue(result);
+        Assert.IsTrue(result);
     }
-
 
 }

@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class LongRangedEnemy : EnemyController
@@ -14,5 +15,10 @@ public class LongRangedEnemy : EnemyController
 
     public override void Attack() {
         GetComponent<Renderer>().material.color = Color.red;
+    }    
+
+    public override void ApplyDamage(int damage)
+    {
+        throw new NotImplementedException();
     }
 }

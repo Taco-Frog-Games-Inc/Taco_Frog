@@ -14,5 +14,10 @@ public class ShortRangeEnemy : EnemyController
 
     public override void Attack() {
         GetComponent<Renderer>().material.color = Color.red;
+    }    
+
+    public override void ApplyDamage(int damage)
+    {
+        throw new System.NotImplementedException();
     }
 }
