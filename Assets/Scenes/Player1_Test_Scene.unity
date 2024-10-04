@@ -540,7 +540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bf4bd0b10ebf344b1597dba503006c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterController: {fileID: 0}
 --- !u!114 &759628532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,7 +663,7 @@ MonoBehaviour:
   ShoulderOffset: {x: 0.5, y: -0.4, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
-  CameraDistance: 10
+  CameraDistance: 20
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0
@@ -723,7 +722,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 326100588}
   m_Lens:
-    FieldOfView: 80
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -750,7 +749,7 @@ Transform:
   m_GameObject: {fileID: 1006610249}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38736054, y: -0.033880327, z: 0.014246599, w: 0.92119545}
-  m_LocalPosition: {x: 0.5, y: 7.953911, z: -6.7882257}
+  m_LocalPosition: {x: 0.5, y: 15.024979, z: -13.859294}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -923,7 +922,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 80
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -950,7 +949,7 @@ Transform:
   m_GameObject: {fileID: 2013685164}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0.5, y: 7.953911, z: -6.7882257}
+  m_LocalPosition: {x: 0.5, y: 15.024979, z: -13.859294}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
