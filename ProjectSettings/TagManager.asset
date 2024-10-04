@@ -5,15 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - LoadButton
+  - Environment
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
   - Enemy
-  - Ground
   - Water
   - UI
-  - 
+  - UI
   - 
   - 
   - 
