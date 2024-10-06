@@ -10,9 +10,15 @@ public class PlayerBH : MonoBehaviour
     [SerializeField] private GameObject _env;
 
     [SerializeField] private float _health;
-    DamageSystem _playerDS;
+   PlayerDS _playerDS;
     HealthSystem _playerHS;
     //[SerializeField] private float timer = 0f;
+    
+    void Awake()
+    {
+
+    }
+    
     void Start()
     {
         _enemy = GameObject.FindWithTag("Enemy");
@@ -25,7 +31,7 @@ public class PlayerBH : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   /*void Update()
     {
         Vector3 enemyLoc = _enemy.transform.position;
 
@@ -45,9 +51,18 @@ public class PlayerBH : MonoBehaviour
             Debug.Log($"Health declined to :{_health}");
         }
     }
-
+*/
     void DamageTaken()
     {
+           _health =  _playerDS.DamageTaken(_health);  
 
+            if(_health < _playerHS.NearDeath())_playerHS.Death(this.gameObject);
+
+            Debug.Log($"Health declined to :{_health}");
+    }
+    void OnCollisionStay(Collision other)
+    {
+         if (other.gameObject.CompareTag("Enemy")) DamageTaken();
+       
     }
 }

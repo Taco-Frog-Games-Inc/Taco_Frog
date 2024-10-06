@@ -24,6 +24,7 @@ public class PlayerDS : DamageSystem
         entity = _enemy;
         env = _environment;
         timer = 0f;
+         SetDifficulty(_levelDiff);
 
     }
 
@@ -33,7 +34,7 @@ public class PlayerDS : DamageSystem
         timer += Time.deltaTime;
         if (timer > 3f)
         {
-            SetDifficulty(_levelDiff);
+           
             damage -= _damage;
             timer = 0f;
             Debug.Log($"Damage applied: {_damage}");
