@@ -42,25 +42,52 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// OnAwake get the CharacterController Component
     /// </summary>
+
+    PlayerAttackSystem _plAttkSys;
+    [SerializeField] private GameObject _playerLongRgAtt; // Prefab for the tongue
+    private TongueAttack tongueAttack;
+    [SerializeField] private GameObject _enemy;
+    
+    
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+
+        _enemy = GameObject.FindWithTag("Enemy");
+
+        _plAttkSys = new PlayerAttackSystem(_enemy, this.gameObject);
+        tongueAttack = new TongueAttack();
+        tongueAttack.Initialize(_playerLongRgAtt, transform);
+
     }
 
+     void Update()
+    {
+       
+        tongueAttack.Update();
 
+        //new input system needed here....
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            tongueAttack.ExecuteAttack(); 
+        }
+    }
     /// <summary>
     /// FixedUpdate does ground check and, runs, move, jump and updates player rotation.
     /// </summary>
     private void FixedUpdate()
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
-        
+
+       Debug.Log(_groundMask.value);
+
         _characterController.Move(_direction * speed * Time.deltaTime);
         Move();
         Jump();
         UpdatePlayerRotation();
+        _plAttkSys.JumpAttack();
+        
     }
-
     /// <summary>
     /// Moves the player based on the updated inputs x and y.
     /// </summary>
@@ -101,6 +128,7 @@ public class PlayerController : MonoBehaviour
             _velocity.y += Mathf.Sqrt(_jumpHeight * _gravity);
             _isJumpPressed = false;
         }
+       
 
         _velocity.y -= _gravity * Time.deltaTime; //otherwise make sure that gravity is negative
         _characterController.Move(_velocity * Time.deltaTime); //make sure the player can still move using their velocity
@@ -133,4 +161,5 @@ public class PlayerController : MonoBehaviour
         //updates the player rotation. the Vector3 passsed had to be adjusted since the x, y and z and different that the actual player WASD directional inputs translation.
         _playerTransform.rotation = Quaternion.LookRotation(new Vector3(_direction.z, _direction.y, _direction.x * -1));
     }
+
 }

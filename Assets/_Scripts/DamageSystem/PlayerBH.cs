@@ -1,22 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class PlayerBH : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    [Header("Enemies and Hazards")]
     [SerializeField] private GameObject _enemy;
     [SerializeField] private GameObject _env;
 
+    [Header("Damage Applied")]
+    [SerializeField] private float dmg;
+
+
+
     [SerializeField] private float _health;
-   PlayerDS _playerDS;
+   
+    PlayerDS _playerDS;
+
     HealthSystem _playerHS;
     //[SerializeField] private float timer = 0f;
-    
+   
     void Awake()
     {
-
+       
+      
     }
     
     void Start()
@@ -30,28 +38,11 @@ public class PlayerBH : MonoBehaviour
                 
     }
 
-    // Update is called once per frame
-   /*void Update()
-    {
-        Vector3 enemyLoc = _enemy.transform.position;
+   
 
-        if(Vector3.Distance(enemyLoc, transform.position) < 2f)
-        {
-            // timer += Time.deltaTime;
-             //if(timer > 3f)
-            // {
-                _health =  _playerDS.DamageTaken(_health); //update this as well
-                
-               // timer = 0f;
-            // }
-            if(_health < _playerHS.NearDeath())
-            {
-                _playerHS.Death(this.gameObject);
-            }
-            Debug.Log($"Health declined to :{_health}");
-        }
-    }
-*/
+
+
+    
     void DamageTaken()
     {
            _health =  _playerDS.DamageTaken(_health);  
@@ -65,4 +56,6 @@ public class PlayerBH : MonoBehaviour
          if (other.gameObject.CompareTag("Enemy")) DamageTaken();
        
     }
+
+   
 }

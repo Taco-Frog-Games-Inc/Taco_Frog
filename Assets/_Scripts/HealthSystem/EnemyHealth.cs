@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : HealthSystem
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+      public EnemyHealth() : base()
+   {
+     
+   }
 
     // Update is called once per frame
-    void Update()
+    public override void IncreaseHealth()
     {
-        
+        //power up logic 
     }
+
+    public override void Death(GameObject entity)
+    {
+        Debug.Log("Enemy dead....Enemy animation playingh......:(");
+        entity.SetActive(false);
+         
+    }
+    public override float ResetHealth()
+    {
+        return base.ResetHealth();
+    }
+
 }
