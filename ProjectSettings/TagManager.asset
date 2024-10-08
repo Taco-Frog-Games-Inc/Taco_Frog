@@ -5,16 +5,20 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - LoadButton
+  - Environment
+  - Ground
+  - Floor
+  - KnockOut
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
   - Enemy
-  - Ground
   - Water
   - UI
-  - 
-  - 
+  - UI
+  - Ground
   - 
   - 
   - 

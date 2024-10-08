@@ -23,7 +23,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_End_Test.unity
     guid: 9507c19355956af4c901c70dee1e65ef
-  - enabled: 1
-    path: Assets/Scenes/LoseScreen.unity
-    guid: 96e1b28184570854d9df9250c9669d29
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 1b1a5f19b8de0604980ee4c36eb46b9a, type: 2}
