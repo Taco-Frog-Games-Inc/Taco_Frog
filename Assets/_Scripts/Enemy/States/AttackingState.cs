@@ -20,7 +20,7 @@ public class AttackingState : EnemyStateMachine.State, IState
     {
         DoOnFrame();
 
-        if (controller.health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
+        if (controller.Health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
 
         if (!controller.EngagePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.ChasingState);
 

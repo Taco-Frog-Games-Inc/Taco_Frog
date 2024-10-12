@@ -14,10 +14,19 @@ public class ShortRangeEnemy : EnemyController
 
     public override void Attack() {
         GetComponent<Renderer>().material.color = Color.red;
+
+        //This should occur only when the conditions for hurting a player has been met.         
+        ApplyDamage(1);
     }    
 
     public override void ApplyDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Applying Damage to player: " + damage);
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        Health -= damage;
+        if (Health < 0) Health = 0;
     }
 }

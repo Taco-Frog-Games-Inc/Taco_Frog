@@ -1,5 +1,3 @@
-
-using System;
 using UnityEngine;
 
 public class LongRangedEnemy : EnemyController
@@ -15,10 +13,17 @@ public class LongRangedEnemy : EnemyController
 
     public override void Attack() {
         GetComponent<Renderer>().material.color = Color.red;
-    }    
+        //This should occur only when the conditions for hurting a player has been met. 
+        ApplyDamage(1);
+    }
 
     public override void ApplyDamage(int damage)
     {
-        throw new NotImplementedException();
+        Debug.Log("Applying Damage to player: " + damage);
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        Health -= damage;
     }
 }

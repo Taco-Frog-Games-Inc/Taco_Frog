@@ -16,7 +16,7 @@ public class RoamingState : EnemyStateMachine.State, IState
     public void OnFrame() {
         DoOnFrame();
 
-        if (controller.health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
+        if (controller.Health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
 
         if (!controller.SensePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.RoamingState);
         else stateMachine.ChangeState(EnemyStateMachine.StateEnum.ChasingState);

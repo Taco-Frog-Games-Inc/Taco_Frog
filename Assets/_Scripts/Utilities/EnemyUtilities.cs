@@ -7,7 +7,7 @@ public static class EnemyUtilities
         return OtherInFront(obj, other, cosOtherFOVOver2InRad) && OtherCloseEnough(distance, obj, other);
     }
 
-    public static bool OtherInFront(GameObject obj, GameObject other, float cosOtherFOVOver2InRad)
+    private static bool OtherInFront(GameObject obj, GameObject other, float cosOtherFOVOver2InRad)
     {
         Vector3 otherHeading = (other.transform.position - obj.transform.position).normalized;
         float cosAngle = Vector3.Dot(otherHeading, obj.transform.forward);
@@ -15,7 +15,7 @@ public static class EnemyUtilities
         return cosAngle > cosOtherFOVOver2InRad;
     }
 
-    public static bool OtherCloseEnough(float distance, GameObject obj, GameObject other)
+    private static bool OtherCloseEnough(float distance, GameObject obj, GameObject other)
     {
         return Vector3.Distance(obj.transform.position, other.transform.position) <= distance;
     }

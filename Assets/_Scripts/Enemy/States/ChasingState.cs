@@ -12,22 +12,28 @@ public class ChasingState : EnemyStateMachine.State, IState
         onExit = OnExit;
     }
 
-    public void OnEnter() { }
+    public void OnEnter() { DoOnEnter(); }
     public void OnFrame()
     {
         DoOnFrame();
 
-        if (controller.health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
+        if (controller.Health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
 
         if (!controller.SensePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.RoamingState);
         else if (controller.EngagePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.AttackingState);
 
     }
-    public void OnExit() { }
+    public void OnExit() { DoOnExit(); }
 
 
-    public void DoOnEnter() { throw new Exception("DoOnEnter of ChasingState has yet to be implemented"); }
-    public void DoOnFrame() { controller.navMeshAgent.destination = controller.player.transform.position; }
-    public void DoOnExit() { throw new Exception("DoOnExit of ChasingState has yet to be implemented"); }
+    public void DoOnEnter() { 
+        controller.navMeshAgent.speed *= 2f; //Increases the speed by a factor of 1.2 when chasing.
+    }
+    public void DoOnFrame() { 
+        controller.navMeshAgent.destination = controller.player.transform.position;        
+    }
+    public void DoOnExit() {
+        controller.navMeshAgent.speed /= 2f; //Decreases the speed by a factor of 1.2 when exiting chasing phase.
+    }
 }
 

@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class EnemyController : MonoBehaviour, IAttack, IDamager
+public abstract class EnemyController : MonoBehaviour, IAttack, IDamager, IDamageTaker
 {
     public GameObject player;
-    protected internal EnemyStateMachine stateMachine;
+    public EnemyStateMachine stateMachine;
     protected internal NavMeshAgent navMeshAgent;
 
     //Testing purposes
@@ -22,7 +22,8 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamager
     public int nextWayPointIndex = 0;
 
     [Header("InGame Properties")]
-    public int health = 100;
+    [SerializeField] private int health = 100;
+    public int Health { get { return health;  } set { if (value > 0) health = value; } }
     [SerializeField] private int damageToApply;
 
     public int DamageToApply { get { return damageToApply;  } }
@@ -58,7 +59,10 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamager
         IDamageTaker damageTaker = other.gameObject.GetComponent<IDamageTaker>();
         damageTaker?.TakeDamage(DamageToApply);
     }
-    //Abstract classes
+
+    //Abstract methods
     public abstract void Attack();
     public abstract void ApplyDamage(int damage);
+
+    public abstract void TakeDamage(int damage);
 }
