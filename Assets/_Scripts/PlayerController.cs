@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector3 _velocity;
     [SerializeField] private bool _isJumpPressed;
     [SerializeField] Transform _groundCheck;
-    [SerializeField] float _groundCheckRadius = 0.5f;
+    [SerializeField] float _groundCheckRadius = 0.7f;
     [SerializeField] LayerMask _groundMask;
     [SerializeField] bool _isGrounded;
 
@@ -55,22 +55,21 @@ public class PlayerController : MonoBehaviour
 
         _enemy = GameObject.FindWithTag("Enemy");
 
-        _plAttkSys = new PlayerAttackSystem(_enemy, this.gameObject);
-        tongueAttack = new TongueAttack();
-        tongueAttack.Initialize(_playerLongRgAtt, transform);
-
+        //_plAttkSys = new PlayerAttackSystem(_enemy, this.gameObject);
+        //tongueAttack = new TongueAttack();
+        //tongueAttack.Initialize(_playerLongRgAtt, transform);
     }
 
      void Update()
     {
        
-        tongueAttack.Update();
+        //tongueAttack.Update();
 
         //new input system needed here....
-        if (Input.GetKeyDown(KeyCode.Space)) 
-        {
-            tongueAttack.ExecuteAttack(); 
-        }
+        //if (Input.GetKeyDown(KeyCode.Space)) 
+        //{
+            //tongueAttack.ExecuteAttack(); 
+        //}
     }
     /// <summary>
     /// FixedUpdate does ground check and, runs, move, jump and updates player rotation.
@@ -79,15 +78,15 @@ public class PlayerController : MonoBehaviour
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
 
-       Debug.Log(_groundMask.value);
+       //Debug.Log(_groundMask.value);
 
         _characterController.Move(_direction * speed * Time.deltaTime);
         Move();
         Jump();
         UpdatePlayerRotation();
-        _plAttkSys.JumpAttack();
-        
+        //_plAttkSys.JumpAttack();
     }
+
     /// <summary>
     /// Moves the player based on the updated inputs x and y.
     /// </summary>
@@ -117,7 +116,7 @@ public class PlayerController : MonoBehaviour
         if (_isGrounded)
         {
             //set velocity to 0 if player is grounded
-            _velocity.y = 0.0f;
+            this._velocity.y = 0.0f;
         }
 
         //if grounded and the jumpp button is pressed...

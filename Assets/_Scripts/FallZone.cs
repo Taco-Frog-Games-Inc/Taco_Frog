@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +9,6 @@ using UnityEngine.SceneManagement;
  * 
  * Last Modified by: Alexander Maynard
  * Last Modified Date: October 5th, 2024
- * 
  * 
  * Program Description: 
  *      
