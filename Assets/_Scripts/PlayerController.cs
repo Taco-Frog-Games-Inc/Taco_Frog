@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     PlayerAttackSystem _plAttkSys;
     [SerializeField] private GameObject _playerLongRgAtt; // Prefab for the tongue
     private TongueAttack tongueAttack;
-    [SerializeField] private GameObject _enemy;
+    private GameObject _enemy; //Removed [SerializedField]
     
     
     private void Awake()
