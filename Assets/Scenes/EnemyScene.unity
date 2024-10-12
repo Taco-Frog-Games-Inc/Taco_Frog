@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 68943998}
   - component: {fileID: 68943999}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player_1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1267,6 +1267,10 @@ PrefabInstance:
       propertyPath: path
       value: 
       objectReference: {fileID: 666162484}
+    - target: {fileID: 6728066617118707661, guid: 82a18f40d77ad46498f4cff8a2db5499, type: 3}
+      propertyPath: taco
+      value: 
+      objectReference: {fileID: 3771223191844507866, guid: 10a8c683e0228604c833a989e637bab2, type: 3}
     - target: {fileID: 6728066617118707661, guid: 82a18f40d77ad46498f4cff8a2db5499, type: 3}
       propertyPath: player
       value: 
