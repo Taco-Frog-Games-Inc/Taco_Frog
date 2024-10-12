@@ -1,6 +1,23 @@
 using System;
 using System.Collections.Generic;
-
+/*
+ * Source File Name: EnemyStateMachine.cs
+ * Author Name: Audrey Bernier Larose
+ * Student Number: 301166198
+ * Creation Date: October 2nd, 2024
+ * 
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: October 2nd, 2024
+ * 
+ * 
+ * Program Description: 
+ *      
+ *      This script provides functionality for an enemy state machine.
+ * 
+ * Revision History:
+ *      -> October 2nd, 2024:
+ *          -Created this script and fully implemented it.
+ */
 public class EnemyStateMachine { 
         public enum StateEnum {
             RoamingState,
@@ -9,6 +26,9 @@ public class EnemyStateMachine {
             DyingState
         }
 
+    /// <summary>
+    /// Class delegating the onFrame, onEnter, and onExit actions to the enemy state machine.
+    /// </summary>
     public abstract class State {
         protected internal EnemyController controller;
         protected internal EnemyStateMachine stateMachine;

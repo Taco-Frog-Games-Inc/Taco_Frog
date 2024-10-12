@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
+using UnityEngine.AI;
 
 
 public class EnemyUtilitiesTests
@@ -20,6 +20,39 @@ public class EnemyUtilitiesTests
         bool result = EnemyUtilities.SenseOther(obj, other, cosFOV, closeEnoughSenseCutoff);
 
         Assert.IsTrue(result);
+
+        Object.Destroy(obj);
+        Object.Destroy(other);
     }
 
+    [Test]
+    public void EnemyNavMeshAgent_Speed()
+    {
+        GameObject _enemy = new("Enemy");
+        _enemy.AddComponent<NavMeshAgent>();
+        ShortRangeEnemy enemy = _enemy.AddComponent<ShortRangeEnemy>();
+        NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+
+        float initialSpeed = agent.speed;
+        float increasedSpeed = agent.speed *= 1.2f;
+
+        Assert.Greater(increasedSpeed, initialSpeed);
+
+        Object.Destroy(enemy);       
+    }
+
+
+    [Test]
+    public void Enemy_Health()
+    {
+        GameObject _enemy = new("Enemy");
+        ShortRangeEnemy enemy = _enemy.AddComponent<ShortRangeEnemy>();
+        enemy.Health = 100;
+
+        enemy.TakeDamage(50);
+
+        Assert.Less(enemy.Health, 100);
+        
+        Object.Destroy(enemy);
+    }
 }
