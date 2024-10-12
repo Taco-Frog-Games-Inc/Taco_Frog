@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4734774063794458838}
-  - component: {fileID: 7658072458394934755}
   - component: {fileID: 5320097503342318770}
   m_Layer: 0
   m_Name: MapGenerator
@@ -33,33 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7658072458394934755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136633007654937411}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e13fb5e3f5111bc428817e24495825cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _height: 10
-  _length: 20
-  _scale: 5
-  _offsetX: 0
-  _offsetZ: 0
-  _biomePrefabs:
-  - {fileID: 1380918964074102879, guid: 54d211a593337a44c8bfeb522f4a18cc, type: 3}
-  - {fileID: 2184828194439152664, guid: b73afa661fed373449c9d98db0c14765, type: 3}
-  - {fileID: 2184828194439152664, guid: 1215d1ea03d95104d8d4ccd2500c9e41, type: 3}
-  - {fileID: 2184828194439152664, guid: 44518f9d73328254ea0f910deb4612c1, type: 3}
-  - {fileID: 9138022567798566806, guid: 3bf25c881c4ede04095eab5cd31552ef, type: 3}
-  - {fileID: 9138022567798566806, guid: 2eb4236f2242225488b1632218a425aa, type: 3}
-  - {fileID: 9138022567798566806, guid: 48ac8a71db987604a9a42dc445ce62ad, type: 3}
-  - {fileID: 1380918964074102879, guid: 9db81afa3ff5b0f4fa8331ae232189b2, type: 3}
-  _blankTile: {fileID: 2256172889869513552, guid: b2015f390f914be4a92bb8251b0d0130, type: 3}
 --- !u!114 &5320097503342318770
 MonoBehaviour:
   m_ObjectHideFlags: 0
