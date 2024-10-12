@@ -20,6 +20,8 @@ using UnityEngine;
  * Revision History:
  *      -> October 2nd, 2024:
  *          -Created this script and fully implemented it.
+ *      -> October 11th, 2024:
+ *          -Updated camfollow so that it only follows on x and z axis
  */
 
 public class CamFollow : MonoBehaviour
@@ -32,6 +34,6 @@ public class CamFollow : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        this.transform.position = _playerTransfom.position;
+        this.transform.position = new Vector3(_playerTransfom.position.x, this.transform.position.y, _playerTransfom.position.z);
     }
 }

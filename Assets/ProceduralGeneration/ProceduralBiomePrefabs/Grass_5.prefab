@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8019008791565555997}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3763606090253003846}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 6046859126502105947}
   - component: {fileID: 699981728559414580}
   - component: {fileID: 7886289006994078367}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 3622825816018589980}
   - component: {fileID: 1693460997374006062}
   - component: {fileID: 95066722487269473}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,9 +269,9 @@ GameObject:
   - component: {fileID: 1505750680821726148}
   - component: {fileID: 338427425225657289}
   - component: {fileID: 471765219802951865}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grass_5
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 7763601875128713000}
   - component: {fileID: 3710129538832707071}
   - component: {fileID: 1558288154165274738}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 6774219452936764372}
   - component: {fileID: 3545756410130189938}
   - component: {fileID: 9038842369229977567}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeTopLower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -541,7 +541,7 @@ GameObject:
   - component: {fileID: 4963431573160967585}
   - component: {fileID: 7469386468543294078}
   - component: {fileID: 7114602896405190368}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 6879933492307526077}
   - component: {fileID: 5025374696317184486}
   - component: {fileID: 3005862864781427899}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeTopUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 1489797299769156420}
   - component: {fileID: 6063884421554226767}
   - component: {fileID: 1948707775851248323}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

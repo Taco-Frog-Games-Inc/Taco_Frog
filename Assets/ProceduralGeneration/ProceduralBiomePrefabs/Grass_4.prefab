@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8019008791565555997}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6046859126502105947}
   - component: {fileID: 699981728559414580}
   - component: {fileID: 7886289006994078367}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,9 +151,9 @@ GameObject:
   - component: {fileID: 1505750680821726148}
   - component: {fileID: 338427425225657289}
   - component: {fileID: 471765219802951865}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grass_4
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 4117569008566481123}
   - component: {fileID: 4132513206357992125}
   - component: {fileID: 2590787246682811379}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HillLower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 6774219452936764372}
   - component: {fileID: 3545756410130189938}
   - component: {fileID: 9038842369229977567}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeTopLower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 7007890432175725826}
   - component: {fileID: 8891939049892582472}
   - component: {fileID: 4058968018351114925}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HillUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +549,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5037033435670050627}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tree (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 6879933492307526077}
   - component: {fileID: 5025374696317184486}
   - component: {fileID: 3005862864781427899}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeTopUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +666,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7001194980381881912}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +701,7 @@ GameObject:
   - component: {fileID: 5920431759169843615}
   - component: {fileID: 7147142584856659993}
   - component: {fileID: 5732854140176989840}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeTopLower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +785,7 @@ GameObject:
   - component: {fileID: 1706205506697448921}
   - component: {fileID: 8927551131183935746}
   - component: {fileID: 6542400464423953034}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,7 +889,7 @@ GameObject:
   - component: {fileID: 646483608221971853}
   - component: {fileID: 8335110940763994446}
   - component: {fileID: 984308954391705954}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeTopUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}

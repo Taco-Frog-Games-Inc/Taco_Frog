@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 238285381857240724}
   - component: {fileID: 1246905763515994172}
   - component: {fileID: 685097388708348819}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 1505750680821726148}
   - component: {fileID: 338427425225657289}
   - component: {fileID: 471765219802951865}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grass_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +116,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1563596002901581382}
+  - {fileID: 3980411373016531315}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1505750680821726148
@@ -189,6 +190,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3619852846953431357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3980411373016531315}
+  m_Layer: 7
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3980411373016531315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3619852846953431357}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9095303536378645993}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3761734405171011522
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +232,7 @@ GameObject:
   - component: {fileID: 4808117403701436978}
   - component: {fileID: 5454400392718696889}
   - component: {fileID: 2477017824919824922}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +315,7 @@ GameObject:
   - component: {fileID: 3677842798196250120}
   - component: {fileID: 5663772832925824305}
   - component: {fileID: 5977041704127638659}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +398,7 @@ GameObject:
   - component: {fileID: 6102650092381240892}
   - component: {fileID: 3881701164601978445}
   - component: {fileID: 8290751112538437878}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +481,7 @@ GameObject:
   - component: {fileID: 7869381400961823640}
   - component: {fileID: 7344335490415809018}
   - component: {fileID: 3582340080164473615}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,7 +562,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1563596002901581382}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +601,7 @@ GameObject:
   - component: {fileID: 8817870505463735219}
   - component: {fileID: 5826821348497692447}
   - component: {fileID: 501564303202947973}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
