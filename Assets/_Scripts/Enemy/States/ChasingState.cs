@@ -62,7 +62,7 @@ public class ChasingState : EnemyStateMachine.State, IState
     /// </summary>
     public void DoOnEnter() { 
         controller.navMeshAgent.speed *= 2f;
-        controller.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+       //controller.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class ChasingState : EnemyStateMachine.State, IState
     /// </summary>
     public void DoOnExit() { 
         controller.navMeshAgent.speed /= 2f;
-        controller.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        //controller.gameObject.GetComponent<Renderer>().material.color = Color.blue;
     }
 }
 

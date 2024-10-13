@@ -487,15 +487,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2184828194439152664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-
   m_Script: {fileID: 11500000, guid: df674979de893c543959a7064e2ec1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTypes:
-  - {fileID: 7358394431352405875, guid: 82a18f40d77ad46498f4cff8a2db5499, type: 3}
+  - {fileID: 1470154063851198026, guid: 63434829de5487045ae712bbc297c3da, type: 3}
   - {fileID: 6047654477483796188, guid: 6b423fbb8c209d54dbd05e16f985db77, type: 3}
   spawnerPublisher: {fileID: 6204908685519641217, guid: 21148f523f0414943a29f9c1e3a4c180, type: 3}
-  bakePublisher: {fileID: 4468134814893087116, guid: 8eeb68bc40c759c4dbc66b5224c7a054, type: 3}
 --- !u!1 &2677588040183612895
 GameObject:
   m_ObjectHideFlags: 0

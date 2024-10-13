@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3872828167289201582}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 5953083756171039565}
   - component: {fileID: 862635610036082665}
   - component: {fileID: 7800053240555904681}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Snow (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 580963530256805768}
   - component: {fileID: 4827581546638219535}
   - component: {fileID: 4366251674649671543}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rock_6
   m_TagString: Ground
   m_Icon: {fileID: 0}
