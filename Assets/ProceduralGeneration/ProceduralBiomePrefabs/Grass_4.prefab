@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 963600647266735082}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0, z: -0.175}
+  m_LocalPosition: {x: 0.1, y: 0.16666667, z: -0.175}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 6774219452936764372}
   - component: {fileID: 3545756410130189938}
   - component: {fileID: 9038842369229977567}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: TreeTopLower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 6879933492307526077}
   - component: {fileID: 5025374696317184486}
   - component: {fileID: 3005862864781427899}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: TreeTopUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +701,7 @@ GameObject:
   - component: {fileID: 5920431759169843615}
   - component: {fileID: 7147142584856659993}
   - component: {fileID: 5732854140176989840}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: TreeTopLower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,7 +889,7 @@ GameObject:
   - component: {fileID: 646483608221971853}
   - component: {fileID: 8335110940763994446}
   - component: {fileID: 984308954391705954}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: TreeTopUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
