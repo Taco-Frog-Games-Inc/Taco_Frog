@@ -9,7 +9,7 @@ using UnityEngine;
  * Creation Date: October 4th, 2024
  * 
  * Last Modified by: Alexander Maynard
- * Last Modified Date: October 4th, 202
+ * Last Modified Date: October 12th, 2024
  * 
  * 
  * Program Description: 
@@ -23,6 +23,10 @@ using UnityEngine;
  *      ->October 5th, 2024:
  *          -Wrote comments and refactored some code.
  *          -Added code to add all biomes that are Instantiate as children of the _mapParent (map generator).
+ *      ->October 12th, 2024:
+ *          -Added logic to decide biome subtypes based on a % chance of happening.
+ *          -Added a check to make sure that the tile the player spawns on is always the first grass tile.
+ *          -Commented code
  */
 
 public class MapGenerator : MonoBehaviour
@@ -36,6 +40,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private GameObject _mapParent; //gameobject that will parent the biomes for the map.
     private float _offsetX, _offsetZ; //for seed randomization
     private GameObject[,] _levelMap;
+    [SerializeField] private GameObject _navMeshSurfaceTile;
     #endregion
 
     //biome prefabs
@@ -85,7 +90,6 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Generates the perlin noise value
     /// </summary>
@@ -113,18 +117,69 @@ public class MapGenerator : MonoBehaviour
     {
         GameObject biomePrefab = null; //set the current biomePrefab as null to instantiate it
         float yTransformOfPrefab = 0; //set the current biomePrefab yTransform to 0 to instantiate it
+        int biomeSubTypeChoice = 0; //set the current
+
+
+        //check the player spawn point to make sure that the first tile is always the first grass one
+        if(xCoordinate == 0 && zCoordinate == 0)
+        {
+            biomePrefab = _navMeshSurfaceTile;
+            return (biomePrefab, biomePrefab.GetComponent<Renderer>().bounds.size.y / 2);
+        }
+
+
 
         //check the perlin value for the material from the list
         switch (perlinNoisevalue)
         {
             //water biome value range
             case <= 0.2f:
-                //pick subtype
-                biomePrefab = _waterBiomeTypes[Random.Range(0, _waterBiomeTypes.Count)]; //picks random subtype
+                //pick water biome  subtype value 
+                biomeSubTypeChoice = Random.Range(0, 101);
+
+                //pick random water biome subtypoe based on %
+                switch (biomeSubTypeChoice)
+                {
+                    case <= 80:
+                        biomePrefab = _waterBiomeTypes[0]; //80% chance of this tile
+                        break;
+                    case <= 100:
+                        biomePrefab = _waterBiomeTypes[1]; //20% chance of this tile
+                        break;
+                    default:
+                        biomePrefab = _waterBiomeTypes[0]; //default
+                        break;
+                }
                 break;
             case <= 0.60f:
-                //grass biome value range
-                biomePrefab = _grassBiomeTypes[Random.Range(0, _grassBiomeTypes.Count)]; //picks random subtype
+                //pick grass biome subtype value 
+                biomeSubTypeChoice = Random.Range(0, 101);
+
+                //pick random grass biome subtypoe based on %
+                switch (biomeSubTypeChoice)
+                {
+                    case <= 45:
+                        biomePrefab = _grassBiomeTypes[0]; //45% chance of this tile
+                        break;
+                    case <= 60:
+                        biomePrefab = _grassBiomeTypes[1]; //15% chance of this tile
+                        break;
+                    case <= 75:
+                        biomePrefab = _grassBiomeTypes[2]; //15% chance of this tile
+                        break;
+                    case <= 90:
+                        biomePrefab = _grassBiomeTypes[3]; //15% chance of this tile
+                        break;
+                    case <= 95:
+                        biomePrefab = _grassBiomeTypes[4]; //5% chance of this tile
+                        break;
+                    case <= 100:
+                        biomePrefab = _grassBiomeTypes[5]; //5% chance of this tile
+                        break;
+                    default:
+                        biomePrefab = _grassBiomeTypes[0]; //default
+                        break;
+                }
                 break;
             //rock biome value range
             case <= 0.85f:
@@ -135,15 +190,30 @@ public class MapGenerator : MonoBehaviour
                 }
                 else
                 {
-                    biomePrefab = _rockBiomeTypes[Random.Range(0, _rockBiomeTypes.Count)]; //picks random subtype
+                    biomePrefab = _rockBiomeTypes[Random.Range(0, _rockBiomeTypes.Count)]; //picks random subtype, all have an equal chance of spawning
                 }
                 break;
             //lava biome value range
             case <= 1.0f:
-                biomePrefab = _lavaBiomeTypes[Random.Range(0, _lavaBiomeTypes.Count)]; //picks random subtype
-                break;
-            default:
-                biomePrefab = _grassBiomeTypes[Random.Range(0, _grassBiomeTypes.Count)]; //picks random grass subtype as default
+                //pick water biome  subtype value 
+                biomeSubTypeChoice = Random.Range(0, 101);
+
+                //pick random lava biome subtypoe based on %
+                switch (biomeSubTypeChoice)
+                {
+                    case <= 40:
+                        biomePrefab = _lavaBiomeTypes[0]; //40% chance of this tile
+                        break;
+                    case <= 80:
+                        biomePrefab = _lavaBiomeTypes[1]; //40% chance of this tile
+                        break;
+                    case <= 100:
+                        biomePrefab = _lavaBiomeTypes[2]; //20% chance of this tile
+                        break;
+                    default:
+                        biomePrefab = _lavaBiomeTypes[0]; //default
+                        break;
+                }
                 break;
         }
 
