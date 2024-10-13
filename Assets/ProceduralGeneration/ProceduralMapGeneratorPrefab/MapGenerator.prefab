@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4734774063794458838}
   - component: {fileID: 5320097503342318770}
+  - component: {fileID: 3663014333721371348}
+  - component: {fileID: 7830381606404612213}
+  - component: {fileID: 351183721505826896}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -48,6 +51,7 @@ MonoBehaviour:
   _length: 20
   _perlinNoiseScale: 4
   _mapParent: {fileID: 1136633007654937411}
+  _navMeshSurfaceTile: {fileID: 6204908685519641217, guid: 21148f523f0414943a29f9c1e3a4c180, type: 3}
   _waterBiomeTypes:
   - {fileID: 1380918964074102879, guid: 54d211a593337a44c8bfeb522f4a18cc, type: 3}
   _grassBiomeTypes:
@@ -67,5 +71,79 @@ MonoBehaviour:
   _lavaBiomeTypes:
   - {fileID: 1380918964074102879, guid: 9db81afa3ff5b0f4fa8331ae232189b2, type: 3}
   - {fileID: 1380918964074102879, guid: 4f14841bdba1df0498609f03094074b8, type: 3}
-  path: {fileID: 3968018654010098196, guid: c0e3bd3addaf1144899b2bd6ee438af8, type: 3}
-  spawnerPublisher: {fileID: 7567028129021570624, guid: 21148f523f0414943a29f9c1e3a4c180, type: 3}
+  path: {fileID: 2671873541689644408, guid: 1a7898a2803508e429ea120028375937, type: 3}
+  spawnerPublisher: {fileID: 6204908685519641217, guid: 21148f523f0414943a29f9c1e3a4c180, type: 3}
+--- !u!114 &3663014333721371348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136633007654937411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fef69b5bf218348a41f1a32441f233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7830381606404612213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136633007654937411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -1372625422
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: b9b07db2e897c484fbc2b9e0d6424af6, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!114 &351183721505826896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136633007654937411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -334000983
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.23333333
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 49aa97a2d4092e847a657ac8f1174869, type: 2}
+  m_BuildHeightMesh: 0

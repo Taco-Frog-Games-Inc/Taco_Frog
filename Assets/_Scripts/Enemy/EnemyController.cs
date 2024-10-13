@@ -23,6 +23,7 @@ using UnityEngine.AI;
  */
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker
 {
+
     public GameObject player;
     public EnemyStateMachine stateMachine;
     protected internal NavMeshAgent navMeshAgent;
@@ -48,7 +49,8 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker
 
     private void Awake() { stateMachine = new(); }
 
-    public void Start() { 
+    public void Start() {
+        player = GameObject.FindWithTag("Player");
         cosEnemyFOVover2InRAD = Mathf.Cos(EnemyFOV / 2f * Mathf.Deg2Rad); 
         navMeshAgent = GetComponent<NavMeshAgent>();
     }

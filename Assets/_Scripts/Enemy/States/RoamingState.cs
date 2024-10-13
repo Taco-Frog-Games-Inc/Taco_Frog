@@ -64,8 +64,10 @@ public class RoamingState : EnemyStateMachine.State, IState
 
         controller.navMeshAgent.destination = controller.path.transform.GetChild(controller.nextWayPointIndex).position;
 
-        if (Vector3.Distance(controller.transform.position, controller.path.transform.GetChild(controller.nextWayPointIndex).position) < 1f)
+        if (Vector3.Distance(controller.transform.position, controller.path.transform.GetChild(controller.nextWayPointIndex).position) < 1f) {
             controller.nextWayPointIndex = UnityEngine.Random.Range(0, controller.path.transform.childCount);
+        }
+        
     }
     public void DoOnExit() { throw new Exception("DoOnExit of RoamingState has yet to be implemented"); }    
 }
