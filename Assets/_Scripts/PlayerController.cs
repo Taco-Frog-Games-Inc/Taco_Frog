@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 /*
  * Source File Name: PlayerController.cs
  * Author Name: Alexander Maynard
@@ -20,7 +19,7 @@ using UnityEngine.InputSystem;
  *      -> October 2nd, 2024:
  *          -Created this script and fully implemented it.
  */
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageTaker
 {
     //variables needed for moving
     private CharacterController _characterController;
@@ -39,21 +38,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask _groundMask;
     [SerializeField] bool _isGrounded;
 
+    public int Health { get; set; }
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("Player is taking damage - Ouch! " + damage);
+    }
     /// <summary>
     /// OnAwake get the CharacterController Component
     /// </summary>
 
-    PlayerAttackSystem _plAttkSys;
-    [SerializeField] private GameObject _playerLongRgAtt; // Prefab for the tongue
-    private TongueAttack tongueAttack;
-    private GameObject _enemy; //Removed [SerializedField]
-    
-    
+    //PlayerAttackSystem _plAttkSys;
+    //[SerializeField] private GameObject _playerLongRgAtt; // Prefab for the tongue
+    //private TongueAttack tongueAttack;
+    //private GameObject _enemy; //Removed [SerializedField]
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
 
-        _enemy = GameObject.FindWithTag("Enemy");
+        //_enemy = GameObject.FindWithTag("Enemy");
 
         //_plAttkSys = new PlayerAttackSystem(_enemy, this.gameObject);
         //tongueAttack = new TongueAttack();

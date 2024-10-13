@@ -18,6 +18,8 @@
  *      -> October 12th, 2024:
  *          -Increased the object's speed on enter and decreased it back to its initial speed on exit.
  */
+using UnityEngine;
+
 public class ChasingState : EnemyStateMachine.State, IState
 {
     public ChasingState(EnemyController controller, EnemyStateMachine stateMachine)
@@ -58,7 +60,10 @@ public class ChasingState : EnemyStateMachine.State, IState
     /// <summary>
     /// Increases the speed of the controller by a factor of 2.
     /// </summary>
-    public void DoOnEnter() { controller.navMeshAgent.speed *= 2f; }
+    public void DoOnEnter() { 
+        controller.navMeshAgent.speed *= 2f;
+        controller.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+    }
 
     /// <summary>
     /// Ensures the controller follows the player.
@@ -68,6 +73,9 @@ public class ChasingState : EnemyStateMachine.State, IState
     /// <summary>
     /// Decreases the speed of the controller by a factor of 2.
     /// </summary>
-    public void DoOnExit() { controller.navMeshAgent.speed /= 2f; }
+    public void DoOnExit() { 
+        controller.navMeshAgent.speed /= 2f;
+        controller.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+    }
 }
 

@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour, IDamager
     /// Initializes a projectile's direction by targetting the player.
     /// </summary>
     void Start() {
-        player = GameObject.Find("Player_1");
+        player = GameObject.FindWithTag("Player");
 
         Vector3 direction = player.transform.position - transform.position;
         direction.Normalize();
