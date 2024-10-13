@@ -8,30 +8,45 @@ public class Biome : MonoBehaviour
 
     [Header("SpawnObjects")]
     [SerializeField] private List<GameObject> enemyTypes = new();
+    [SerializeField] private GameObject spawnerPublisher;
+
     private GameObject path;
 
     private GameObject[] enemyTypesArray;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        path = GameObject.Find("Path");
-        spawnPoint = gameObject.transform.GetChild(0).gameObject; 
-        //Instantiate the point as a child of the point gameObject.
-        GameObject waypoint = Instantiate(spawnPoint);
-        waypoint.transform.SetParent(path.transform, false);
 
-        
-        float randomNumber = Random.Range(0f, 101f);
-        if (randomNumber > 50) {
-            enemyTypesArray = enemyTypes.ToArray();
-            Instantiate(enemyTypesArray[Random.Range(0, enemyTypesArray.Length)], transform.position, Quaternion.identity);
-        }
+    private void OnEnable()
+    {
+        Subscribe();
+        path = GameObject.Find("Path");
+        spawnPoint = gameObject.transform.GetChild(0).gameObject;
+
+        //GameObject waypoint = Instantiate(spawnPoint);
+        //waypoint.transform.SetParent(path.transform, false);        
+
+        // Instantiate the waypoint
+        GameObject waypoint = Instantiate(spawnPoint);
+
+        // Keep world position, then set as a child
+        Vector3 worldPosition = waypoint.transform.position;
+        waypoint.transform.SetParent(path.transform, false); // Set parent without affecting position
+        waypoint.transform.position = worldPosition; // Restore world position
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Subscribe() {
+        spawnerPublisher.GetComponent<SpawnerPublisher>().SpawningEvent += OnSpawning;
+    }
+
+    private void OnSpawning() {
+        float randomNumber = Random.Range(0f, 101f);
+        if (randomNumber > 50)
+        {
+            enemyTypesArray = enemyTypes.ToArray();
+            GameObject enemy = enemyTypesArray[Random.Range(0, enemyTypesArray.Length)];
+            enemy.gameObject.GetComponent<EnemyController>().path = path;
+            if (path.transform.childCount > 0)
+                Instantiate(enemy, transform.position, Quaternion.identity);
+            else
+                Debug.Log("No waypoints...");
+        }
     }
 }

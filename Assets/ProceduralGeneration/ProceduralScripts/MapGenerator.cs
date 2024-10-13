@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 /*
@@ -46,6 +47,11 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private List<GameObject> _lavaBiomeTypes;
     #endregion
 
+    //Biome properties
+    [Header("Biome properties")]
+    [SerializeField] private GameObject path;
+    [SerializeField] private GameObject spawnerPublisher;
+    
     /// <summary>
     /// Start created the level double array of gameobjects for the map as 
     /// well as defines the offests for the map to be more randomized each time it is played.
@@ -58,6 +64,7 @@ public class MapGenerator : MonoBehaviour
         _offsetX = Random.Range(10000, 50000);
         _offsetZ = Random.Range(10000, -50000); 
         GenerateMap(); //call the generation of the map
+        spawnerPublisher.GetComponent<SpawnerPublisher>().Publish();
     }
 
     /// <summary>
