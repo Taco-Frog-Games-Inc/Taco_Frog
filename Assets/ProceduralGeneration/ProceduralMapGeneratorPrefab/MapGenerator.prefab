@@ -67,3 +67,5 @@ MonoBehaviour:
   _lavaBiomeTypes:
   - {fileID: 1380918964074102879, guid: 9db81afa3ff5b0f4fa8331ae232189b2, type: 3}
   - {fileID: 1380918964074102879, guid: 4f14841bdba1df0498609f03094074b8, type: 3}
+  path: {fileID: 3968018654010098196, guid: c0e3bd3addaf1144899b2bd6ee438af8, type: 3}
+  spawnerPublisher: {fileID: 7567028129021570624, guid: 21148f523f0414943a29f9c1e3a4c180, type: 3}
