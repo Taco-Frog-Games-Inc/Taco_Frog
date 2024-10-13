@@ -51,6 +51,13 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private List<GameObject> _lavaBiomeTypes;
     #endregion
 
+    //Biome properties
+    [Header("Biome properties")]
+    [SerializeField] private GameObject path;
+    [SerializeField] private GameObject spawnerPublisher;
+
+    public static bool hasOneEnemy = false;
+
     /// <summary>
     /// Start created the level double array of gameobjects for the map as 
     /// well as defines the offests for the map to be more randomized each time it is played.
@@ -63,6 +70,7 @@ public class MapGenerator : MonoBehaviour
         _offsetX = Random.Range(10000, 50000);
         _offsetZ = Random.Range(10000, -50000); 
         GenerateMap(); //call the generation of the map
+        spawnerPublisher.GetComponent<SpawnerPublisher>().PublishMapSignal();
     }
 
     /// <summary>
@@ -213,7 +221,7 @@ public class MapGenerator : MonoBehaviour
         //adjust the y transform of the values to get a cool 'blocky' look where some biomes are taller than others.
         //"R" & "G" (rock and grass) must be touching the 0 y transform from underneath and the others are the opposite.
         if (biomePrefab.name.Substring(0, 1) == "R" || biomePrefab.name.Substring(0, 1) == "G") 
-            yTransformOfPrefab = biomePrefab.GetComponent<Renderer>().bounds.size.y / 2;//find the y value by calcualting half the object height. Otherwise all items spawn at their center.
+            yTransformOfPrefab = -biomePrefab.GetComponent<Renderer>().bounds.size.y / 2;//find the y value by calcualting half the object height. Otherwise all items spawn at their center.
         else
             yTransformOfPrefab = -biomePrefab.GetComponent<Renderer>().bounds.size.y / 2;//find the y value by calcualting half the object height. Then reverse it. Otherwise all items spawn at their center.
 

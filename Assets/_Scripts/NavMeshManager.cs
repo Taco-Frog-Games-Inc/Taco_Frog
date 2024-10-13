@@ -2,12 +2,13 @@ using UnityEngine;
 using Unity.AI.Navigation;
 public class NavMeshManager : MonoBehaviour
 {
-    [SerializeField] private NavMeshSurface surface;
+    public static bool isInitialize = false;
 
-
-    // Update is called once per frame
     void Update()
-    {
-        surface.BuildNavMesh();
+    {        
+        if (!isInitialize) {
+            GetComponent<NavMeshSurface>().BuildNavMesh();
+            isInitialize = true;
+        }        
     }
 }

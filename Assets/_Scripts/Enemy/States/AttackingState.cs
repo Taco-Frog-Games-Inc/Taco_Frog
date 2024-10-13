@@ -64,7 +64,10 @@ public class AttackingState : EnemyStateMachine.State, IState
     /// <summary>
     /// Calls the controller's attack functionality.
     /// </summary>
-    public void DoOnEnter() { controller.Attack(); }
+    public void DoOnEnter() { 
+        controller.Attack();
+        controller.gameObject.GetComponent<Renderer>().material.color = Color.red;
+    }
 
     /// <summary>
     /// Ensures the controller follows the player.
@@ -74,5 +77,8 @@ public class AttackingState : EnemyStateMachine.State, IState
     /// <summary>
     /// Stops the controller's attack functionality. 
     /// </summary>
-    public void DoOnExit() { controller.StopAttack(); }
+    public void DoOnExit() { 
+        controller.StopAttack();
+        controller.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+    }
 }
