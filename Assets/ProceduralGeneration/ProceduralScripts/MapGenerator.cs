@@ -39,6 +39,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private GameObject _mapParent; //gameobject that will parent the biomes for the map.
     private float _offsetX, _offsetZ; //for seed randomization
     private GameObject[,] _levelMap;
+    [SerializeField] private GameObject _navMeshSurfaceTile;
     #endregion
 
     //biome prefabs
@@ -115,7 +116,7 @@ public class MapGenerator : MonoBehaviour
         //check the player spawn point to make sure that the first tile is always the first grass one
         if(xCoordinate == 0 && zCoordinate == 0)
         {
-            biomePrefab = _grassBiomeTypes[0];
+            biomePrefab = _navMeshSurfaceTile;
             return (biomePrefab, biomePrefab.GetComponent<Renderer>().bounds.size.y / 2);
         }
 
