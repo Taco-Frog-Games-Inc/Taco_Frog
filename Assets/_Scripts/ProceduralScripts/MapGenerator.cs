@@ -221,7 +221,7 @@ public class MapGenerator : MonoBehaviour
         //adjust the y transform of the values to get a cool 'blocky' look where some biomes are taller than others.
         //"R" & "G" (rock and grass) must be touching the 0 y transform from underneath and the others are the opposite.
         if (biomePrefab.name.Substring(0, 1) == "R" || biomePrefab.name.Substring(0, 1) == "G") 
-            yTransformOfPrefab = -biomePrefab.GetComponent<Renderer>().bounds.size.y / 2;//find the y value by calcualting half the object height. Otherwise all items spawn at their center.
+            yTransformOfPrefab = biomePrefab.GetComponent<Renderer>().bounds.size.y / 2;//find the y value by calcualting half the object height. Otherwise all items spawn at their center.
         else
             yTransformOfPrefab = -biomePrefab.GetComponent<Renderer>().bounds.size.y / 2;//find the y value by calcualting half the object height. Then reverse it. Otherwise all items spawn at their center.
 

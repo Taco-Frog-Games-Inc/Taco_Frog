@@ -1345,10 +1345,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTypes:
-  - {fileID: 7358394431352405875, guid: 82a18f40d77ad46498f4cff8a2db5499, type: 3}
+  - {fileID: 1470154063851198026, guid: 63434829de5487045ae712bbc297c3da, type: 3}
   - {fileID: 6047654477483796188, guid: 6b423fbb8c209d54dbd05e16f985db77, type: 3}
   spawnerPublisher: {fileID: 6204908685519641217, guid: 21148f523f0414943a29f9c1e3a4c180, type: 3}
-  bakePublisher: {fileID: 4468134814893087116, guid: 8eeb68bc40c759c4dbc66b5224c7a054, type: 3}
 --- !u!1 &2301481807213005972
 GameObject:
   m_ObjectHideFlags: 0

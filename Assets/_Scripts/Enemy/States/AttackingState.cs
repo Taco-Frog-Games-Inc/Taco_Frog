@@ -35,7 +35,7 @@ public class AttackingState : EnemyStateMachine.State, IState
     /// Executes once when the attacking state has been entered.    
     /// </summary>
     public void OnEnter() {
-        controller.initialColor = controller.GetComponent<Renderer>().material.color;
+        //controller.initialColor = controller.GetComponent<Renderer>().material.color;
         DoOnEnter();
     }
 
@@ -57,7 +57,7 @@ public class AttackingState : EnemyStateMachine.State, IState
     /// Executes once upon completion of the attacking state.
     /// </summary>
     public void OnExit() {
-        controller.GetComponent<Renderer>().material.color = controller.initialColor;
+        //controller.GetComponent<Renderer>().material.color = controller.initialColor;
         DoOnExit();
     }
 
@@ -66,7 +66,7 @@ public class AttackingState : EnemyStateMachine.State, IState
     /// </summary>
     public void DoOnEnter() { 
         controller.Attack();
-        controller.gameObject.GetComponent<Renderer>().material.color = Color.red;
+        //controller.gameObject.GetComponent<Renderer>().material.color = Color.red;
     }
 
     /// <summary>
@@ -79,6 +79,6 @@ public class AttackingState : EnemyStateMachine.State, IState
     /// </summary>
     public void DoOnExit() { 
         controller.StopAttack();
-        controller.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        //controller.gameObject.GetComponent<Renderer>().material.color = Color.blue;
     }
 }
