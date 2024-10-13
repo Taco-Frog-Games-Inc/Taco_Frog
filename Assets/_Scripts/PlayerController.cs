@@ -45,15 +45,15 @@ public class PlayerController : MonoBehaviour
 
     PlayerAttackSystem _plAttkSys;
     [SerializeField] private GameObject _playerLongRgAtt; // Prefab for the tongue
-    private TongueAttack tongueAttack;
-    private GameObject _enemy; //Removed [SerializedField]
+    //private TongueAttack tongueAttack;
+    //private GameObject _enemy; //Removed [SerializedField]
     
     
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
 
-        _enemy = GameObject.FindWithTag("Enemy");
+        //_enemy = GameObject.FindWithTag("Enemy");
 
         //_plAttkSys = new PlayerAttackSystem(_enemy, this.gameObject);
         //tongueAttack = new TongueAttack();

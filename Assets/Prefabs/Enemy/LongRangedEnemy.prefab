@@ -285,14 +285,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333ea5df0402039459de9b270bb2e299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 156993451824496712, guid: fbfc1b849ecbcd04b85ff832af7188ec, type: 3}
   EnemyFOV: 89
   closeEnoughEngageCutoff: 30
   closeEnoughSenseCutoff: 45
-  path: {fileID: 0}
+  path: {fileID: 3968018654010098196, guid: c0e3bd3addaf1144899b2bd6ee438af8, type: 3}
   nextWayPointIndex: 0
   health: 100
   damageToApply: 20
+  taco: {fileID: 3771223191844507866, guid: 10a8c683e0228604c833a989e637bab2, type: 3}
 --- !u!195 &1495732946752871032
 NavMeshAgent:
   m_ObjectHideFlags: 0
