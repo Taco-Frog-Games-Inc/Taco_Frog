@@ -32,7 +32,7 @@ public class ShortRangeEnemy : EnemyController
     }
 
     public override void Attack() {
-        GetComponent<Renderer>().material.color = Color.red;
+        //GetComponent<Renderer>().material.color = Color.red;
     }
 
     public override void StopAttack() { }
