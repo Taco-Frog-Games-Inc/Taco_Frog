@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: October 3rd, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: October 14th, 2024
  * 
  * 
  * Program Description: 
@@ -30,6 +30,8 @@ using UnityEngine.SceneManagement;
  *              *DeleteSave()
  *      -> October 3rd, 2024:
  *          -Added initial ContinueToNextMap() (no actual procedural implementation yet).
+ *      -> October 14th, 2024:
+ *          -Re-Initialized static variables on LoadScene
  *              
  */
 
@@ -53,6 +55,8 @@ public class SceneManagement : MonoBehaviour
     public void PlayOrAgain()
     {
         //... savign logic here...  to be added in iteration 2
+
+        ReInitializeStaticVariables();
         SceneManager.LoadScene("Game_Scene");
     }
 
@@ -93,6 +97,7 @@ public class SceneManagement : MonoBehaviour
     public void SingleplayerChosen()
     {
         //...set some saved prefs for singleplayer ... to be done in iteration 2
+        ReInitializeStaticVariables();
         SceneManager.LoadScene("Open_Game_Scene");
     }
 
@@ -103,6 +108,7 @@ public class SceneManagement : MonoBehaviour
     public void MultiplayerChosen()
     {
         //...set some saved prefs for multiplayer ... to be done in iteration 2
+        ReInitializeStaticVariables();
         SceneManager.LoadScene("Open_Game_Scene");
     }
 
@@ -122,6 +128,14 @@ public class SceneManagement : MonoBehaviour
     {
         //... regnerate map with more difficulty... to be implemented in iteration 2
         //icremenent level preferences
+        ReInitializeStaticVariables();
         SceneManager.LoadScene("Game_Scene");
+    }
+
+    private void ReInitializeStaticVariables() {
+        SpawnManagerABL.totalEnemyCount = 0;
+        SpawnManagerABL.totalHazardsCount = 0;
+        SpawnManagerABL.totalItemsCount = 0;
+        NavMeshManager.isInitialize = false;
     }
 }

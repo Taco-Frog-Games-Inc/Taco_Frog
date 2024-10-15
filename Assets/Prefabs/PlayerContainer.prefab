@@ -3298,13 +3298,17 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4660444073803548812, guid: fbfc1b849ecbcd04b85ff832af7188ec, type: 3}
+      propertyPath: _groundMask.m_Bits
+      value: 7296
+      objectReference: {fileID: 0}
     - target: {fileID: 5491260989430058866, guid: fbfc1b849ecbcd04b85ff832af7188ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.389592
       objectReference: {fileID: 0}
     - target: {fileID: 5491260989430058866, guid: fbfc1b849ecbcd04b85ff832af7188ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1982446
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5491260989430058866, guid: fbfc1b849ecbcd04b85ff832af7188ec, type: 3}
       propertyPath: m_LocalPosition.z

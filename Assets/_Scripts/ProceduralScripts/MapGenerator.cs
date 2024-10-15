@@ -56,7 +56,6 @@ public class MapGenerator : MonoBehaviour
     [Header("Biome properties")]
     [SerializeField] private GameObject path;
     [SerializeField] private GameObject spawnerPublisher;
-    public static bool hasOneEnemy = false;
 
     /// <summary>
     /// Start created the level double array of gameobjects for the map as 

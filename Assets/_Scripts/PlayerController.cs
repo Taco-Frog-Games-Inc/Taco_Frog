@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /*
  * Source File Name: PlayerController.cs
@@ -7,8 +8,8 @@ using UnityEngine.InputSystem;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: October 2nd, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: October 14th, 2024
  * 
  * 
  * Program Description: 
@@ -18,8 +19,10 @@ using UnityEngine.InputSystem;
  * Revision History:
  *      -> October 2nd, 2024:
  *          -Created this script and fully implemented it.
+ *      -> October 14th, 2024:
+ *          - Implemented the IRewardTaker & IDamageTaker          
  */
-public class PlayerController : MonoBehaviour, IDamageTaker
+public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
 {
     //variables needed for moving
     private CharacterController _characterController;
@@ -31,17 +34,39 @@ public class PlayerController : MonoBehaviour, IDamageTaker
     //variables needed for jumping
     private float _gravity = 9.81f;
     [SerializeField] float _jumpHeight = 4.0f;
-    [SerializeField] Vector3 _velocity;
+    [SerializeField] public Vector3 _velocity;
     [SerializeField] private bool _isJumpPressed;
     [SerializeField] Transform _groundCheck;
     [SerializeField] float _groundCheckRadius = 0.7f;
     [SerializeField] LayerMask _groundMask;
     [SerializeField] bool _isGrounded;
 
-    public int Health { get; set; }
-    public void TakeDamage(int damage)
-    {
-        Debug.Log("Player is taking damage - Ouch! " + damage);
+    [SerializeField] protected internal int health = 100;
+    private int _score = 0;
+
+    public int Health { get { return health; } set { if (value > 0) health = value; } }
+
+    /// <summary>
+    /// Parts of the IDamageTaker
+    /// Used along with the IDamager
+    /// </summary>
+    /// <param name="damage"></param>
+    public void TakeDamage(int damage) {
+        health -= damage;
+        if (Health < 0) health = 0;
+        if (Health == 0) SceneManager.LoadScene("LoseScreen");        
+    }
+
+    public int Score { get { return _score; } set { if (value > 0) _score = value; } }
+
+    /// <summary>
+    /// Parts of the IRewardTaker
+    /// Used along with the IRewarder
+    /// </summary>
+    /// <param name="points"></param>
+    public void IncreaseScore(int points) { 
+        _score += points;
+        Debug.Log("Player score: " + Score);//Testing purposes...Until we have HUD connected
     }
     /// <summary>
     /// OnAwake get the CharacterController Component
@@ -114,7 +139,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker
     /// </summary>
     private void Jump()
     {
-
         //groundcheck
         if (_isGrounded)
         {

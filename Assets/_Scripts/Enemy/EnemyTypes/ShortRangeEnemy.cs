@@ -1,5 +1,4 @@
 using UnityEngine;
-
 /*
  * Source File Name: ShortRangeEnemy.cs
  * Author Name: Audrey Bernier Larose
@@ -17,8 +16,10 @@ using UnityEngine;
  * Revision History:
  *      -> October 2nd, 2024:
  *          -Created this script and fully implemented it.
- *      -> October 12th, 2024:
+ *      -> October 14th, 2024:
  *          -Added the functionality of taking damage.
+ *          - Removed testing statement
+ *          - Initialize nextWayPointIndex to a random waypont.
  */
 
 public class ShortRangeEnemy : EnemyController
@@ -29,11 +30,11 @@ public class ShortRangeEnemy : EnemyController
         stateMachine.AddState(new ChasingState(this, stateMachine));
         stateMachine.AddState(new AttackingState(this, stateMachine));
         stateMachine.AddState(new DyingState(this, stateMachine));
+
+        nextWayPointIndex = Random.Range(0, path.transform.childCount);
     }
 
-    public override void Attack() {
-        //GetComponent<Renderer>().material.color = Color.red;
-    }
+    public override void Attack() { }
 
     public override void StopAttack() { }
 
@@ -42,7 +43,8 @@ public class ShortRangeEnemy : EnemyController
     /// </summary>
     /// <param name="damage"></param>
     public override void TakeDamage(int damage) {
-        Health -= damage;
-        if (Health < 0) Health = 0;
+        health -= damage;
+        if (Health < 0) health = 0;
+        if (Health == 0) Destroy(gameObject);
     }
 }

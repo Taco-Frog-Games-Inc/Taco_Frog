@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/MoleEnemies/ShortRangedMole.prefab.meta
+guid: 91d890e11e1dcb6438419d68a3eea7b0
+========
+guid: b4307cb77f2636441a12594f7b700d28
+>>>>>>>> main:Assets/Prefabs/Item.prefab.meta
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
