@@ -7,7 +7,7 @@ using UnityEngine;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 12th, 2024
+ * Last Modified Date: October 14th, 2024
  * 
  * 
  * Program Description: 
@@ -20,6 +20,9 @@ using UnityEngine;
  *      -> October 12th, 2024:
  *          -Added the shooting functionality.
  *          -Added the functionality of taking damage.
+ *      -> October 14th, 2024:
+ *          - Adjusted the TakeDamage function to destroy the object if killed
+ *          - Initialize nextWayPointIndex to a random waypoint
  */
 
 public class LongRangedEnemy : EnemyController
@@ -33,6 +36,8 @@ public class LongRangedEnemy : EnemyController
         stateMachine.AddState(new ChasingState(this, stateMachine));
         stateMachine.AddState(new AttackingState(this, stateMachine));
         stateMachine.AddState(new DyingState(this, stateMachine));
+
+        nextWayPointIndex = Random.Range(0, path.transform.childCount);
     }
 
     public override void Attack() { Shoot(); }
@@ -51,7 +56,8 @@ public class LongRangedEnemy : EnemyController
     /// </summary>
     /// <param name="damage"></param>
     public override void TakeDamage(int damage) {
-        Health -= damage;
-        if(Health < 0) Health = 0;
+        health -= damage;
+        if (Health < 0) health = 0;        
+        if(Health == 0) Destroy(gameObject);
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.AI;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 12th, 2024
+ * Last Modified Date: October 14th, 2024
  * 
  * 
  * Program Description: 
@@ -20,6 +20,9 @@ using UnityEngine.AI;
  *          -Created this script and fully implemented it.
  *      -> October 12th, 2024:
  *          -Removed the implementation of the IDamage
+ *      -> October 14th, 2024:
+ *          - Adjusted the nextWayPointIndex's and health's visibility
+ *          - Removed testing statements
  */
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker
 {
@@ -27,9 +30,6 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker
     public GameObject player;
     public EnemyStateMachine stateMachine;
     protected internal NavMeshAgent navMeshAgent;
-
-    //Testing purposes
-    protected internal Color initialColor;
 
     [Header("Internal Properties")]
     public float EnemyFOV = 89f;
@@ -40,21 +40,19 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker
 
     [Header("Path")]
     public GameObject path;
-    public int nextWayPointIndex = 0;
+    protected internal int nextWayPointIndex;
 
     [Header("InGame Properties")]
-    [SerializeField] private int health = 100;
+    [SerializeField] protected internal int health = 100;
     public int Health { get { return health;  } set { if (value > 0) health = value; } }
     [SerializeField] private int damageToApply;
 
     private void Awake() { stateMachine = new(); }
-
     public void Start() {
         player = GameObject.FindWithTag("Player");
         cosEnemyFOVover2InRAD = Mathf.Cos(EnemyFOV / 2f * Mathf.Deg2Rad); 
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
-
     public void FixedUpdate() { stateMachine.FixedUpdate(); }
     
     /// <summary>

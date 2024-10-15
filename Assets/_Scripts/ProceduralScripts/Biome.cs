@@ -21,21 +21,27 @@ using UnityEngine.AI;
  *          -Created this script and fully implemented it.
  *      -> October 14th, 2024:
  *          -Adjusted for multiplayer
+ *          - Created a occupiedLocations list to ensure spikes and items are not spawned on the same spot.
+ *          - Created a way to spawn items, and hazards randomly on biomes.
  */
 public class Biome : MonoBehaviour
 {
     private GameObject spawnPoint;
 
-    [Header("SpawnObjects")]
+    [Header("Spawnable Objects")]
     [SerializeField] private List<GameObject> enemyTypes = new();
     [SerializeField] private GameObject spawnerPublisher;
+    [SerializeField] private GameObject spawnerManager;
+    [SerializeField] private GameObject spikes;
+    [SerializeField] private GameObject item;
 
-    private GameObject path;
-
+    private List<Vector3> occupiedLocations = new();
+    private GameObject path;    
     private GameObject[] enemyTypesArray;
 
     private bool isMapGeneratorComplete = false;
     private bool isInitialed = false;
+    private SpawnManagerABL manager;
 
     /// <summary>
     /// Initializes this script's variables and subscribes to the spawner publisher
@@ -49,6 +55,7 @@ public class Biome : MonoBehaviour
 
         GameObject waypoint = Instantiate(spawnPoint, worldPosition, Quaternion.identity);
         waypoint.transform.SetParent(path.transform, false);
+        manager = spawnerManager.GetComponent<SpawnManagerABL>();
     }
 
     private void Update()
@@ -64,11 +71,12 @@ public class Biome : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     private bool IsReadyForCoroutine() {
-        return gameObject.name.Contains("Grass_1") && 
-               !isInitialed && 
-               isMapGeneratorComplete && 
-               NavMeshManager.isInitialize && 
-               GameObject.Find("PlayerContainer(Clone)") != null;
+        return (gameObject.name.Contains("Grass_1") || gameObject.name.Contains("Grass_1(Clone)")) &&
+               !isInitialed &&
+               isMapGeneratorComplete &&
+               NavMeshManager.isInitialize &&
+               (GameObject.Find("PlayerContainer(Clone)") != null ||
+               GameObject.Find("PlayerContainer") != null);
     }
 
     /// <summary>
@@ -78,7 +86,6 @@ public class Biome : MonoBehaviour
     private System.Collections.IEnumerator SpawnAgentsAfterBake()
     {        
         yield return null;    
-        if(!MapGenerator.hasOneEnemy)
         OnSpawning();
     }
 
@@ -94,44 +101,60 @@ public class Biome : MonoBehaviour
 
     /// <summary>
     /// Spawns an enemy on the biome if the random number is greater than 90.
-    /// This provides a 10% chance to spawn an enemy. 
+    /// This provides a 40% chance to spawn an enemy. 
     /// </summary>
     private void OnSpawning()
     {
         float randomNumber = Random.Range(0f, 101f);
-        if (randomNumber > 90)
-        {            
+        //Enemies
+        if (randomNumber > 60 && SpawnManagerABL.totalEnemyCount < manager.MaxEnemyCount)
+        {
             enemyTypesArray = enemyTypes.ToArray();
-            GameObject enemy = enemyTypesArray[0];
+            GameObject enemy = enemyTypesArray[Random.Range(0, 2)];
             enemy.GetComponent<EnemyController>().path = path;
-            
-            if (path.transform.childCount > 0)                
-                InstantiateEnemyOnTop(enemy, gameObject);                                                                                                         
+
+            if (path.transform.childCount > 0) {
+                InstantiateOnTop(enemy);
+                SpawnManagerABL.totalEnemyCount++;
+            }
+        }
+        //Items
+        if (randomNumber > 40 && SpawnManagerABL.totalItemsCount < manager.MaxItemCount && !occupiedLocations.Contains(gameObject.transform.position)) {
+            InstantiateOnTop(item);
+            SpawnManagerABL.totalItemsCount++;
+        }
+
+        //Hazards
+        if (randomNumber > 40 && SpawnManagerABL.totalHazardsCount < manager.MaxHazardCount && !occupiedLocations.Contains(gameObject.transform.position)) {
+            InstantiateOnTop(spikes);
+            SpawnManagerABL.totalHazardsCount++;
         }
     }
 
     /// <summary>
     /// Ensures the position of the enemy is on a navmesh surface
     /// </summary>
-    /// <param name="enemy"></param>
+    /// <param name="toSpawn"></param>
     /// <param name="platform"></param>
-    private void InstantiateEnemyOnTop(GameObject enemy, GameObject platform)
+    private void InstantiateOnTop(GameObject toSpawn)
     {
-        if (platform != null && enemy != null)
+        if (toSpawn != null)
         {
-            Vector3 bioimePosition = platform.transform.position;
+            Vector3 biomePosition = transform.position;
 
-            float biomeHeight = platform.transform.localScale.y;
-            float enemyHeight = enemy.transform.localScale.y;
+            float biomeHeight = transform.localScale.y;
+            float enemyHeight = toSpawn.transform.localScale.y;
 
-            Vector3 enemyPosition = new(
-                bioimePosition.x,
-                bioimePosition.y + (biomeHeight / 2) + (enemyHeight / 2),
-                bioimePosition.z
+            Vector3 toSpawnPosition = new(
+                biomePosition.x,
+                biomePosition.y + (biomeHeight / 2) + (enemyHeight / 2),
+                biomePosition.z
             );
-
-            if (NavMesh.SamplePosition(enemyPosition, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
-                Instantiate(enemy, hit.position, Quaternion.identity);
+            
+            if (NavMesh.SamplePosition(toSpawnPosition, out NavMeshHit hit, 1.0f, NavMesh.AllAreas)) {
+                Instantiate(toSpawn, hit.position, Quaternion.identity);
+                occupiedLocations.Add(biomePosition);
+            }            
         }        
     }
 }
