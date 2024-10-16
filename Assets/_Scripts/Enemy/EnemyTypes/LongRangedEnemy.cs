@@ -6,8 +6,8 @@ using UnityEngine;
  * Student Number: 301166198
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 14th, 2024
+ * Last Modified by: Alexander Maynard
+ * Last Modified Date: October 15th, 2024
  * 
  * 
  * Program Description: 
@@ -23,12 +23,15 @@ using UnityEngine;
  *      -> October 14th, 2024:
  *          - Adjusted the TakeDamage function to destroy the object if killed
  *          - Initialize nextWayPointIndex to a random waypoint
+ *      ->October 15th, 2024: 
+ *          -Added animator transitions to this enemy for multiple animations to be played based on the state of the enemy.
  */
 
 public class LongRangedEnemy : EnemyController
 {
     [Header("Shooting-Related")]
     [SerializeField] private GameObject taco;
+    [SerializeField] private Animator _animator;
 
     new void Start() {
         base.Start();
@@ -41,8 +44,16 @@ public class LongRangedEnemy : EnemyController
     }
 
     public override void Attack() { Shoot(); }
-    private void Shoot() { InvokeRepeating(nameof(DoShooting), 0f, 0.5f); }
-    public override void StopAttack() { CancelInvoke(nameof(DoShooting)); }
+    private void Shoot() 
+    {
+        _animator.SetBool("isAttacking", true); //calls the attacking animation
+        InvokeRepeating(nameof(DoShooting), 0f, 0.5f); 
+    }
+    public override void StopAttack() 
+    {
+        _animator.SetBool("isAttacking", false);
+        CancelInvoke(nameof(DoShooting)); //calls the walk animation
+    }
     
     /// <summary>
     /// Instantiate a bullet at the spawner level of the long-ranged enemy.

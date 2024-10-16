@@ -36,7 +36,7 @@ public class CamFollow : MonoBehaviour
         offset = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (_playerTransfom != null)
         {
