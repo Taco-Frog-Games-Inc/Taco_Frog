@@ -415,7 +415,7 @@ MonoBehaviour:
   EnemyFOV: 89
   closeEnoughEngageCutoff: 30
   closeEnoughSenseCutoff: 45
-  path: {fileID: 3968018654010098196, guid: c0e3bd3addaf1144899b2bd6ee438af8, type: 3}
+  path: {fileID: 0}
   health: 100
   damageToApply: 20
   taco: {fileID: 3771223191844507866, guid: 10a8c683e0228604c833a989e637bab2, type: 3}
@@ -430,7 +430,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 1
-  m_Speed: 1
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

@@ -5,7 +5,7 @@
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 12th, 2024
+ * Last Modified Date: October 16th, 2024
  * 
  * 
  * Program Description: 
@@ -17,6 +17,8 @@
  *          -Created this script and fully implemented it.
  *      -> October 12th, 2024:
  *          -Increased the object's speed on enter and decreased it back to its initial speed on exit.
+ *      -> October 16th, 2024:
+ *          -Adjusted speed of the agent.
  */
 using UnityEngine;
 
@@ -61,8 +63,7 @@ public class ChasingState : EnemyStateMachine.State, IState
     /// Increases the speed of the controller by a factor of 2.
     /// </summary>
     public void DoOnEnter() { 
-        controller.navMeshAgent.speed *= 2f;
-       //controller.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+        controller.navMeshAgent.speed *= 4f;
     }
 
     /// <summary>
@@ -74,8 +75,7 @@ public class ChasingState : EnemyStateMachine.State, IState
     /// Decreases the speed of the controller by a factor of 2.
     /// </summary>
     public void DoOnExit() { 
-        controller.navMeshAgent.speed /= 2f;
-        //controller.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        controller.navMeshAgent.speed /= 4f;
     }
 }
 
