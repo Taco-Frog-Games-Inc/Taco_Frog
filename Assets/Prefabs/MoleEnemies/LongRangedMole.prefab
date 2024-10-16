@@ -419,6 +419,7 @@ MonoBehaviour:
   health: 100
   damageToApply: 20
   taco: {fileID: 3771223191844507866, guid: 10a8c683e0228604c833a989e637bab2, type: 3}
+  _animator: {fileID: 6728443963877543939}
 --- !u!195 &9194625420076267700
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1100,7 +1101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2546213824489527474}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.33178842, y: -0.6761509, z: -0.2069304, w: 0.6244327}
+  m_LocalRotation: {x: -0.27059805, y: -0.6532815, z: -0.27059805, w: 0.6532815}
   m_LocalPosition: {x: 0.70000005, y: 0.23560894, z: -0.068555176}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1108,7 +1109,7 @@ Transform:
   - {fileID: 545929106864171737}
   - {fileID: 3853458494695424050}
   m_Father: {fileID: 4308892581745560646}
-  m_LocalEulerAnglesHint: {x: -43.963, y: -10.772, z: -704.674}
+  m_LocalEulerAnglesHint: {x: -45, y: -90, z: 0}
 --- !u!1 &2830033004712235266
 GameObject:
   m_ObjectHideFlags: 0

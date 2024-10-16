@@ -12,6 +12,8 @@ TagManager:
   - KnockOut
   - SpawnPoint
   - EnemyHead
+  - EnemySquasher
+  - Tongue
   layers:
   - Default
   - TransparentFX
@@ -26,7 +28,7 @@ TagManager:
   - TreeBase
   - Building
   - HighGround
-  - 
+  - TongueAttack
   - 
   - 
   - 

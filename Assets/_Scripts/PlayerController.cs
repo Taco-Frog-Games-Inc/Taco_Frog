@@ -8,9 +8,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 14th, 2024
- * 
+ * Last Modified by: Alexander Maynard
+ * Last Modified Date: October 15th, 2024
  * 
  * Program Description: 
  *      
@@ -20,7 +19,10 @@ using UnityEngine.SceneManagement;
  *      -> October 2nd, 2024:
  *          -Created this script and fully implemented it.
  *      -> October 14th, 2024:
- *          - Implemented the IRewardTaker & IDamageTaker          
+ *          - Implemented the IRewardTaker & IDamageTaker    
+ *      -> October 15th, 2024:
+ *          -Added tongue attack functionality
+ *          -Added p1 and p2 player ability differences.
  */
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
 {
@@ -33,13 +35,24 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
 
     //variables needed for jumping
     private float _gravity = 9.81f;
-    [SerializeField] float _jumpHeight = 4.0f;
+    [SerializeField] float _player1JumpHeight = 10.0f; //for p1
+    [SerializeField] float _player2JumpHeight = 6.0f; //for p2
+    [SerializeField] private float _jumpHeight;
     [SerializeField] public Vector3 _velocity;
     [SerializeField] private bool _isJumpPressed;
     [SerializeField] Transform _groundCheck;
     [SerializeField] float _groundCheckRadius = 0.7f;
     [SerializeField] LayerMask _groundMask;
     [SerializeField] bool _isGrounded;
+
+    //variables for tongue attack
+    private bool _canAttack = true;
+    private bool _isAttacking = false;
+    [SerializeField] private LineRenderer _tongueAttackLineRenderer;
+    [SerializeField] private float _player1TongueAttackpointDistance; //for p1
+    [SerializeField] private float _player2TongueAttackpointDistance; //for p2
+    [SerializeField] private GameObject _tongueAttackpoint;
+    private CapsuleCollider _tongueAttackCollider;
 
     [SerializeField] protected internal int health = 100;
     private int _score = 0;
@@ -71,34 +84,20 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     /// <summary>
     /// OnAwake get the CharacterController Component
     /// </summary>
-
-    //PlayerAttackSystem _plAttkSys;
-    //[SerializeField] private GameObject _playerLongRgAtt; // Prefab for the tongue
-    //private TongueAttack tongueAttack;
-    //private GameObject _enemy; //Removed [SerializedField]
-
     private void Awake()
     {
+        //set the p1 and p2 stat differences
+        SetPlayerStats();
         _characterController = GetComponent<CharacterController>();
 
-        //_enemy = GameObject.FindWithTag("Enemy");
+        //get the collider of the tongue attack
+        _tongueAttackCollider = _tongueAttackpoint.GetComponent<CapsuleCollider>();
 
-        //_plAttkSys = new PlayerAttackSystem(_enemy, this.gameObject);
-        //tongueAttack = new TongueAttack();
-        //tongueAttack.Initialize(_playerLongRgAtt, transform);
+        //set the collider size and offset
+        _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
+        _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
     }
 
-     void Update()
-    {
-       
-        //tongueAttack.Update();
-
-        //new input system needed here....
-        //if (Input.GetKeyDown(KeyCode.Space)) 
-        //{
-            //tongueAttack.ExecuteAttack(); 
-        //}
-    }
     /// <summary>
     /// FixedUpdate does ground check and, runs, move, jump and updates player rotation.
     /// </summary>
@@ -106,14 +105,43 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
 
-       //Debug.Log(_groundMask.value);
-
         _characterController.Move(_direction * speed * Time.deltaTime);
         Move();
         Jump();
+        TongueAttack();
         UpdatePlayerRotation();
-        //_plAttkSys.JumpAttack();
     }
+
+
+    /// <summary>
+    /// makes sure that the player abilities are slightly different
+    /// </summary>
+    private void SetPlayerStats()
+    { 
+        //check if p1
+        if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
+        {
+            Debug.Log("Player 1 spawned");
+            //set jump height.
+            _jumpHeight = _player1JumpHeight;
+            _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player1TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
+            _tongueAttackLineRenderer.positionCount = 2;
+            _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0, 0)); //first tongue attack position
+            _tongueAttackLineRenderer.SetPosition(1, new Vector3(-_player1TongueAttackpointDistance, 0, 0)); //second tongue attack position
+
+        }
+        else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
+        {
+            Debug.Log("Player 2 spawned");
+            //set jump height.
+            _jumpHeight = _player2JumpHeight;
+            _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player2TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
+            _tongueAttackLineRenderer.positionCount = 2;
+            _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0, 0)); //first tongue attack position
+            _tongueAttackLineRenderer.SetPosition(1, new Vector3(-_player2TongueAttackpointDistance, 0, 0)); //second tongue attack position
+        }
+    }
+
 
     /// <summary>
     /// Moves the player based on the updated inputs x and y.
@@ -155,7 +183,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
             _isJumpPressed = false;
         }
        
-
         _velocity.y -= _gravity * Time.deltaTime; //otherwise make sure that gravity is negative
         _characterController.Move(_velocity * Time.deltaTime); //make sure the player can still move using their velocity
     }
@@ -175,6 +202,55 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         {
             _isJumpPressed = false;
         }
+    }
+
+    /// <summary>
+    /// Calls the proper attacking logic when the checks pass
+    /// </summary>
+    private void TongueAttack()
+    {
+        if(_isAttacking == true && _canAttack == true)
+        {
+            _canAttack = false;
+            EnableTongueAttack(); //enable the tongue attack
+            Invoke(nameof(DisableTongueAttack), 0.5f); //call disable on a delay
+        }
+    }
+
+    /// <summary>
+    /// When input is received, modify the checks
+    /// </summary>
+    private void OnTongueAttack()
+    {
+        if (_canAttack == true)
+        {
+            _isAttacking = true;
+        }
+        else
+        {
+            _isAttacking = false;
+        }
+    }
+
+    /// <summary>
+    /// Enables the tongue attack
+    /// </summary>
+    private void EnableTongueAttack()
+    {
+        _tongueAttackLineRenderer.enabled = true; //make the tongue line renderer disappear
+        _tongueAttackCollider.enabled = true; //enable the collider
+    }
+
+    /// <summary>
+    /// Disables the tongue attack
+    /// </summary>
+    private void DisableTongueAttack()
+    {
+        _tongueAttackLineRenderer.enabled = false; //make the tongue line renderer disappear
+        _tongueAttackCollider.enabled = false; //disable the collider
+        //reassign checks once the attack is over
+        _canAttack = true; 
+        _isAttacking = false;
     }
 
     /// <summary>

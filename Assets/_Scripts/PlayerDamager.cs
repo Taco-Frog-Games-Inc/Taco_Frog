@@ -32,9 +32,15 @@ public class PlayerDamager : MonoBehaviour, IDamager
     /// <param name="other"></param>
     public void OnTriggerEnter(Collider other) {
         GameObject parent = gameObject.transform.parent.gameObject;
-        if (other.gameObject.CompareTag("EnemyHead") && 
+        if (this.gameObject.CompareTag("EnemySquasher") && other.gameObject.CompareTag("EnemyHead") && 
             parent.GetComponent<PlayerController>()._velocity.y < 1f) { 
             GameObject enemy = other.transform.parent.transform.parent.gameObject;
+            IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
+            damageTaker?.TakeDamage(DamageToApply);
+        }
+        else if(this.gameObject.CompareTag("Tongue") && other.gameObject.CompareTag("Enemy"))
+        {
+            GameObject enemy = other.gameObject;
             IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
             damageTaker?.TakeDamage(DamageToApply);
         }
