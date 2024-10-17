@@ -1956,7 +1956,7 @@ MonoBehaviour:
   spawnerPublisher: {fileID: 6204908685519641217, guid: 21148f523f0414943a29f9c1e3a4c180, type: 3}
   spawnerManager: {fileID: 5490065249367894826, guid: c51c038c593e1af40a578bd2e0aeb2cc, type: 3}
   spikes: {fileID: 223225547287493961, guid: ae74a6f2d97662144bd1cddf976c5957, type: 3}
-  item: {fileID: 5178909615578723162, guid: b4307cb77f2636441a12594f7b700d28, type: 3}
+  item: {fileID: 5178909615578723162, guid: d2502f553e15cb04aa978a9f563ebbbc, type: 3}
 --- !u!1 &2301481807213005972
 GameObject:
   m_ObjectHideFlags: 0
