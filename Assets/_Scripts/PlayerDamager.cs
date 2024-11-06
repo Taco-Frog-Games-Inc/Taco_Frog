@@ -7,7 +7,7 @@ using UnityEngine;
  * Creation Date: October 14th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 14th, 2024
+ * Last Modified Date: October 16th, 2024
  * 
  * 
  * Program Description: 
@@ -17,11 +17,13 @@ using UnityEngine;
  * Revision History:
  *      -> October 14th, 2024:
  *          -Created this script and fully implemented it. 
+ *      -> October 16th, 2024:
+ *          -Segregated large function into smaller ones
+ *          -Added damage applied to different enemy types.
  */
 public class PlayerDamager : MonoBehaviour, IDamager
 {
-    [Header("Properties")]
-    [SerializeField] private int _damageToApply;
+    private int _damageToApply;
     public int DamageToApply { get { return _damageToApply; } set { if (value > 0) _damageToApply = value; } }
 
     /// <summary>
@@ -32,17 +34,40 @@ public class PlayerDamager : MonoBehaviour, IDamager
     /// <param name="other"></param>
     public void OnTriggerEnter(Collider other) {
         GameObject parent = gameObject.transform.parent.gameObject;
-        if (this.gameObject.CompareTag("EnemySquasher") && other.gameObject.CompareTag("EnemyHead") && 
-            parent.GetComponent<PlayerController>()._velocity.y < 1f) { 
-            GameObject enemy = other.transform.parent.transform.parent.gameObject;
-            IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
-            damageTaker?.TakeDamage(DamageToApply);
-        }
-        else if(this.gameObject.CompareTag("Tongue") && other.gameObject.CompareTag("Enemy"))
-        {
-            GameObject enemy = other.gameObject;
-            IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
-            damageTaker?.TakeDamage(DamageToApply);
-        }
+        if (gameObject.CompareTag("EnemySquasher") && other.gameObject.CompareTag("EnemyHead") &&
+            parent.GetComponent<PlayerController>()._velocity.y < 1f)
+                DoEnemyHead_Damage(other);
+
+        else if (this.gameObject.CompareTag("Tongue") && other.gameObject.CompareTag("Enemy"))        
+            DoTongue_Damage(other);        
+    }
+
+    /// <summary>
+    /// Applies damage to enemy based on the enemy type
+    /// </summary>
+    /// <param name="other"></param>
+    private void DoEnemyHead_Damage(Collider other) {
+        GameObject enemy = other.transform.parent.transform.parent.gameObject;
+
+        if (enemy.GetComponent<ShortRangeEnemy>()) _damageToApply = 50;
+        else if (enemy.GetComponent<LongRangedEnemy>()) _damageToApply = 100;
+
+        IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
+        damageTaker?.TakeDamage(DamageToApply);
+    }
+
+    /// <summary>
+    /// Applies tongue damage to enemy based on the enemy type
+    /// </summary>
+    /// <param name="other"></param>
+    private void DoTongue_Damage(Collider other)
+    {
+        GameObject enemy = other.gameObject;
+
+        if (enemy.GetComponent<ShortRangeEnemy>()) _damageToApply = 10;                   
+        else if (enemy.GetComponent<LongRangedEnemy>()) _damageToApply = 20;
+
+        IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
+        damageTaker?.TakeDamage(DamageToApply);
     }
 }

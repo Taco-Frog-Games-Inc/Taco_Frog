@@ -8,7 +8,7 @@ using UnityEngine.AI;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 14th, 2024
+ * Last Modified Date: October 16th, 2024
  * 
  * 
  * Program Description: 
@@ -23,8 +23,10 @@ using UnityEngine.AI;
  *      -> October 14th, 2024:
  *          - Adjusted the nextWayPointIndex's and health's visibility
  *          - Removed testing statements
+ *      -> October 16th, 2024:
+ *          - Implemented IDamager
  */
-public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker
+public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, IDamager
 {
 
     public GameObject player;
@@ -47,6 +49,8 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker
     public int Health { get { return health;  } set { if (value > 0) health = value; } }
     [SerializeField] private int damageToApply;
 
+    private int _defaultDamageToApply = 10;
+    public int DamageToApply { get { return _defaultDamageToApply; } set { if (value > 0) _defaultDamageToApply = value; } }
     private void Awake() { stateMachine = new(); }
     public void Start() {
         player = GameObject.FindWithTag("Player");
@@ -70,7 +74,24 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker
     protected internal bool EngagePlayer() {
         return EnemyUtilities.SenseOther(gameObject, player, cosEnemyFOVover2InRAD, closeEnoughEngageCutoff);
     }
+
+    /// <summary>
+    /// Parts of the IDamager contract.
+    /// Checks if the other collider is implementing the IDamageTaker interface.
+    /// It if does, calls the TakeDamage() of the IDamageTaker interface.
+    /// </summary>
+    /// <param name="other"></param>
+    public void OnTriggerEnter(Collider other)
+    {
+        /*if (gameObject.CompareTag("Enemy") && other.gameObject.CompareTag("Player"))
+        {
+            GameObject player = other.gameObject;
+            IDamageTaker damageTaker = player.GetComponent<IDamageTaker>();
+            damageTaker?.TakeDamage(DamageToApply);
+        }*/
+    }
     public abstract void Attack();
     public abstract void StopAttack();
     public abstract void TakeDamage(int damage);
+
 }
