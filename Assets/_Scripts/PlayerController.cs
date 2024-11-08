@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Alexander Maynard
- * Last Modified Date: October 15th, 2024
+ * Last Modified Date: November 7th, 2024
  * 
  * Program Description: 
  *      
@@ -23,7 +23,11 @@ using UnityEngine.SceneManagement;
  *      -> October 15th, 2024:
  *          -Added tongue attack functionality
  *          -Added p1 and p2 player ability differences.
+ *      -> November 7th, 2024:
+ *          -Added player 1 and 2 designs. Modified code as needed to accomodate this.
+ *          -Also added animation transitions to this scrpt.
  */
+
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
 {
     //variables needed for moving
@@ -57,6 +61,14 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     [SerializeField] protected internal int health = 100;
     private int _score = 0;
 
+    //player head to be chosen
+    [SerializeField] private GameObject p1Head;
+    [SerializeField] private GameObject p2Head;
+
+
+    //player animator for animations
+    [SerializeField] private Animator _animator;
+
     public int Health { get { return health; } set { if (value > 0) health = value; } }
 
     /// <summary>
@@ -81,6 +93,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         _score += points;
         Debug.Log("Player score: " + Score);//Testing purposes...Until we have HUD connected
     }
+
     /// <summary>
     /// OnAwake get the CharacterController Component
     /// </summary>
@@ -106,12 +119,20 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
 
         _characterController.Move(_direction * speed * Time.deltaTime);
+
         Move();
         Jump();
         TongueAttack();
         UpdatePlayerRotation();
-    }
 
+
+        Debug.Log(_characterController.velocity);
+
+        if (_characterController.velocity.y > 0)
+            _animator.SetBool("isJumping", true);
+        else if(_characterController.velocity.y == 0)
+            _animator.SetBool("isJumping", false);
+    }
 
     /// <summary>
     /// makes sure that the player abilities are slightly different
@@ -126,8 +147,10 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
             _jumpHeight = _player1JumpHeight;
             _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player1TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
             _tongueAttackLineRenderer.positionCount = 2;
-            _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0, 0)); //first tongue attack position
-            _tongueAttackLineRenderer.SetPosition(1, new Vector3(-_player1TongueAttackpointDistance, 0, 0)); //second tongue attack position
+            _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0.45f, 0)); //first tongue attack position
+            _tongueAttackLineRenderer.SetPosition(1, new Vector3(-_player1TongueAttackpointDistance, 0.45f, 0)); //second tongue attack position
+
+            p1Head.SetActive(true);
 
         }
         else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
@@ -137,11 +160,12 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
             _jumpHeight = _player2JumpHeight;
             _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player2TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
             _tongueAttackLineRenderer.positionCount = 2;
-            _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0, 0)); //first tongue attack position
-            _tongueAttackLineRenderer.SetPosition(1, new Vector3(-_player2TongueAttackpointDistance, 0, 0)); //second tongue attack position
+            _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0.45f, 0)); //first tongue attack position
+            _tongueAttackLineRenderer.SetPosition(1, new Vector3(-_player2TongueAttackpointDistance, 0.45f, 0)); //second tongue attack position
+
+            p2Head.SetActive(true);
         }
     }
-
 
     /// <summary>
     /// Moves the player based on the updated inputs x and y.
@@ -149,8 +173,18 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     private void Move()
     {
         _direction = new Vector3(_input.x, 0.0f, _input.y);
-    }
 
+        if (_characterController.velocity.x == 0 && _characterController.velocity.z == 0)
+        {
+            _animator.SetBool("isWalking", false);
+            //Debug.Log("Not moving");
+        }
+        else if (_characterController.velocity.x != 0 || _characterController.velocity.z != 0)
+        {
+            _animator.SetBool("isWalking", true);
+            //Debug.Log("Moving");
+        }
+    }
 
     /// <summary>
     /// This method is called once the player presses WASD (defined in the new input system controls for 'Player1' or 'Player2'
@@ -182,7 +216,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
             _velocity.y += Mathf.Sqrt(_jumpHeight * _gravity);
             _isJumpPressed = false;
         }
-       
         _velocity.y -= _gravity * Time.deltaTime; //otherwise make sure that gravity is negative
         _characterController.Move(_velocity * Time.deltaTime); //make sure the player can still move using their velocity
     }
@@ -263,5 +296,4 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         //updates the player rotation. the Vector3 passsed had to be adjusted since the x, y and z and different that the actual player WASD directional inputs translation.
         _playerTransform.rotation = Quaternion.LookRotation(new Vector3(_direction.z, _direction.y, _direction.x * -1));
     }
-
 }
