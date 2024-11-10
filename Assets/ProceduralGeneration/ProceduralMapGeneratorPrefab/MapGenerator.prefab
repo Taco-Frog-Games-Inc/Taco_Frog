@@ -72,6 +72,7 @@ MonoBehaviour:
   - {fileID: 1380918964074102879, guid: 4f14841bdba1df0498609f03094074b8, type: 3}
   path: {fileID: 2671873541689644408, guid: 1a7898a2803508e429ea120028375937, type: 3}
   spawnerPublisher: {fileID: 6204908685519641217, guid: 21148f523f0414943a29f9c1e3a4c180, type: 3}
+  player: {fileID: 6134025947208713128, guid: 7b8e6827b18fdf9488a870ed18ad9b29, type: 3}
 --- !u!114 &3663014333721371348
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Join",
-                    "type": "Button",
-                    "id": "e6f47ce6-2ae3-4be5-ad61-2dbfc45b7531",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "8d01f3ec-cd64-4e9b-975a-73eba338302c",
@@ -148,28 +139,6 @@
                     "processors": "",
                     "groups": "PS2",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bfc6848c-26df-43c4-8666-5df8f45cc6bf",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard1",
-                    "action": "Join",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cf00a9a9-0695-4616-992e-4ff3ac4a679d",
-                    "path": "<DualShockGamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PS2",
-                    "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -455,14 +455,14 @@ PrefabInstance:
     - target: {fileID: 1041879124175421818, guid: ba74d89383aac8c44b56d91006c74266, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1899449089}
     - target: {fileID: 1041879124175421818, guid: ba74d89383aac8c44b56d91006c74266, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: MultiplayerChosen
       objectReference: {fileID: 0}
     - target: {fileID: 1041879124175421818, guid: ba74d89383aac8c44b56d91006c74266, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneManagement, Assembly-CSharp
+      value: SceneManagement, GameCode
       objectReference: {fileID: 0}
     - target: {fileID: 1388387416769408981, guid: ba74d89383aac8c44b56d91006c74266, type: 3}
       propertyPath: m_fontSize

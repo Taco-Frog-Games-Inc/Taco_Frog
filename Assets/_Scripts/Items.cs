@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using UnityEngine;
 
 /*
@@ -7,7 +8,7 @@ using UnityEngine;
  * Creation Date: October 14th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 14th, 2024
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -17,11 +18,14 @@ using UnityEngine;
  * Revision History:
  *      -> October 14th, 2024:
  *          -Created this script and fully implemented it.
+ *      -> November 10th, 2024:
+ *          -Implemented the Start(), Update() and ItemTypeEnum
  */
 public class Items : MonoBehaviour, IRewarder
 {
     [Header("Properties")]
     [SerializeField] private int itemValue;
+    [SerializeField] private ItemTypeEnum itemType;
     public int RewardToGive { get { return itemValue; } set { if (value > 0) itemValue = value; } }
 
     /// <summary>
@@ -32,8 +36,22 @@ public class Items : MonoBehaviour, IRewarder
     /// <param name="other"></param>
     public void OnTriggerEnter(Collider other) {
         if(other.TryGetComponent<IRewardTaker>(out var rewardTaker)) {
-            rewardTaker.IncreaseScore(RewardToGive);
+            rewardTaker.IncreaseScore(RewardToGive, itemType);
             Destroy(gameObject);
         }                
     }
+
+    void Start() {
+        Vector3 newPos = new(transform.position.x, 1.5f, transform.position.z);
+        transform.position = newPos;
+    }
+
+    void Update() {
+        transform.Rotate(0, 0,5f, 0);
+    }
+}
+
+public enum ItemTypeEnum { 
+    Diamond,
+    Coin
 }

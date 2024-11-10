@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /*
  * Source File Name: PlayerController.cs
@@ -8,8 +9,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: October 15th, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: November 10th, 2024
  * 
  * Program Description: 
  *      
@@ -23,6 +24,8 @@ using UnityEngine.SceneManagement;
  *      -> October 15th, 2024:
  *          -Added tongue attack functionality
  *          -Added p1 and p2 player ability differences.
+ *      -> November 10th, 2024:
+ *          -Added UI functionality based on the activeScreen variable.
  */
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
 {
@@ -54,9 +57,10 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     [SerializeField] private GameObject _tongueAttackpoint;
     private CapsuleCollider _tongueAttackCollider;
 
-    [SerializeField] protected internal int health = 100;
+    [SerializeField] protected internal int health = 3;
     private int _score = 0;
 
+    public GameObject activeScreen;
     public int Health { get { return health; } set { if (value > 0) health = value; } }
 
     /// <summary>
@@ -64,9 +68,11 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     /// Used along with the IDamager
     /// </summary>
     /// <param name="damage"></param>
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage) {        
         health -= damage;
         if (Health < 0) health = 0;
+     
+        activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
         if (Health == 0) SceneManager.LoadScene("LoseScreen");        
     }
 
@@ -77,9 +83,19 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     /// Used along with the IRewarder
     /// </summary>
     /// <param name="points"></param>
-    public void IncreaseScore(int points) { 
+    public void IncreaseScore(int points, ItemTypeEnum itemType) { 
         _score += points;
-        Debug.Log("Player score: " + Score);//Testing purposes...Until we have HUD connected
+        switch (itemType) {
+            case ItemTypeEnum.Diamond:
+                string diamondText = activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;                
+                activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(diamondText) + points).ToString();
+                break;
+            case ItemTypeEnum.Coin:
+                string coinText = activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;
+                activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(coinText) + points).ToString();
+                break;
+        }
+        
     }
     /// <summary>
     /// OnAwake get the CharacterController Component

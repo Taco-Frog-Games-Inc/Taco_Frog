@@ -8,8 +8,8 @@ using UnityEngine;
  * Student Number: 301170707
  * Creation Date: October 4th, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: October 12th, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -27,6 +27,8 @@ using UnityEngine;
  *          -Added logic to decide biome subtypes based on a % chance of happening.
  *          -Added a check to make sure that the tile the player spawns on is always the first grass tile.
  *          -Commented code
+ *      -> November 10th, 2024:
+ *          -Adjusted for multiplayer.
  */
 
 public class MapGenerator : MonoBehaviour
@@ -57,6 +59,9 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private GameObject path;
     [SerializeField] private GameObject spawnerPublisher;
 
+    [Header("Player")]
+    [SerializeField] private GameObject player;
+
     /// <summary>
     /// Start created the level double array of gameobjects for the map as 
     /// well as defines the offests for the map to be more randomized each time it is played.
@@ -67,9 +72,19 @@ public class MapGenerator : MonoBehaviour
         _levelMap = new GameObject[_height, _length];
         //offsets for 'seed' to be randomized
         _offsetX = Random.Range(10000, 50000);
-        _offsetZ = Random.Range(10000, -50000); 
+        _offsetZ = Random.Range(10000, -50000);
         GenerateMap(); //call the generation of the map
         spawnerPublisher.GetComponent<SpawnerPublisher>().PublishMapSignal();
+
+        Vector3 pos = new(transform.GetChild(0).transform.position.x, 2f, transform.GetChild(0).transform.position.z);
+        GameObject player1 = Instantiate(player, pos, Quaternion.identity);
+        player1.name = "Player1";
+        
+        if (PlayerPrefs.GetInt("NumbOfPlayer") == 2) {        
+            Vector3 pos2 = new(transform.GetChild(0).transform.position.x - 2f, 2f, transform.GetChild(0).transform.position.z);
+            GameObject player2 = Instantiate(player, pos2, Quaternion.identity);
+            player2.name = "Player2";            
+        }
     }
 
     /// <summary>
