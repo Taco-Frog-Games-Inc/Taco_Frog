@@ -5,7 +5,7 @@
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 16th, 2024
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -19,11 +19,15 @@
  *          -Increased the object's speed on enter and decreased it back to its initial speed on exit.
  *      -> October 16th, 2024:
  *          -Adjusted speed of the agent.
+ *      -> November 10th, 2024:
+ *          -Adjusted the SensePlayer and EngagePlayer calls.
  */
 using UnityEngine;
 
 public class ChasingState : EnemyStateMachine.State, IState
 {
+    private (GameObject, bool) playerSenseTuple;
+    private (GameObject, bool) playerEngageTuple;
     public ChasingState(EnemyController controller, EnemyStateMachine stateMachine)
     {
         this.controller = controller;
@@ -43,15 +47,15 @@ public class ChasingState : EnemyStateMachine.State, IState
     /// Executes once per frame.
     /// Changes to the proper state based on fixed conditions.
     /// </summary>
-    public void OnFrame()
-    {
+    public void OnFrame() {
+        playerSenseTuple = controller.SensePlayer();
+        playerEngageTuple = controller.EngagePlayer();
         DoOnFrame();
 
         if (controller.Health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
 
-        if (!controller.SensePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.RoamingState);
-        else if (controller.EngagePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.AttackingState);
-
+        if (!playerSenseTuple.Item2) stateMachine.ChangeState(EnemyStateMachine.StateEnum.RoamingState);
+        else if (playerEngageTuple.Item2) stateMachine.ChangeState(EnemyStateMachine.StateEnum.AttackingState);
     }
 
     /// <summary>
@@ -62,20 +66,18 @@ public class ChasingState : EnemyStateMachine.State, IState
     /// <summary>
     /// Increases the speed of the controller by a factor of 2.
     /// </summary>
-    public void DoOnEnter() { 
-        controller.navMeshAgent.speed *= 4f;
-    }
+    public void DoOnEnter() { controller.navMeshAgent.speed *= 4f; }
 
     /// <summary>
     /// Ensures the controller follows the player.
     /// </summary>
-    public void DoOnFrame() { controller.navMeshAgent.destination = controller.player.transform.position; }
+    public void DoOnFrame() {
+        if (playerSenseTuple.Item2) controller.navMeshAgent.destination = playerSenseTuple.Item1.transform.position;            
+    }
 
     /// <summary>
     /// Decreases the speed of the controller by a factor of 2.
     /// </summary>
-    public void DoOnExit() { 
-        controller.navMeshAgent.speed /= 4f;
-    }
+    public void DoOnExit() { controller.navMeshAgent.speed /= 4f; }
 }
 

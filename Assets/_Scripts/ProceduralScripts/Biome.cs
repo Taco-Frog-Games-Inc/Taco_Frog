@@ -9,7 +9,7 @@ using UnityEngine.AI;
  * Creation Date: October 12th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 14th, 2024
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -21,8 +21,10 @@ using UnityEngine.AI;
  *          -Created this script and fully implemented it.
  *      -> October 14th, 2024:
  *          -Adjusted for multiplayer
- *          - Created a occupiedLocations list to ensure spikes and items are not spawned on the same spot.
- *          - Created a way to spawn items, and hazards randomly on biomes.
+ *          -Created a occupiedLocations list to ensure spikes and items are not spawned on the same spot.
+ *          -Created a way to spawn items, and hazards randomly on biomes.
+ *      -> November 10th, 2024:
+ *          -Changed the item variable to a list of items.
  */
 public class Biome : MonoBehaviour
 {
@@ -33,7 +35,7 @@ public class Biome : MonoBehaviour
     [SerializeField] private GameObject spawnerPublisher;
     [SerializeField] private GameObject spawnerManager;
     [SerializeField] private GameObject spikes;
-    [SerializeField] private GameObject item;
+    [SerializeField] private List<GameObject> items;
 
     private List<Vector3> occupiedLocations = new();
     private GameObject path;    
@@ -75,8 +77,7 @@ public class Biome : MonoBehaviour
                !isInitialed &&
                isMapGeneratorComplete &&
                NavMeshManager.isInitialize &&
-               (GameObject.Find("PlayerContainer(Clone)") != null ||
-               GameObject.Find("PlayerContainer") != null);
+               GameObject.Find("Player1") != null;
     }
 
     /// <summary>
@@ -120,7 +121,7 @@ public class Biome : MonoBehaviour
         }
         //Items
         if (randomNumber > 40 && SpawnManagerABL.totalItemsCount < manager.MaxItemCount && !occupiedLocations.Contains(gameObject.transform.position)) {
-            InstantiateOnTop(item);
+            InstantiateOnTop(items[Random.Range(0, 2)]);
             SpawnManagerABL.totalItemsCount++;
         }
 

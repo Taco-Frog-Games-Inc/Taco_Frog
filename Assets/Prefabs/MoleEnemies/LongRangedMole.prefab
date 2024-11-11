@@ -417,7 +417,7 @@ MonoBehaviour:
   closeEnoughSenseCutoff: 45
   path: {fileID: 0}
   health: 100
-  damageToApply: 20
+  damageToApply: 1
   taco: {fileID: 3771223191844507866, guid: 10a8c683e0228604c833a989e637bab2, type: 3}
   _animator: {fileID: 6728443963877543939}
 --- !u!195 &9194625420076267700

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Open_Game_Scene.unity
     guid: 2b82dcd670f996043bd600700e96d2a7
   - enabled: 1
+    path: Assets/Scenes/Open_Game_Scene_multiplayer.unity
+    guid: 07e4f76038b5f144bb495bde06681d72
+  - enabled: 1
     path: Assets/Scenes/Game_Scene.unity
     guid: 1784e2681df63f446b1138c3993aa751
   - enabled: 1

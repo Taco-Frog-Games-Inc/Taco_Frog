@@ -1360,13 +1360,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93563ddb771e66d41866f8393a82cc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6134025947208713128, guid: 7b8e6827b18fdf9488a870ed18ad9b29, type: 3}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
   EnemyFOV: 89
   closeEnoughEngageCutoff: 5
   closeEnoughSenseCutoff: 45
   path: {fileID: 0}
   health: 150
-  damageToApply: 10
+  damageToApply: 1
 --- !u!1 &3175736402680444694
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,7 +2082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0e1fa6adb6d924f88e990ec611514f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageToApply: 10
+  _damageToApply: 1
 --- !u!1 &5214176651006284358
 GameObject:
   m_ObjectHideFlags: 0
