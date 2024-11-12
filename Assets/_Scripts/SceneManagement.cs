@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ using UnityEngine.SceneManagement;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 10th, 2024
+ * Last Modified Date: November 11th, 2024
  * 
  * 
  * Program Description: 
@@ -34,6 +35,8 @@ using UnityEngine.SceneManagement;
  *          -Re-Initialized static variables on LoadScene
  *      -> November 10th, 2024:
  *          -Adjusted for multiplayer
+ *      -> November 11th, 2024:
+ *          -Adjusted for testing scene.
  */
 
 public class SceneManagement : MonoBehaviour
@@ -55,10 +58,9 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void PlayOrAgain()
     {
-        //... savign logic here...  to be added in iteration 2
-
+        //... savign logic here...  to be added in iteration 2        
         ReInitializeStaticVariables();
-        SceneManager.LoadScene("Game_Scene");
+        SceneManager.LoadScene(MenuCanvasController.isTestingScene ? "TestingStaticScene" : "Game_Scene");
     }
 
     /// <summary>
@@ -86,7 +88,6 @@ public class SceneManagement : MonoBehaviour
     public void SaveAndLeave()
     {
         //code for saving... to be implemented in iteration 2
-
         //code for  back to main
         SceneManager.LoadScene("Main_Menu");
     }
