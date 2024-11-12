@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +9,7 @@ using UnityEngine.AI;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 16th, 2024
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -25,11 +26,15 @@ using UnityEngine.AI;
  *          - Removed testing statements
  *      -> October 16th, 2024:
  *          - Implemented IDamager
+ *      -> November 10, 2024:
+ *          - Implemented the start method and changed the signature of the SensePlayer and 
+ *          EngagePlayer methods.
  */
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, IDamager
 {
 
-    public GameObject player;
+    public GameObject player1;
+    public GameObject player2;
     public EnemyStateMachine stateMachine;
     protected internal NavMeshAgent navMeshAgent;
 
@@ -53,7 +58,10 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
     public int DamageToApply { get { return _defaultDamageToApply; } set { if (value > 0) _defaultDamageToApply = value; } }
     private void Awake() { stateMachine = new(); }
     public void Start() {
-        player = GameObject.FindWithTag("Player");
+        player1 = GameObject.Find("Player1").transform.GetChild(0).gameObject;
+        if(PlayerPrefs.GetInt("NumbOfPlayer") == 2)
+            player2 = GameObject.Find("Player2").transform.GetChild(0).gameObject;
+
         cosEnemyFOVover2InRAD = Mathf.Cos(EnemyFOV / 2f * Mathf.Deg2Rad); 
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -63,16 +71,29 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
     /// Checks if the enemy senses the player based on its position and field of view.
     /// </summary>
     /// <returns></returns>
-    protected internal bool SensePlayer() {        
-        return EnemyUtilities.SenseOther(gameObject, player, cosEnemyFOVover2InRAD, closeEnoughSenseCutoff);
+    protected internal (GameObject, bool) SensePlayer() {
+        if (EnemyUtilities.SenseOther(gameObject, player1, cosEnemyFOVover2InRAD, closeEnoughSenseCutoff)) 
+            return (player1, true);                    
+                    
+        if (PlayerPrefs.GetInt("NumbOfPlayer") == 2 && 
+            EnemyUtilities.SenseOther(gameObject, player2, cosEnemyFOVover2InRAD, closeEnoughSenseCutoff))
+            return (player2, true);
+
+        return (null, false);
     }    
 
     /// <summary>
     /// Checks if the condition to engage a player has been met.
     /// </summary>
     /// <returns></returns>
-    protected internal bool EngagePlayer() {
-        return EnemyUtilities.SenseOther(gameObject, player, cosEnemyFOVover2InRAD, closeEnoughEngageCutoff);
+    protected internal (GameObject, bool) EngagePlayer() {
+        if(EnemyUtilities.SenseOther(gameObject, player1, cosEnemyFOVover2InRAD, closeEnoughEngageCutoff))
+            return (player1, true);
+        if(PlayerPrefs.GetInt("NumbOfPlayer") == 2 && 
+           EnemyUtilities.SenseOther(gameObject, player2, cosEnemyFOVover2InRAD, closeEnoughEngageCutoff))
+            return (player2, true);
+
+        return(null, false);               
     }
 
     /// <summary>

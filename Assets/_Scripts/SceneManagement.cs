@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 14th, 2024
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -32,7 +32,8 @@ using UnityEngine.SceneManagement;
  *          -Added initial ContinueToNextMap() (no actual procedural implementation yet).
  *      -> October 14th, 2024:
  *          -Re-Initialized static variables on LoadScene
- *              
+ *      -> November 10th, 2024:
+ *          -Adjusted for multiplayer
  */
 
 public class SceneManagement : MonoBehaviour
@@ -99,6 +100,7 @@ public class SceneManagement : MonoBehaviour
         //...set some saved prefs for singleplayer ... to be done in iteration 2
         ReInitializeStaticVariables();
         SceneManager.LoadScene("Open_Game_Scene");
+        PlayerPrefs.SetInt("NumbOfPlayer", 1);
     }
 
     /// <summary>
@@ -109,7 +111,8 @@ public class SceneManagement : MonoBehaviour
     {
         //...set some saved prefs for multiplayer ... to be done in iteration 2
         ReInitializeStaticVariables();
-        SceneManager.LoadScene("Open_Game_Scene");
+        SceneManager.LoadScene("Open_Game_Scene_multiplayer");
+        PlayerPrefs.SetInt("NumbOfPlayer", 2);
     }
 
 

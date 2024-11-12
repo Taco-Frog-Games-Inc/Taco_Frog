@@ -7,7 +7,7 @@ using UnityEngine;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 2nd, 2024
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -17,6 +17,8 @@ using UnityEngine;
  * Revision History:
  *      -> October 2nd, 2024:
  *          -Created this script and fully implemented it.
+ *      -> November 10th, 2024:
+ *          -Adjusted the SensePlayer and EngagePlayer calls.
  */
 public class RoamingState : EnemyStateMachine.State, IState
 {
@@ -43,7 +45,7 @@ public class RoamingState : EnemyStateMachine.State, IState
 
         if (controller.Health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
 
-        if (!controller.SensePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.RoamingState);
+        if (!controller.SensePlayer().Item2) stateMachine.ChangeState(EnemyStateMachine.StateEnum.RoamingState);
         else stateMachine.ChangeState(EnemyStateMachine.StateEnum.ChasingState);
     }
 

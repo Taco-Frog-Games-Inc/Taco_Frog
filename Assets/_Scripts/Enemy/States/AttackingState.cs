@@ -6,7 +6,7 @@ using UnityEngine;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 16th, 2024
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -20,9 +20,13 @@ using UnityEngine;
  *          -Added StopAttack() in the DoOnExit and moved Attack() in the DoOnEnter();
  *      -> October 16th, 2024:
  *          -Added Attacking to Roaming transition
+ *      -> November 10th, 2024:
+ *          -Adjusted the SensePlayer and EngagePlayer calls.
  */
 public class AttackingState : EnemyStateMachine.State, IState
 {
+    private (GameObject, bool) playerSenseTuple;
+    private (GameObject, bool) playerEngageTuple;
     public AttackingState(EnemyController controller, EnemyStateMachine stateMachine)
     {
         this.controller = controller;
@@ -36,10 +40,7 @@ public class AttackingState : EnemyStateMachine.State, IState
     /// <summary>
     /// Executes once when the attacking state has been entered.    
     /// </summary>
-    public void OnEnter() {
-        //controller.initialColor = controller.GetComponent<Renderer>().material.color;
-        DoOnEnter();
-    }
+    public void OnEnter() { DoOnEnter(); }
 
     /// <summary>
     /// Executes once per frame.
@@ -47,40 +48,38 @@ public class AttackingState : EnemyStateMachine.State, IState
     /// </summary>
     public void OnFrame()
     {
+        playerSenseTuple = controller.SensePlayer();
+        playerEngageTuple = controller.EngagePlayer();
         DoOnFrame();
 
         if (controller.Health <= 0) stateMachine.ChangeState(EnemyStateMachine.StateEnum.DyingState);
 
-        if (!controller.EngagePlayer() && controller.SensePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.ChasingState);
-        else if (!controller.EngagePlayer() && !controller.SensePlayer()) stateMachine.ChangeState(EnemyStateMachine.StateEnum.RoamingState);
+        if (!playerEngageTuple.Item2 && playerSenseTuple.Item2) stateMachine.ChangeState(EnemyStateMachine.StateEnum.ChasingState);
+        else if (!playerEngageTuple.Item2 && !playerSenseTuple.Item2) stateMachine.ChangeState(EnemyStateMachine.StateEnum.RoamingState);
     }
 
     /// <summary>
     /// Executes once upon completion of the attacking state.
     /// </summary>
-    public void OnExit() {
-        //controller.GetComponent<Renderer>().material.color = controller.initialColor;
-        DoOnExit();
-    }
+    public void OnExit() { DoOnExit(); }
 
     /// <summary>
     /// Calls the controller's attack functionality.
     /// </summary>
     public void DoOnEnter() { 
         controller.Attack();
-        //controller.gameObject.GetComponent<Renderer>().material.color = Color.red;
     }
 
     /// <summary>
     /// Ensures the controller follows the player.
     /// </summary>
-    public void DoOnFrame() { controller.navMeshAgent.destination = controller.player.transform.position; }
+    public void DoOnFrame() { 
+        if(playerSenseTuple.Item2)
+            controller.navMeshAgent.destination = playerSenseTuple.Item1.transform.position; 
+    }
 
     /// <summary>
     /// Stops the controller's attack functionality. 
     /// </summary>
-    public void DoOnExit() { 
-        controller.StopAttack();
-        //controller.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-    }
+    public void DoOnExit() {  controller.StopAttack(); }
 }

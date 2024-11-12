@@ -5,7 +5,7 @@
  * Creation Date: October 14th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 14th, 2024
+ * Last Modified Date: November 10th, 2024
  * 
  * 
  * Program Description: 
@@ -15,9 +15,11 @@
  * Revision History:
  *      -> October 14th, 2024:
  *          -Created this script and fully implemented it.
+ *      -> November 10th, 2024:
+ *          - Modified the IncreseScore() signature.
  */
 public interface IRewardTaker
 {
     int Score { get; set; }
-    void IncreaseScore(int points);
+    void IncreaseScore(int points, ItemTypeEnum itemType);
 }

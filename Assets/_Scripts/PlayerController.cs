@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /*
  * Source File Name: PlayerController.cs
@@ -8,8 +9,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: November 7th, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: November 10th, 2024
  * 
  * Program Description: 
  *      
@@ -26,6 +27,8 @@ using UnityEngine.SceneManagement;
  *      -> November 7th, 2024:
  *          -Added player 1 and 2 designs. Modified code as needed to accomodate this.
  *          -Also added animation transitions to this scrpt.
+ *      -> November 10th, 2024:
+ *          -Added UI functionality based on the activeScreen variable.
  */
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
@@ -58,13 +61,13 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     [SerializeField] private GameObject _tongueAttackpoint;
     private CapsuleCollider _tongueAttackCollider;
 
-    [SerializeField] protected internal int health = 100;
+    [SerializeField] protected internal int health = 3;
     private int _score = 0;
 
+    public GameObject activeScreen;
     //player head to be chosen
     [SerializeField] private GameObject p1Head;
     [SerializeField] private GameObject p2Head;
-
 
     //player animator for animations
     [SerializeField] private Animator _animator;
@@ -76,9 +79,11 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     /// Used along with the IDamager
     /// </summary>
     /// <param name="damage"></param>
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage) {        
         health -= damage;
         if (Health < 0) health = 0;
+     
+        activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
         if (Health == 0) SceneManager.LoadScene("LoseScreen");        
     }
 
@@ -89,9 +94,19 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     /// Used along with the IRewarder
     /// </summary>
     /// <param name="points"></param>
-    public void IncreaseScore(int points) { 
+    public void IncreaseScore(int points, ItemTypeEnum itemType) { 
         _score += points;
-        Debug.Log("Player score: " + Score);//Testing purposes...Until we have HUD connected
+        switch (itemType) {
+            case ItemTypeEnum.Diamond:
+                string diamondText = activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;                
+                activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(diamondText) + points).ToString();
+                break;
+            case ItemTypeEnum.Coin:
+                string coinText = activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;
+                activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(coinText) + points).ToString();
+                break;
+        }
+        
     }
 
     /// <summary>
