@@ -79,12 +79,18 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     /// Used along with the IDamager
     /// </summary>
     /// <param name="damage"></param>
-    public void TakeDamage(int damage) {        
+    public void TakeDamage(int damage)
+    {
         health -= damage;
         if (Health < 0) health = 0;
-     
+
         activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
-        if (Health == 0) SceneManager.LoadScene("LoseScreen");        
+        if (Health == 0)
+        {
+            //make sure score is updated before death (scene call)
+            SaveManager.Instance.UpdateCurrentScore();
+            SceneManager.LoadScene("LoseScreen");
+        }
     }
 
     public int Score { get { return _score; } set { if (value > 0) _score = value; } }
@@ -139,9 +145,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         Jump();
         TongueAttack();
         UpdatePlayerRotation();
-
-
-        Debug.Log(_characterController.velocity);
 
         if (_characterController.velocity.y > 0)
             _animator.SetBool("isJumping", true);

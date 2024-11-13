@@ -8,8 +8,8 @@ using UnityEngine;
  * Student Number: 301170707
  * Creation Date: October 4th, 2024
  * 
- * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 10th, 2024
+ * Last Modified by: Alexander Maynard
+ * Last Modified Date: November 13th, 2024
  * 
  * 
  * Program Description: 
@@ -29,6 +29,10 @@ using UnityEngine;
  *          -Commented code
  *      -> November 10th, 2024:
  *          -Adjusted for multiplayer.
+ *      -> November 11th, 2024:
+ *          -Added capabiltity for a variarying map size.
+ *      -> November 13th, 2024:
+ *          -Fixed nav bake tile bugs (multiple spawning), and added end tile to the map generator.
  */
 
 public class MapGenerator : MonoBehaviour
@@ -36,13 +40,12 @@ public class MapGenerator : MonoBehaviour
     //variables to for the map
     #region Map Related Fields
     [Header("Map related fields")]
-    [SerializeField] private int _height = 10;
-    [SerializeField] private int _length = 10;
+    [SerializeField] private int _height;
+    [SerializeField] private int _length;
     [SerializeField] private float _perlinNoiseScale = 4.0f; //4 seems to be the most natural for our use case
     [SerializeField] private GameObject _mapParent; //gameobject that will parent the biomes for the map.
     private float _offsetX, _offsetZ; //for seed randomization
     private GameObject[,] _levelMap;
-    [SerializeField] private GameObject _navMeshSurfaceTile;
     #endregion
 
     //biome prefabs
@@ -61,6 +64,12 @@ public class MapGenerator : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private GameObject player;
+
+    private void Awake()
+    {
+        _height = PlayerPrefs.GetInt("mapHeight");
+        _length = PlayerPrefs.GetInt("mapLength");
+    }
 
     /// <summary>
     /// Start created the level double array of gameobjects for the map as 
@@ -138,11 +147,16 @@ public class MapGenerator : MonoBehaviour
         //check the player spawn point to make sure that the first tile is always the first grass one
         if(xCoordinate == 0 && zCoordinate == 0)
         {
-            biomePrefab = _navMeshSurfaceTile;
+            biomePrefab = _grassBiomeTypes[6];
             return (biomePrefab, biomePrefab.GetComponent<Renderer>().bounds.size.y / 2);
         }
 
-
+        //make sure that the last tile always has the taco level end item 
+        if (xCoordinate == _height - 1 && zCoordinate == _length - 1)
+        {
+            biomePrefab = _grassBiomeTypes[7];
+            return (biomePrefab, biomePrefab.GetComponent<Renderer>().bounds.size.y / 2);
+        }
 
         //check the perlin value for the material from the list
         switch (perlinNoisevalue)
@@ -201,11 +215,11 @@ public class MapGenerator : MonoBehaviour
                 //catch so that mountains don't go to the very edge of the map and potentially block items or level end, etc.
                 if (xCoordinate == 0 || xCoordinate == _height - 1 || zCoordinate == 0 || zCoordinate == _length - 1)
                 {
-                    biomePrefab = _grassBiomeTypes[Random.Range(0, _grassBiomeTypes.Count)]; //picks random grass subtype to replace teh mountain piece
+                    biomePrefab = _grassBiomeTypes[Random.Range(0, 5)]; //picks random grass subtype to replace the mountain piece
                 }
                 else
                 {
-                    biomePrefab = _rockBiomeTypes[Random.Range(0, _rockBiomeTypes.Count)]; //picks random subtype, all have an equal chance of spawning
+                    biomePrefab = _rockBiomeTypes[Random.Range(0, 5)]; //picks random subtype, all have an equal chance of spawning
                 }
                 break;
             //lava biome value range
