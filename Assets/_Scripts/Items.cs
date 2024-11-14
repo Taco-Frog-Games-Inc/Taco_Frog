@@ -8,7 +8,7 @@ using UnityEngine;
  * Creation Date: October 14th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 10th, 2024
+ * Last Modified Date: November 13th, 2024
  * 
  * 
  * Program Description: 
@@ -20,6 +20,8 @@ using UnityEngine;
  *          -Created this script and fully implemented it.
  *      -> November 10th, 2024:
  *          -Implemented the Start(), Update() and ItemTypeEnum
+ *      -> November 13th, 2024:
+ *          -Adapted to increase TacoScore
  */
 public class Items : MonoBehaviour, IRewarder
 {
@@ -36,7 +38,10 @@ public class Items : MonoBehaviour, IRewarder
     /// <param name="other"></param>
     public void OnTriggerEnter(Collider other) {
         if(other.TryGetComponent<IRewardTaker>(out var rewardTaker)) {
-            rewardTaker.IncreaseScore(RewardToGive, itemType);
+
+            if (itemType == ItemTypeEnum.Taco)  SaveManager.Instance.IncrementTacoScore();                       
+            else  rewardTaker.IncreaseScore(RewardToGive, itemType);
+
             Destroy(gameObject);
         }                
     }
@@ -53,5 +58,6 @@ public class Items : MonoBehaviour, IRewarder
 
 public enum ItemTypeEnum { 
     Diamond,
-    Coin
+    Coin,
+    Taco
 }
