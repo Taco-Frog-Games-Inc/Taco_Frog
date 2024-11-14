@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ using UnityEngine.SceneManagement;
  * Creation Date: October 14th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 11th, 2024
+ * Last Modified Date: November 13th, 2024
  * 
  * 
  * Program Description: 
@@ -23,6 +24,8 @@ using UnityEngine.SceneManagement;
  *          -Adjusted for multiplayer.
  *      -> November 11th, 2024:
  *          -Adjusted for testing scene.
+ *      -> November 13th, 2024:
+ *          -Adapted to set TacoScore
  */
 public class MenuCanvasController : MonoBehaviour
 {
@@ -48,7 +51,7 @@ public class MenuCanvasController : MonoBehaviour
     {
         if(playerInputManager != null) 
             playerCount = playerInputManager.gameObject.GetComponent<PlayerInputManager>().playerCount;
-        
+
         //No point to continue
         if (!isTestingScene && playerCount == 0) return;
 
@@ -57,7 +60,7 @@ public class MenuCanvasController : MonoBehaviour
         if (!isTestingScene && initialPlayercount != playerCount)
         {
             if (playerCount == 1) SetPlayer1UI(player);
-            
+
             else if (playerCount == 2)
             {
                 HUD.SetActive(false);
@@ -65,26 +68,30 @@ public class MenuCanvasController : MonoBehaviour
                 {
                     splitScreenHUDLeft.SetActive(true);
                     splitScreenHUDRight.SetActive(false);
-                    player.GetComponent<PlayerController>().activeScreen = splitScreenHUDLeft;
+                    SetActiveScreen(player, splitScreenHUDLeft);
                 }
                 else if (transform.parent.name == "Player2")
                 {
                     splitScreenHUDRight.SetActive(true);
                     splitScreenHUDLeft.SetActive(false);
-                    player.GetComponent<PlayerController>().activeScreen = splitScreenHUDRight;
+                    SetActiveScreen(player, splitScreenHUDRight);
                 }
             }
 
             initialPlayercount = playerCount;
         }
-        else SetPlayer1UI(player);
-      
+        else  if (isTestingScene) SetPlayer1UI(player);        
     }
 
     private void SetPlayer1UI(GameObject player) {
         HUD.SetActive(true);
         splitScreenHUDLeft.SetActive(false);
         splitScreenHUDRight.SetActive(false);
-        player.GetComponent<PlayerController>().activeScreen = HUD;
+        SetActiveScreen(player, HUD);       
+    }
+
+    private void SetActiveScreen(GameObject player, GameObject activeScreen) {
+        player.GetComponent<PlayerController>().activeScreen = activeScreen;
+        player.GetComponent<PlayerController>().activeScreen.transform.GetChild(0).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = SaveManager.Instance.GetTacoScore().ToString() ?? "0";
     }
 }

@@ -21,6 +21,7 @@
  *          -Cleaned up code and commented code.
  *          -Added capability to delete save data.
  *          -Added mutli and single player save and delete options
+ *          -Adapted the TacoScore functions and added ResetTacoScore()
  */
 
 using UnityEngine;
@@ -30,7 +31,6 @@ public class SaveManager : PersistGenericSingleton<SaveManager>
     //current tacos collected count and current score
     private int _currentTacos;
     private int _currentScore;
-
 
     private void Start()
     {
@@ -52,19 +52,19 @@ public class SaveManager : PersistGenericSingleton<SaveManager>
     /// <summary>
     /// Increments the current taco score
     /// </summary>
-    public void IncrementTacoScore()
-    {
-       _currentTacos++;
+    public void IncrementTacoScore() {
+        _currentTacos = PlayerPrefs.GetInt("single_RecordScore");
+        _currentTacos++;
+        PlayerPrefs.SetInt("single_RecordScore", _currentTacos);
     }
 
     /// <summary>
     /// Returns the current taco score
     /// </summary>
     /// <returns>current taco score (how many tacos are collected)</returns>
-    public int GetTacoScore()
-    {
-        return _currentTacos;
-    }
+    public int GetTacoScore() { return PlayerPrefs.GetInt("single_RecordScore"); }
+
+    public void ResetTacoScore() { PlayerPrefs.SetInt("single_RecordScore", 0); }
 
     /// <summary>
     /// Checks if single or multiplayer, then returns the current score.

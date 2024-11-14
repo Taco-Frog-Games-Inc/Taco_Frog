@@ -10,7 +10,7 @@ using TMPro;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 10th, 2024
+ * Last Modified Date: November 13th, 2024
  * 
  * Program Description: 
  *      
@@ -29,6 +29,8 @@ using TMPro;
  *          -Also added animation transitions to this scrpt.
  *      -> November 10th, 2024:
  *          -Added UI functionality based on the activeScreen variable.
+ *      -> November 13th, 2024:
+ *          -Adapted to reset TacoScore
  */
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
@@ -89,6 +91,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         {
             //make sure score is updated before death (scene call)
             SaveManager.Instance.UpdateCurrentScore();
+            SaveManager.Instance.ResetTacoScore();
             SceneManager.LoadScene("LoseScreen");
         }
     }
@@ -111,8 +114,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
                 string coinText = activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;
                 activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(coinText) + points).ToString();
                 break;
-        }
-        
+        }        
     }
 
     /// <summary>
@@ -130,7 +132,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         //set the collider size and offset
         _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
         _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
-    }
+    }       
 
     /// <summary>
     /// FixedUpdate does ground check and, runs, move, jump and updates player rotation.

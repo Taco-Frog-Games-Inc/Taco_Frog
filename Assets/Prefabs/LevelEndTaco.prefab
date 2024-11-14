@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2272280933952013300}
   - component: {fileID: 2659807897127427118}
   - component: {fileID: 8558415666577170811}
+  - component: {fileID: -1597493330084303683}
   m_Layer: 0
   m_Name: LevelEndTaco
   m_TagString: Untagged
@@ -141,3 +142,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426dce8db68866047a7328367bb97bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1597493330084303683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575540279306332375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bf29e734eb3bb46a7ebf3af3ea9522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemValue: 1
+  itemType: 2
