@@ -27,8 +27,8 @@ public class FallZone : MonoBehaviour
         //...check if it's the player
         if (other.gameObject.tag == "Player")
         {
-            //.. increment saving logic if it's selected? --> iteration 2. For now just need level end bringing the player to the win screen.
-
+            //make sure score is updated properly before death (scene transition)
+            SaveManager.Instance.UpdateCurrentScore();
             SceneManager.LoadScene("LoseScreen"); //load the lose screen for now... Iteration 2 this will need to be updated.
         }
     }

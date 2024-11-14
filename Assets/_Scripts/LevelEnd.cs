@@ -30,8 +30,17 @@ public class LevelEnd : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //...check if it's the player
-        if (other.gameObject.CompareTag("Player1") || (PlayerPrefs.GetInt("NumbOfPlayer") == 2 && other.gameObject.CompareTag("Player2")))
+        //if (other.gameObject.CompareTag("Player1") || (PlayerPrefs.GetInt("NumbOfPlayer") == 2 && other.gameObject.CompareTag("Player2")))
+        //{
+        //    //.. increment saving logic if it's selected? --> iteration 2. For now just need level end bringing the player to the win screen.
+        //    SceneManager.LoadScene("WinScreen"); //load the win screen
+        //}
+
+        //...check if it's the player
+        if (other.gameObject.CompareTag("Player"))
         {
+            //update the score before the next scene change
+            SaveManager.Instance.UpdateCurrentScore();
             //.. increment saving logic if it's selected? --> iteration 2. For now just need level end bringing the player to the win screen.
             SceneManager.LoadScene("WinScreen"); //load the win screen
         }
