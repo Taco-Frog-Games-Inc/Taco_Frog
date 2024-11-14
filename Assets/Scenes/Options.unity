@@ -1380,8 +1380,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8427240705542910606}
-        m_TargetAssemblyTypeName: SceneManagement, Assembly-CSharp
-        m_MethodName: DeleteSave
+        m_TargetAssemblyTypeName: SceneManagement, GameCode
+        m_MethodName: DeletePlayerSaves
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
