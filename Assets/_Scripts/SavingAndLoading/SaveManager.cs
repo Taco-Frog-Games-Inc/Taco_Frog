@@ -53,16 +53,20 @@ public class SaveManager : PersistGenericSingleton<SaveManager>
     /// Increments the current taco score
     /// </summary>
     public void IncrementTacoScore() {
-        _currentTacos = PlayerPrefs.GetInt("single_RecordScore");
         _currentTacos++;
-        PlayerPrefs.SetInt("single_RecordScore", _currentTacos);
+        //_currentTacos = PlayerPrefs.GetInt("single_RecordScore");
+        //PlayerPrefs.SetInt("single_RecordScore", _currentTacos);
     }
 
     /// <summary>
     /// Returns the current taco score
     /// </summary>
     /// <returns>current taco score (how many tacos are collected)</returns>
-    public int GetTacoScore() { return PlayerPrefs.GetInt("single_RecordScore"); }
+    public int GetTacoScore() 
+    { 
+        return _currentTacos;
+        //return PlayerPrefs.GetInt("single_RecordScore"); 
+    }
 
     public void ResetTacoScore() { PlayerPrefs.SetInt("single_RecordScore", 0); }
 
@@ -88,7 +92,6 @@ public class SaveManager : PersistGenericSingleton<SaveManager>
             _currentScore = _currentScore + (players[0].Score + players[1].Score);
         }
     }
-
 
     /// <summary>
     /// reset current tacos count and score (items collected aggregate)
@@ -138,19 +141,12 @@ public class SaveManager : PersistGenericSingleton<SaveManager>
     }     
 
     /// <summary>
-    /// Delete the save data for single player by setting records to 0 for taco amount and score points
+    /// Delete the save data for single and multi player by setting records to 0 for taco amount and score points
     /// </summary>
-    public void DeleteSinglePlayerSaveData()
+    public void DeletePlayerSaveData()
     {
         PlayerPrefs.SetInt("single_RecordTacos", 0);
         PlayerPrefs.SetInt("single_RecordScore", 0);
-    }
-
-    /// <summary>
-    /// Delete the save data for multiplayer by setting records to 0 for taco amount and score points
-    /// </summary>
-    public void DeleteMultiplayerSaveData()
-    {
         PlayerPrefs.SetInt("multi_RecordTacos", 0);
         PlayerPrefs.SetInt("multi_RecordScore", 0);
     }

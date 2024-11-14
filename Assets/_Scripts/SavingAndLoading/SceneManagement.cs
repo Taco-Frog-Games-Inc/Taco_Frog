@@ -121,19 +121,11 @@ public class SceneManagement : MonoBehaviour
     }
 
     /// <summary>
-    /// Deletes the player save for single player
+    /// Deletes the player save for single and multi player
     /// </summary>
-    public void DeleteSinglePlayerSave()
+    public void DeletePlayerSaves()
     {
-        SaveManager.Instance.DeleteSinglePlayerSaveData();
-    }
-
-    /// <summary>
-    /// Deletes the player save for multiplayer
-    /// </summary>
-    public void DeleteMultiplayerSave()
-    {
-        SaveManager.Instance.DeleteMultiplayerSaveData();
+        SaveManager.Instance.DeletePlayerSaveData();
     }
 
     /// <summary>
