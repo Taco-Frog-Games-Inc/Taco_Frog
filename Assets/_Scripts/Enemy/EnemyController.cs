@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 /*
  * Source File Name: EnemyController.cs
@@ -9,7 +10,7 @@ using UnityEngine.AI;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 10th, 2024
+ * Last Modified Date: November 11th, 2024
  * 
  * 
  * Program Description: 
@@ -22,13 +23,15 @@ using UnityEngine.AI;
  *      -> October 12th, 2024:
  *          -Removed the implementation of the IDamage
  *      -> October 14th, 2024:
- *          - Adjusted the nextWayPointIndex's and health's visibility
- *          - Removed testing statements
+ *          -Adjusted the nextWayPointIndex's and health's visibility
+ *          -Removed testing statements
  *      -> October 16th, 2024:
- *          - Implemented IDamager
- *      -> November 10, 2024:
- *          - Implemented the start method and changed the signature of the SensePlayer and 
+ *          -Implemented IDamager
+ *      -> November 10th, 2024:
+ *          -Implemented the start method and changed the signature of the SensePlayer and 
  *          EngagePlayer methods.
+ *      -> November 11th, 2024:
+ *          -Adapted for testing scene.
  */
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, IDamager
 {
@@ -55,11 +58,13 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
     [SerializeField] private int damageToApply;
 
     private int _defaultDamageToApply = 10;
+    private bool isTestingScene;
     public int DamageToApply { get { return _defaultDamageToApply; } set { if (value > 0) _defaultDamageToApply = value; } }
     private void Awake() { stateMachine = new(); }
     public void Start() {
+        isTestingScene = SceneManager.GetActiveScene().name == "TestingStaticScene";
         player1 = GameObject.Find("Player1").transform.GetChild(0).gameObject;
-        if(PlayerPrefs.GetInt("NumbOfPlayer") == 2)
+        if(!isTestingScene && PlayerPrefs.GetInt("NumbOfPlayer") == 2)
             player2 = GameObject.Find("Player2").transform.GetChild(0).gameObject;
 
         cosEnemyFOVover2InRAD = Mathf.Cos(EnemyFOV / 2f * Mathf.Deg2Rad); 
@@ -75,7 +80,7 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
         if (EnemyUtilities.SenseOther(gameObject, player1, cosEnemyFOVover2InRAD, closeEnoughSenseCutoff)) 
             return (player1, true);                    
                     
-        if (PlayerPrefs.GetInt("NumbOfPlayer") == 2 && 
+        if (!isTestingScene && PlayerPrefs.GetInt("NumbOfPlayer") == 2 && 
             EnemyUtilities.SenseOther(gameObject, player2, cosEnemyFOVover2InRAD, closeEnoughSenseCutoff))
             return (player2, true);
 
@@ -89,7 +94,7 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
     protected internal (GameObject, bool) EngagePlayer() {
         if(EnemyUtilities.SenseOther(gameObject, player1, cosEnemyFOVover2InRAD, closeEnoughEngageCutoff))
             return (player1, true);
-        if(PlayerPrefs.GetInt("NumbOfPlayer") == 2 && 
+        if(!isTestingScene && PlayerPrefs.GetInt("NumbOfPlayer") == 2 && 
            EnemyUtilities.SenseOther(gameObject, player2, cosEnemyFOVover2InRAD, closeEnoughEngageCutoff))
             return (player2, true);
 

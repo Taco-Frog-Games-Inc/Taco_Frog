@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,10 +37,13 @@ using UnityEngine.SceneManagement;
  *          -Adjusted for multiplayer
  *      -> November 11th, 2024:
  *          -Adjusted buttons to incorporate the map size increasing as the player progresses.
+ *          -Adjusted for testing scene.
  *      -> November 13th, 2024:
  *          -Continued to add saving capabilities for score points and taco points to be reset etc.
  *          -Added more comments.
  *          -Added mutli and single player delete options
+ *          
+ *
  */
 
 public class SceneManagement : MonoBehaviour
@@ -62,8 +66,9 @@ public class SceneManagement : MonoBehaviour
     {
         SaveManager.Instance.ResetMapSize(); //reset the map size when playing (starting again or first time)
         SaveManager.Instance.ResetCurrentScores(); //reset current scores just in case
+
         ReInitializeStaticVariables();
-        SceneManager.LoadScene("Game_Scene");
+        SceneManager.LoadScene(MenuCanvasController.isTestingScene ? "TestingStaticScene" : "Game_Scene");
     }
 
     /// <summary>
@@ -90,7 +95,6 @@ public class SceneManagement : MonoBehaviour
     {
         //save the point score and amount of tacos
         SaveManager.Instance.SaveData();
-
         //code for  back to main
         SceneManager.LoadScene("Main_Menu");
     }
