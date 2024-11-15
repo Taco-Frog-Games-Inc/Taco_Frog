@@ -5,14 +5,19 @@ using UnityEngine;
 public class EnemySpawner : SpawnManager 
 {
       
-    private int enemyCount = 10;          
+    private int enemyCount = 1;          
     
 
-
-    public EnemySpawner(GameObject entity, LayerMask layerMask,  Vector3 mapSize)
-    :base(entity,layerMask, mapSize )
+    public EnemySpawner() : base()
     {
+
+    }
+    public EnemySpawner(GameObject entity, LayerMask layerMask,  Vector3 mapSize, bool item )
+    :base(entity,layerMask, mapSize, item)
+    {
+        
         SpawnGameObjects(enemyCount);
+        Debug.Log("Called!");
     }  
 
    
