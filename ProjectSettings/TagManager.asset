@@ -14,6 +14,10 @@ TagManager:
   - EnemyHead
   - EnemySquasher
   - Tongue
+  - AudioManager
+  - PowerUp
+  - Slider
+  - SpawnManager
   layers:
   - Default
   - TransparentFX

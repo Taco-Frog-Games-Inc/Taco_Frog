@@ -1,51 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
-using Unity.AI.Navigation;
 using UnityEngine;
 
-/*
- * Source File Name: MapGenerator.cs
- * Author Name: Alexander Maynard
- * Student Number: 301170707
- * Creation Date: October 4th, 2024
- * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: November 13th, 2024
- * 
- * 
- * Program Description: 
- *      
- *      This script handles the generation of the map using perlin noise.
- * 
- * 
- * Revision History:
- *      -> October 4th, 2024:
- *          -Created this script and fully implemented it.
- *      ->October 5th, 2024:
- *          -Wrote comments and refactored some code.
- *          -Added code to add all biomes that are Instantiate as children of the _mapParent (map generator).
- *      ->October 12th, 2024:
- *          -Added logic to decide biome subtypes based on a % chance of happening.
- *          -Added a check to make sure that the tile the player spawns on is always the first grass tile.
- *          -Commented code
- *      -> November 10th, 2024:
- *          -Adjusted for multiplayer.
- *      -> November 11th, 2024:
- *          -Added capabiltity for a variarying map size.
- *      -> November 13th, 2024:
- *          -Fixed nav bake tile bugs (multiple spawning), and added end tile to the map generator.
- */
-
-public class MapGenerator : MonoBehaviour
+public class TestMapGen : MonoBehaviour
 {
-    //variables to for the map
     #region Map Related Fields
     [Header("Map related fields")]
-    [SerializeField] private int _height;
-    [SerializeField] private int _length;
+    [SerializeField] private int _height = 10;
+    [SerializeField] private int _length = 10;
     [SerializeField] private float _perlinNoiseScale = 4.0f; //4 seems to be the most natural for our use case
     [SerializeField] private GameObject _mapParent; //gameobject that will parent the biomes for the map.
     private float _offsetX, _offsetZ; //for seed randomization
     private GameObject[,] _levelMap;
+    [SerializeField] private GameObject _navMeshSurfaceTile;
     #endregion
 
     //biome prefabs
@@ -64,31 +31,34 @@ public class MapGenerator : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private GameObject player;
+
      SpawnController _spCont;
      CheckMapGen _chMap;
-    private void Awake()
-    {
-        _height = PlayerPrefs.GetInt("mapHeight");
-        _length = PlayerPrefs.GetInt("mapLength");
-       _levelMap = new GameObject[_height, _length];
-        //offsets for 'seed' to be randomized
-        _offsetX = Random.Range(10000, 50000);
-        _offsetZ = Random.Range(10000, -50000);
-        GenerateMap(); //ca
-         _spCont = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnController>();
-        _chMap = new CheckMapGen();
-        _chMap.Subscriber(_spCont);
-        _chMap.SetHeightLength(_height , _length );
-    }
-
     /// <summary>
     /// Start created the level double array of gameobjects for the map as 
     /// well as defines the offests for the map to be more randomized each time it is played.
     /// </summary>
+    /// 
+
+     private void Awake()
+    {
+         _levelMap = new GameObject[_height, _length];
+         GenerateMap(); 
+
+       _spCont = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnController>();
+        _chMap = new CheckMapGen();
+     _chMap.Subscriber(_spCont);
+       _chMap.SetHeightLength(_height * 5, _length * 5);
+    }
+
     private void Start()
     {
         //set the initial size of the map
-        
+       // _levelMap = new GameObject[_height, _length];
+        //offsets for 'seed' to be randomized
+        _offsetX = Random.Range(10000, 50000);
+        _offsetZ = Random.Range(10000, -50000);
+      //  GenerateMap(); //call the generation of the map
         spawnerPublisher.GetComponent<SpawnerPublisher>().PublishMapSignal();
 
         Vector3 pos = new(transform.GetChild(0).transform.position.x, 2f, transform.GetChild(0).transform.position.z);
@@ -153,16 +123,11 @@ public class MapGenerator : MonoBehaviour
         //check the player spawn point to make sure that the first tile is always the first grass one
         if(xCoordinate == 0 && zCoordinate == 0)
         {
-            biomePrefab = _grassBiomeTypes[6];
+            biomePrefab = _navMeshSurfaceTile;
             return (biomePrefab, biomePrefab.GetComponent<Renderer>().bounds.size.y / 2);
         }
 
-        //make sure that the last tile always has the taco level end item 
-        if (xCoordinate == _height - 1 && zCoordinate == _length - 1)
-        {
-            biomePrefab = _grassBiomeTypes[7];
-            return (biomePrefab, biomePrefab.GetComponent<Renderer>().bounds.size.y / 2);
-        }
+
 
         //check the perlin value for the material from the list
         switch (perlinNoisevalue)
@@ -221,11 +186,11 @@ public class MapGenerator : MonoBehaviour
                 //catch so that mountains don't go to the very edge of the map and potentially block items or level end, etc.
                 if (xCoordinate == 0 || xCoordinate == _height - 1 || zCoordinate == 0 || zCoordinate == _length - 1)
                 {
-                    biomePrefab = _grassBiomeTypes[Random.Range(0, 5)]; //picks random grass subtype to replace the mountain piece
+                    biomePrefab = _grassBiomeTypes[Random.Range(0, _grassBiomeTypes.Count)]; //picks random grass subtype to replace teh mountain piece
                 }
                 else
                 {
-                    biomePrefab = _rockBiomeTypes[Random.Range(0, 5)]; //picks random subtype, all have an equal chance of spawning
+                    biomePrefab = _rockBiomeTypes[Random.Range(0, _rockBiomeTypes.Count)]; //picks random subtype, all have an equal chance of spawning
                 }
                 break;
             //lava biome value range
