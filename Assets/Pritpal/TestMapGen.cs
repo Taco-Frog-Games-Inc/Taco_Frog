@@ -45,10 +45,10 @@ public class TestMapGen : MonoBehaviour
          _levelMap = new GameObject[_height, _length];
          GenerateMap(); 
 
-        _spCont = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnController>();
+       _spCont = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnController>();
         _chMap = new CheckMapGen();
-        _chMap.Subscriber(_spCont);
-        _chMap.SetHeightLength(_height * 5, _length * 5);
+     _chMap.Subscriber(_spCont);
+       _chMap.SetHeightLength(_height * 5, _length * 5);
     }
 
     private void Start()

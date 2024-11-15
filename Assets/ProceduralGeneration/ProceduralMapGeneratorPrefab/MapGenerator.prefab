@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3361628697713795092}
   m_Layer: 0
   m_Name: MapGenerator
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,14 +89,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6cafd876aefc54786136ad8f4f96a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _height: 0
-  _length: 0
+  _height: 10
+  _length: 10
   _perlinNoiseScale: 4
-  _mapParent: {fileID: 0}
-  _waterBiomeTypes: []
-  _grassBiomeTypes: []
-  _rockBiomeTypes: []
-  _lavaBiomeTypes: []
+  _mapParent: {fileID: 1136633007654937411}
+  _waterBiomeTypes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _grassBiomeTypes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _rockBiomeTypes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _lavaBiomeTypes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   path: {fileID: 0}
   spawnerPublisher: {fileID: 0}
   player: {fileID: 0}
