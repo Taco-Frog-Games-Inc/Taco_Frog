@@ -2,22 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerPickUp : SpawnManager
+public class PowerPickUp : SpawnController
 {
-   private int itemCount = 7;          
+             
+   public PowerPickUp():base(){}
     
-    
-
-    public PowerPickUp(GameObject entity, LayerMask layerMask,  Vector3 mapSize, bool item)
-    :base(entity,layerMask, mapSize, item)
-    {
-        
-        SpawnGameItems(itemCount);
-    }  
-
    
-    public  override void  SpawnGameItems(int entityCount)
-    {
-        base.SpawnGameObjects(entityCount);
-    }
+   
 }

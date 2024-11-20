@@ -64,21 +64,12 @@ public class MapGenerator : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private GameObject player;
-     SpawnController _spCont;
-     CheckMapGen _chMap;
     private void Awake()
     {
         _height = PlayerPrefs.GetInt("mapHeight");
         _length = PlayerPrefs.GetInt("mapLength");
-       _levelMap = new GameObject[_height, _length];
-        //offsets for 'seed' to be randomized
-        _offsetX = Random.Range(10000, 50000);
-        _offsetZ = Random.Range(10000, -50000);
-        GenerateMap(); //ca
-         _spCont = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnController>();
-        _chMap = new CheckMapGen();
-        _chMap.Subscriber(_spCont);
-        _chMap.SetHeightLength(_height , _length );
+      
+      
     }
 
     /// <summary>
@@ -88,9 +79,13 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         //set the initial size of the map
-        
-        spawnerPublisher.GetComponent<SpawnerPublisher>().PublishMapSignal();
-
+       
+         _levelMap = new GameObject[_height, _length];
+        //offsets for 'seed' to be randomized
+        _offsetX = Random.Range(10000, 50000);
+        _offsetZ = Random.Range(10000, -50000);
+        GenerateMap(); //ca 
+         spawnerPublisher.GetComponent<SpawnerPublisher>().PublishMapSignal();
         Vector3 pos = new(transform.GetChild(0).transform.position.x, 2f, transform.GetChild(0).transform.position.z);
         GameObject player1 = Instantiate(player, pos, Quaternion.identity);
         player1.name = "Player1";

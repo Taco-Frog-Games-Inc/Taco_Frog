@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using UnityEngine.AI;
 using UnityEngine;
 
-public abstract class SpawnManager: MonoBehaviour
+public abstract class SpawnManager
 {
     protected readonly GameObject _prefab;
-    protected readonly LayerMask _mask;
+   // protected readonly LayerMask _mask;
     protected readonly float _height = 10f;
 
     private float minSpawnDistance = 10f;
@@ -15,58 +16,81 @@ public abstract class SpawnManager: MonoBehaviour
     private List<Vector3> spawnPositions = new List<Vector3>();
     
     public SpawnManager(){}
-   public SpawnManager(GameObject prefab, LayerMask mask, Vector3 mapSize, bool item)
+   public SpawnManager(GameObject prefab,  Vector3 mapSize, bool item)
    {
         _prefab = prefab;
-        _mask = mask;
+       
        
         _mapSize = mapSize;
         isItem = item;
    }
 
-   public   virtual void SpawnGameObjects(int entityCount)
-   {
-          int initalEnemy = 0;
-          Debug.Log("The funciton is called!");
+   public virtual void SpawnGameObjects(int itemCount)
 
-        while (initalEnemy < entityCount)
+    {
+       
+
+       
+        SpawnLogic(itemCount);
+    }
+
+    private void SpawnLogic(int itemCount)
+    {
+        int initialCount = 0;
+        Debug.Log("SpawnGameObjects function is called!");
+
+        while (initialCount < itemCount)
         {
+            // Generate a random position within map bounds
             Vector3 randomPosition = new Vector3(
-                Random.Range(-_mapSize.x / 0.5f, _mapSize.x / 0.5f),
+                Random.Range(-_mapSize.x / 2f, _mapSize.x / 2f),
                 _height,
-                Random.Range(-_mapSize.z / 0.5f, _mapSize.z / 0.5f)
+                Random.Range(-_mapSize.z / 2f, _mapSize.z / 2f)
             );
 
-            Ray ray = new Ray(randomPosition, Vector3.down);
-            RaycastHit hit;
+            // Project the random position onto the NavMesh
+            initialCount = SpawnByGroundDetection(initialCount, randomPosition);
+        } 
+    }
 
-            // Check for ground hit
-            if (Physics.Raycast(ray, out hit, _height, _mask))
+    private int SpawnByGroundDetection(int initialCount, Vector3 randomPosition)
+    {
+        _mapSize.x = 10f;
+        _mapSize.z = 10f;
+        if (NavMesh.SamplePosition(randomPosition, out NavMeshHit navHit, Mathf.Max(_mapSize.x, _mapSize.z) / 2f, NavMesh.AllAreas))
+        {
+            Vector3 spawnPosition = navHit.position + (isItem ? new Vector3(0, 1f, 0) : Vector3.zero);
+
+            // Check distance from other spawn positions
+            bool isFarEnough = true;
+            foreach (Vector3 pos in spawnPositions)
             {
-                Vector3 spawnPosition = hit.point + (isItem ? new Vector3(0, 0.25f, 0) : new Vector3(0, 0, 0));
-
-                // Check distance from other spawn positions
-                bool isFarEnough = true;
-                foreach (Vector3 pos in spawnPositions)
+                if (Vector3.Distance(spawnPosition, pos) < minSpawnDistance)
                 {
-                    if (Vector3.Distance(spawnPosition, pos) < minSpawnDistance)
-                    {
-                        isFarEnough = false;
-                        break;
-                    }
-                }
-
-                // Spawn only if position is far enough from others
-                if (isFarEnough)
-                {
-                    Instantiate(_prefab, spawnPosition, Quaternion.identity);
-                    spawnPositions.Add(spawnPosition);
-                    initalEnemy++;
+                    isFarEnough = false;
+                    break;
                 }
             }
+
+            // Spawn only if position is far enough from others
+            if (isFarEnough)
+            {
+                MonoBehaviour.Instantiate(_prefab, spawnPosition, Quaternion.identity);
+                spawnPositions.Add(spawnPosition);
+                initialCount++;
+                Debug.Log($"Spawned object {initialCount} at: {spawnPosition}");
+            }
         }
+        else
+        {
+            Debug.LogWarning("NavMesh.SamplePosition did not find a valid position.");
+        }
+
+        return initialCount;
+    }
+
     
-   }
+   
 
     public   virtual void SpawnGameItems(int entityCount)
    {

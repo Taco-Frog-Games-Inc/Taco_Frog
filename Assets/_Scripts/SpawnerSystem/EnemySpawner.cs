@@ -12,8 +12,8 @@ public class EnemySpawner : SpawnManager
     {
 
     }
-    public EnemySpawner(GameObject entity, LayerMask layerMask,  Vector3 mapSize, bool item )
-    :base(entity,layerMask, mapSize, item)
+    public EnemySpawner(GameObject entity,   Vector3 mapSize, bool item )
+    :base(entity, mapSize, item)
     {
         
         SpawnGameObjects(enemyCount);

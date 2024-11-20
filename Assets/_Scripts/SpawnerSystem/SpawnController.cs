@@ -1,51 +1,128 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SpawnController : MonoBehaviour, ISubscriber
+using UnityEngine.AI;
+public  class SpawnController : MonoBehaviour, ISubscriber
 {
-    [Header(" Spawn Station Position")]
-    [SerializeField] private LayerMask groundMask;
-    [SerializeField] private Vector3 mapSize;
-    //[SerializeField] private GameObject map;
-
-
+   
     [Header("Item Spawn Station")]
-    [SerializeField] private GameObject saucePrefab;
-    [SerializeField] private GameObject jumpPowerPickup;
-    [SerializeField] private GameObject invPowerPickup;
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] int _itemCount;
+    protected readonly float _height = 10f;
+    
+    private float minSpawnDistance = 10f;
+    protected Vector3 _mapSize;
 
+    protected bool isItem;
 
+    private List<Vector3> spawnPositions = new List<Vector3>();
+    
 
+    float height = 10f;
+    float width = 10f;
+   
+   void Start()
+   {
+     SpawnGameObjects();
+   }
+   public  void SpawnGameObjects()
 
-    SpawnManager hotSuacePickup, jumpPowerUpPickup, invincibilityPickup;
-
-    float height;
-    float width;
-    bool subscribed = false;
-
-    void Start()
     {
+       
 
-        mapSize.x = height;
-        mapSize.z = width;
-        Debug.Log($"mapSize set to: {mapSize}");
-
-        hotSuacePickup = new HotSuacePickup(saucePrefab, groundMask, mapSize, true);
-        jumpPowerUpPickup = new PowerPickUp(jumpPowerPickup,groundMask,mapSize,true);
-        invincibilityPickup = new PowerPickUp(invPowerPickup, groundMask, mapSize, true);
-
-       // Debug.Log("EnemySpawner and HotSuacePickup instances created.");
-
-
+       
+        SpawnLogic();
     }
 
+    private void SpawnLogic()
+    {
+        int initialCount = 0;
+        Debug.Log("SpawnGameObjects function is called!");
 
-   
+        while (initialCount < _itemCount)
+        {
+            // Generate a random position within map bounds
+            Vector3 randomPosition = new Vector3(
+                Random.Range(-_mapSize.x / 2f, _mapSize.x / 2f),
+                _height,
+                Random.Range(-_mapSize.z / 2f, _mapSize.z / 2f)
+            );
+
+            // Project the random position onto the NavMesh
+            initialCount = SpawnByGroundDetection(initialCount, randomPosition);
+        } 
+    }
+
+    private int SpawnByGroundDetection(int initialCount, Vector3 randomPosition)
+    {
+        _mapSize.x = 10f;
+        _mapSize.z = 10f;
+        if (NavMesh.SamplePosition(randomPosition, out NavMeshHit navHit, Mathf.Max(_mapSize.x, _mapSize.z) / 2f, NavMesh.AllAreas))
+        {
+            Vector3 spawnPosition = navHit.position + (isItem ? new Vector3(0, 1f, 0) : Vector3.zero);
+
+            // Check distance from other spawn positions
+            bool isFarEnough = true;
+            foreach (Vector3 pos in spawnPositions)
+            {
+                if (Vector3.Distance(spawnPosition, pos) < minSpawnDistance)
+                {
+                    isFarEnough = false;
+                    break;
+                }
+            }
+
+            // Spawn only if position is far enough from others
+            if (isFarEnough)
+            {
+                Instantiate(_prefab, spawnPosition, Quaternion.identity);
+                spawnPositions.Add(spawnPosition);
+                initialCount++;
+                Debug.Log($"Spawned object {initialCount} at: {spawnPosition}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("NavMesh.SamplePosition did not find a valid position.");
+        }
+
+        return initialCount;
+    }
+
+    private int SpawnOnArea(int initialCount, Vector3 randomPosition)
+    {
+        _mapSize.x = 10f;
+        _mapSize.z = 10f;
+            Vector3 spawnPosition =  isItem ? new Vector3(0, 0.2f, 0) : Vector3.zero;
+
+            // Check distance from other spawn positions
+            bool isFarEnough = true;
+            foreach (Vector3 pos in spawnPositions)
+            {
+                if (Vector3.Distance(spawnPosition, pos) < minSpawnDistance)
+                {
+                    isFarEnough = false;
+                    break;
+                }
+            }
+
+            // Spawn only if position is far enough from others
+            if (isFarEnough)
+            {
+                Instantiate(_prefab, spawnPosition, Quaternion.identity);
+                spawnPositions.Add(spawnPosition);
+                initialCount++;
+                Debug.Log($"Spawned object {initialCount} at: {spawnPosition}");
+            }
+       
+
+        return initialCount;
+    }
+
     public void Update_hl(float h, float l)
     {
         height = h;
         width = l;
-        subscribed = true;
+       
     }
 }
