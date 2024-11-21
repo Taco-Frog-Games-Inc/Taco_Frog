@@ -80,7 +80,7 @@ public class Biome : MonoBehaviour
     private bool IsReadyForCoroutine() {
         return (gameObject.name.Contains("Grass_1") || gameObject.name.Contains("Grass_1(Clone)")) &&
                !isInitialed &&
-               isMapGeneratorComplete &&
+              
                NavMeshManager.isInitialize &&
                GameObject.Find("Player1") != null;
     }

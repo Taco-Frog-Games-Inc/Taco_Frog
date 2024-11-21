@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 884498323628250088}
-  - component: {fileID: 4668858187486060732}
+  - component: {fileID: 4158141743825434445}
   m_Layer: 0
   m_Name: ActivatePower
   m_TagString: PowerUp
@@ -124,7 +124,7 @@ Transform:
   - {fileID: 2265862012471292972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4668858187486060732
+--- !u!114 &4158141743825434445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

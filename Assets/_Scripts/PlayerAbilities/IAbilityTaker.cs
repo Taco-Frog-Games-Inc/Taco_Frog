@@ -12,11 +12,11 @@ public interface IAbilityTaker
 }
 interface IInvincibility
 {
-    int GetDamage();
-    void SetDamage(int d);
+    int GetPlayerHealth();
+    void SetPlayerHealth(int d);
 }
 
-public abstract class Ability : MonoBehaviour, IAbilityTaker, IInvincibility
+public abstract class Ability : MonoBehaviour, IAbilityTaker
 {
     protected IAbilityTaker player;
     
@@ -34,15 +34,7 @@ public abstract class Ability : MonoBehaviour, IAbilityTaker, IInvincibility
         jump = player.GetJumpHeight();
     }
 
-    public virtual int GetDamage()
-    {
-        return 0;
-    }
-    public virtual void SetDamage(int d)
-    {
-
-    }
-
+   
   
 
     
@@ -98,37 +90,4 @@ class JumpAbility :  Ability
 
 
 
-class InvincibleAbility : IInvincibility
-{
-    private bool _isActivated;
-    private IInvincibility spear, projectile;
-    
 
-    public InvincibleAbility(IInvincibility spear)
-    {
-        this.spear = spear;
-       // this.projectile = projectile;
-    }
-    public int GetDamage()
-    {
-        if(!_isActivated)
-        {
-           int newDamage = spear.GetDamage() * 0;
-            SetDamage(newDamage);
-           _isActivated = true;
-           return newDamage;
-        }
-
-        return spear.GetDamage();
-    }
-    public void SetDamage(int a)
-    {
-        
-        Debug.Log($"{spear.GetDamage()}");
-        projectile.SetDamage(a);
-        Debug.Log($"{projectile.GetDamage()}");
-        spear.SetDamage(a);
-    }
-    
-
-}

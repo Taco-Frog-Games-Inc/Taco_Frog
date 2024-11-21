@@ -14,14 +14,14 @@ public class JumpEnhancer : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        var playerScr = other.GetComponent<TestPlayerController>();
+        var playerScr = other.GetComponent<PlayerController>();
         if(other.CompareTag(playerTag))
         {
-            _ability = new JumpAbility(other.GetComponent<TestPlayerController>(), _jumpBoost);
+            _ability = new JumpAbility(other.GetComponent<PlayerController>(), _jumpBoost);
             Debug.Log("Trigger activated!");
            playerScr.SetHeight( _ability.GetJumpHeight());
             //this.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
-            Destroy(this.gameObject, 1f);
+            Destroy(this.gameObject);
         }
     }
 }
