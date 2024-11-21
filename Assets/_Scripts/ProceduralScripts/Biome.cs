@@ -50,19 +50,24 @@ public class Biome : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
+        
         Subscribe();
         path = GameObject.Find("Path");
+        Debug.Log(path);
         spawnPoint = gameObject.transform.GetChild(0).gameObject;
         Vector3 worldPosition = spawnPoint.transform.position;        
 
         GameObject waypoint = Instantiate(spawnPoint, worldPosition, Quaternion.identity);
         waypoint.transform.SetParent(path.transform, false);
         manager = spawnerManager.GetComponent<SpawnManagerABL>();
+         Debug.Log("Function called!!");
     }
 
     private void Update()
     {
+      
         if (IsReadyForCoroutine()) {
+            
             StartCoroutine(SpawnAgentsAfterBake());
             isInitialed = true;
         }
@@ -75,7 +80,7 @@ public class Biome : MonoBehaviour
     private bool IsReadyForCoroutine() {
         return (gameObject.name.Contains("Grass_1") || gameObject.name.Contains("Grass_1(Clone)")) &&
                !isInitialed &&
-               isMapGeneratorComplete &&
+              
                NavMeshManager.isInitialize &&
                GameObject.Find("Player1") != null;
     }
@@ -86,7 +91,7 @@ public class Biome : MonoBehaviour
     /// <returns></returns>
     private System.Collections.IEnumerator SpawnAgentsAfterBake()
     {        
-        yield return null;    
+        yield return null; 
         OnSpawning();
     }
 
@@ -107,6 +112,7 @@ public class Biome : MonoBehaviour
     private void OnSpawning()
     {
         float randomNumber = Random.Range(0f, 101f);
+        Debug.Log("Function called!!");
         //Enemies
         if (randomNumber > 60 && SpawnManagerABL.totalEnemyCount < manager.MaxEnemyCount)
         {
@@ -116,12 +122,13 @@ public class Biome : MonoBehaviour
 
             if (path.transform.childCount > 0) {
                 InstantiateOnTop(enemy);
+                Debug.Log("Function called!!");
                 SpawnManagerABL.totalEnemyCount++;
             }
         }
         //Items
         if (randomNumber > 40 && SpawnManagerABL.totalItemsCount < manager.MaxItemCount && !occupiedLocations.Contains(gameObject.transform.position)) {
-            InstantiateOnTop(items[Random.Range(0, 2)]);
+            InstantiateOnTop(items[Random.Range(0, 3)]);
             SpawnManagerABL.totalItemsCount++;
         }
 
@@ -139,6 +146,7 @@ public class Biome : MonoBehaviour
     /// <param name="platform"></param>
     private void InstantiateOnTop(GameObject toSpawn)
     {
+         Debug.Log("Function called!!");
         if (toSpawn != null)
         {
             Vector3 biomePosition = transform.position;
