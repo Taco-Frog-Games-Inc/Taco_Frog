@@ -68,7 +68,9 @@ public class SceneManagement : MonoBehaviour
         SaveManager.Instance.ResetCurrentScores(); //reset current scores just in case
 
         ReInitializeStaticVariables();
-        SceneManager.LoadScene(MenuCanvasController.isTestingScene ? "TestingStaticScene" : "Game_Scene");
+        if (MenuCanvasController.isTestingScene) SceneManager.LoadScene("TestingStaticScene");
+        else if (PlayerPrefs.GetInt("HasDoneTutorial") == 1) SceneManager.LoadScene("Game_Scene");
+        else SceneManager.LoadScene("Tutorial");
     }
 
     /// <summary>

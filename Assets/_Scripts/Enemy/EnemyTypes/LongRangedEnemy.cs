@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*
  * Source File Name: LongRangedEnemy.cs
@@ -68,7 +69,10 @@ public class LongRangedEnemy : EnemyController
     /// <param name="damage"></param>
     public override void TakeDamage(int damage) {
         health -= damage;
-        if (Health < 0) health = 0;        
-        if(Health == 0) Destroy(gameObject);
+        if (Health < 0) health = 0;
+        if (Health == 0) {
+            if (SceneManager.GetActiveScene().name == "Tutorial") TutorialManager.enemyKilled++;
+            Destroy(gameObject);
+        }        
     }
 }

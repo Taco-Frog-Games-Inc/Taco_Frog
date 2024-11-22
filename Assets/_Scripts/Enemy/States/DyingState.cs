@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using UnityEngine.SceneManagement;
 /*
  * Source File Name: DyingState.cs
  * Author Name: Audrey Bernier Larose

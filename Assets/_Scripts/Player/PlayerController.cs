@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
         _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
         origJumpHeight = _jumpHeight;
-        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();
+        _invUI = GameObject.FindWithTag("PowerUp")?.GetComponent<InvincibilityUI>();
     }       
 
     /// <summary>
@@ -177,7 +177,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         //check if p1
         if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
         {
-            Debug.Log("Player 1 spawned");
             //set jump height.
             _jumpHeight = _player1JumpHeight;
             _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player1TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
@@ -190,7 +189,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         }
         else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
         {
-            Debug.Log("Player 2 spawned");
             //set jump height.
             _jumpHeight = _player2JumpHeight;
             _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player2TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
