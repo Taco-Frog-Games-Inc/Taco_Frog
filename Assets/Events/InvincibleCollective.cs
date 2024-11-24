@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InvincibleCollective : MonoBehaviour
 {
-    [SerializeField] int _increasHealthTo = 5;
+    
     [SerializeField] InvincibilityChannel _invChannel; 
     const string PlayerTag = "Player";
     private void OnTriggerEnter(Collider other)

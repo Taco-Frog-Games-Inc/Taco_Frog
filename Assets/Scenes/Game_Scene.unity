@@ -194,6 +194,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4158141743825434445, guid: 215107dbad73dba439db8047fda38233, type: 3}
+      propertyPath: _gulpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b4deef8778c512e47a86981cb98b4ea6, type: 3}
     - target: {fileID: 8629873744799197640, guid: 215107dbad73dba439db8047fda38233, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -209,6 +213,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2683230198210931263, guid: 215107dbad73dba439db8047fda38233, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1786220934}
+    - targetCorrespondingSourceObject: {fileID: 2683230198210931263, guid: 215107dbad73dba439db8047fda38233, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1786220937}
   m_SourcePrefab: {fileID: 100100000, guid: 215107dbad73dba439db8047fda38233, type: 3}
 --- !u!1 &33944215
 GameObject:
@@ -234,7 +241,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33944215}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &33944217
 Transform:
   m_ObjectHideFlags: 0
@@ -859,7 +866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2414146cfdd8bb4458d7472bfc054841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _increasHealthTo: 5
   _invChannel: {fileID: 11400000, guid: cfa0379318def9243b2a2710be2878b5, type: 2}
 --- !u!65 &1717052737
 BoxCollider:
@@ -926,6 +932,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa1fa552339ca445a5b1fef412c4c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1786220937
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786220933}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1818228741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,7 +1255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2414146cfdd8bb4458d7472bfc054841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _increasHealthTo: 5
   _invChannel: {fileID: 11400000, guid: cfa0379318def9243b2a2710be2878b5, type: 2}
 --- !u!1001 &2029116423260744851
 PrefabInstance:

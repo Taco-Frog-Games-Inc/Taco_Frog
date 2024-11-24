@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class InvincibilityUI: MonoBehaviour
 {
 
@@ -13,11 +14,19 @@ public class InvincibilityUI: MonoBehaviour
 
     [SerializeField] int _maxSliderValue = 100;
     [SerializeField] int _originalSliderValue;
+    [SerializeField] float _deactivationCountDown = 5f;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _gulpClip;
     IInvincibility _ability;
   
    bool _deactivate = false;
    private Transform _ui;
      float timer = 2f;
+    
+    void Awake()
+    {
+       _audioSource = GetComponent<AudioSource>();
+    }
     void Start()
     {
         _ui = this.gameObject.transform.GetChild(0);
@@ -28,6 +37,7 @@ public class InvincibilityUI: MonoBehaviour
         
       public void SetActive()
     {
+       _audioSource.PlayOneShot(_gulpClip);
        _ui.gameObject.SetActive(true);
        _ui.GetChild(0).GetChild(0).GetComponent<Slider>().value  = _maxSliderValue;
        _originalSliderValue = _maxSliderValue;
@@ -54,7 +64,7 @@ public class InvincibilityUI: MonoBehaviour
 
      System.Collections.IEnumerator Deactivate()
      {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(_deactivationCountDown);
         _ui.gameObject.SetActive(false);
      }
     public int GetSliderValue () => _originalSliderValue;
