@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
         _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
         origJumpHeight = _jumpHeight;
-        _invUI = GameObject.FindWithTag("PowerUp")?.GetComponent<InvincibilityUI>();
+        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();
     }       
 
     /// <summary>

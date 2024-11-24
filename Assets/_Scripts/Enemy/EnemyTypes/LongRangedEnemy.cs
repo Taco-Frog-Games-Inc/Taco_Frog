@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /*
  * Source File Name: LongRangedEnemy.cs
@@ -7,8 +6,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301166198
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: October 15th, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: November 24th, 2024
  * 
  * 
  * Program Description: 
@@ -26,6 +25,8 @@ using UnityEngine.SceneManagement;
  *          - Initialize nextWayPointIndex to a random waypoint
  *      ->October 15th, 2024: 
  *          -Added animator transitions to this enemy for multiple animations to be played based on the state of the enemy.
+ *      -> November 24th, 2024:
+ *          -Moved TakeDamage() to EnemyController
  */
 
 public class LongRangedEnemy : EnemyController
@@ -61,18 +62,5 @@ public class LongRangedEnemy : EnemyController
     /// </summary>
     private void DoShooting() {
         Instantiate(taco, gameObject.transform.GetChild(0).transform.GetChild(0).transform.position, Quaternion.identity);
-    }
-
-    /// <summary>
-    /// Adjusts the enemy health by substracting the damage taken.
-    /// </summary>
-    /// <param name="damage"></param>
-    public override void TakeDamage(int damage) {
-        health -= damage;
-        if (Health < 0) health = 0;
-        if (Health == 0) {
-            if (SceneManager.GetActiveScene().name == "Tutorial") TutorialManager.enemyKilled++;
-            Destroy(gameObject);
-        }        
     }
 }
