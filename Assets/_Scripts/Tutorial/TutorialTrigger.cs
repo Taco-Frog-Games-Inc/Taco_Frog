@@ -37,7 +37,7 @@ public class TutorialTrigger : MonoBehaviour {
         if (other.name.Contains("Player")) {
             currObj = gameObject.name;
             TutorialManager.instructionText = instruction;
-            if (!gameObject.name.Equals("LevelEndTacoTutorial") && prevObj != currObj) {
+            if (!gameObject.name.Equals("LevelEndTacoTutorialMM") && prevObj != currObj) {
                 TutorialManager.conditions.CollectableItems++;
                 prevObj = currObj; //Ensures object does not collide twice.
             } 
