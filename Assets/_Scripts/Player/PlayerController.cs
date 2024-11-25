@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 /*
  * Source File Name: PlayerController.cs
@@ -10,7 +11,7 @@ using TMPro;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 13th, 2024
+ * Last Modified Date: November 24th, 2024
  * 
  * Program Description: 
  *      
@@ -31,6 +32,8 @@ using TMPro;
  *          -Added UI functionality based on the activeScreen variable.
  *      -> November 13th, 2024:
  *          -Adapted to reset TacoScore
+ *      -> November 24th, 2024:
+ *          -Adjusted for minimap functionality.
  */
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
@@ -73,6 +76,8 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
 
     //player animator for animations
     [SerializeField] private Animator _animator;
+
+    public RenderTexture minimapTexture;
 
     public int Health { get { return health; } set { if (value > 0) health = value; } }
 
@@ -146,8 +151,19 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
         _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
         origJumpHeight = _jumpHeight;
-        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();
-    }       
+        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();                
+    }
+
+    /// <summary>
+    /// Sets up the proper camera texture for player 2's minimap.
+    /// </summary>
+    private void Start() {
+        if (gameObject.transform.parent.name == "Player2") {
+            GameObject cam = gameObject.transform.parent.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
+            cam.GetComponent<Camera>().targetTexture = minimapTexture;
+            gameObject.transform.parent.transform.GetChild(0).transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.black;
+        }
+    }
 
     /// <summary>
     /// FixedUpdate does ground check and, runs, move, jump and updates player rotation.
@@ -177,7 +193,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         //check if p1
         if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
         {
-            Debug.Log("Player 1 spawned");
             //set jump height.
             _jumpHeight = _player1JumpHeight;
             _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player1TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
@@ -190,7 +205,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         }
         else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
         {
-            Debug.Log("Player 2 spawned");
             //set jump height.
             _jumpHeight = _player2JumpHeight;
             _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player2TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point

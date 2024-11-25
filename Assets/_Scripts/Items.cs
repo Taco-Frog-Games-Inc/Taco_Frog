@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using UnityEngine;
 
 /*
@@ -8,7 +7,7 @@ using UnityEngine;
  * Creation Date: October 14th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 13th, 2024
+ * Last Modified Date: November 24th, 2024
  * 
  * 
  * Program Description: 
@@ -22,6 +21,8 @@ using UnityEngine;
  *          -Implemented the Start(), Update() and ItemTypeEnum
  *      -> November 13th, 2024:
  *          -Adapted to increase TacoScore
+ *      -> November 24th, 2024:
+ *          -Removed the update()
  */
 public class Items : MonoBehaviour, IRewarder
 {
@@ -49,10 +50,6 @@ public class Items : MonoBehaviour, IRewarder
     void Start() {
         Vector3 newPos = new(transform.position.x, 1.5f, transform.position.z);
         transform.position = newPos;
-    }
-
-    void Update() {
-        transform.Rotate(0, 0,5f, 0);
     }
 }
 

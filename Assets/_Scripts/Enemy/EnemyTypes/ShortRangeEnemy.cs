@@ -6,7 +6,7 @@ using UnityEngine;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 12th, 2024
+ * Last Modified Date: November 24th, 2024
  * 
  * 
  * Program Description: 
@@ -20,6 +20,8 @@ using UnityEngine;
  *          -Added the functionality of taking damage.
  *          - Removed testing statement
  *          - Initialize nextWayPointIndex to a random waypont.
+ *      -> November 24th, 2024:
+ *          -Moved TakeDamage() to EnemyController
  */
 
 public class ShortRangeEnemy : EnemyController
@@ -37,14 +39,4 @@ public class ShortRangeEnemy : EnemyController
     public override void Attack() { }
 
     public override void StopAttack() { }
-
-    /// <summary>
-    /// Reduces the enemy health by substracting the damage taken.
-    /// </summary>
-    /// <param name="damage"></param>
-    public override void TakeDamage(int damage) {
-        health -= damage;
-        if (Health < 0) health = 0;
-        if (Health == 0) Destroy(gameObject);
-    }
 }

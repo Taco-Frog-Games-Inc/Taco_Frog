@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -10,7 +9,7 @@ using UnityEngine.SceneManagement;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 11th, 2024
+ * Last Modified Date: November 24th, 2024
  * 
  * 
  * Program Description: 
@@ -32,6 +31,9 @@ using UnityEngine.SceneManagement;
  *          EngagePlayer methods.
  *      -> November 11th, 2024:
  *          -Adapted for testing scene.
+ *      -> November 24th, 2024:
+ *          -Removed unused OnTriggerEnter implementation
+ *          -Moved TakeDamage() from long and short ranged controllers to here.
  */
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, IDamager
 {
@@ -107,17 +109,22 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
     /// It if does, calls the TakeDamage() of the IDamageTaker interface.
     /// </summary>
     /// <param name="other"></param>
-    public void OnTriggerEnter(Collider other)
-    {
-        /*if (gameObject.CompareTag("Enemy") && other.gameObject.CompareTag("Player"))
-        {
-            GameObject player = other.gameObject;
-            IDamageTaker damageTaker = player.GetComponent<IDamageTaker>();
-            damageTaker?.TakeDamage(DamageToApply);
-        }*/
-    }
+    public void OnTriggerEnter(Collider other) { }
     public abstract void Attack();
     public abstract void StopAttack();
-    public abstract void TakeDamage(int damage);
 
+    /// <summary>
+    /// Adjusts the enemy health by substracting the damage taken.
+    /// </summary>
+    /// <param name="damage"></param>
+    public void TakeDamage(int damage) {
+        health -= damage;
+        if (Health < 0) health = 0;
+        if (Health == 0)
+        {
+            if (SceneManagement.SceneManagementUtils.IsCurrentScene("Tutorial"))
+                TutorialManager.conditions.EnemyKilled++;
+            Destroy(gameObject);
+        }
+    }
 }

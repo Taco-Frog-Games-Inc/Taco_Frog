@@ -18,6 +18,7 @@ TagManager:
   - PowerUp
   - Slider
   - SpawnManager
+  - Minimap
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Building
   - HighGround
   - TongueAttack
-  - 
+  - Minimap
   - 
   - 
   - 
