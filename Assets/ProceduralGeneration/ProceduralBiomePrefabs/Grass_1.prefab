@@ -210,8 +210,9 @@ MonoBehaviour:
   spawnerManager: {fileID: 5490065249367894826, guid: c51c038c593e1af40a578bd2e0aeb2cc, type: 3}
   spikes: {fileID: 223225547287493961, guid: ae74a6f2d97662144bd1cddf976c5957, type: 3}
   items:
-  - {fileID: 2709569195012220761, guid: d8976c12b99668f4b90ddca6efe115e0, type: 3}
-  - {fileID: 3129200342344496425, guid: 3e29573f06c0a7e4fa986fff41de17af, type: 3}
+  - {fileID: 961422908411743223, guid: db2dd91567d305f42a394d4804e6f057, type: 3}
+  - {fileID: 2267127233964059337, guid: f36cc0bf2d280d04b885f92f38b30057, type: 3}
+  - {fileID: 4533690105623867799, guid: 62cbac36c9d0d334f80e3f6328d536e3, type: 3}
 --- !u!1 &3619852846953431357
 GameObject:
   m_ObjectHideFlags: 0

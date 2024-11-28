@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 /*
  * Source File Name: PlayerController.cs
@@ -10,7 +11,7 @@ using TMPro;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 13th, 2024
+ * Last Modified Date: November 24th, 2024
  * 
  * Program Description: 
  *      
@@ -31,9 +32,11 @@ using TMPro;
  *          -Added UI functionality based on the activeScreen variable.
  *      -> November 13th, 2024:
  *          -Adapted to reset TacoScore
+ *      -> November 24th, 2024:
+ *          -Adjusted for minimap functionality.
  */
 
-public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
+public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
 {
     //variables needed for moving
     private CharacterController _characterController;
@@ -74,8 +77,14 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     //player animator for animations
     [SerializeField] private Animator _animator;
 
+    public RenderTexture minimapTexture;
+
     public int Health { get { return health; } set { if (value > 0) health = value; } }
 
+    //to ger reference to original jump height helps in reseting height after using ability
+    private float origJumpHeight; 
+
+    InvincibilityUI _invUI;
     /// <summary>
     /// Parts of the IDamageTaker
     /// Used along with the IDamager
@@ -83,17 +92,26 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
     /// <param name="damage"></param>
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (Health < 0) health = 0;
-
-        activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
-        if (Health == 0)
+        //if ability is active player will not get damage if deactivated player will receive damage
+        if(_invUI.transform.GetChild(0).gameObject.activeSelf)
         {
+            _invUI.ReduceSliderValue(damage);
+        }
+        else if(!_invUI.transform.GetChild(0).gameObject.activeSelf)
+        {
+             health -= damage;
+             if (Health < 0) health = 0;
+
+             activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
+            if (Health == 0)
+            {
             //make sure score is updated before death (scene call)
             SaveManager.Instance.UpdateCurrentScore();
             SaveManager.Instance.ResetTacoScore();
             SceneManager.LoadScene("LoseScreen");
+            }
         }
+       
     }
 
     public int Score { get { return _score; } set { if (value > 0) _score = value; } }
@@ -132,7 +150,20 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         //set the collider size and offset
         _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
         _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
-    }       
+        origJumpHeight = _jumpHeight;
+        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();                
+    }
+
+    /// <summary>
+    /// Sets up the proper camera texture for player 2's minimap.
+    /// </summary>
+    private void Start() {
+        if (gameObject.transform.parent.name == "Player2") {
+            GameObject cam = gameObject.transform.parent.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
+            cam.GetComponent<Camera>().targetTexture = minimapTexture;
+            gameObject.transform.parent.transform.GetChild(0).transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.black;
+        }
+    }
 
     /// <summary>
     /// FixedUpdate does ground check and, runs, move, jump and updates player rotation.
@@ -162,7 +193,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         //check if p1
         if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
         {
-            Debug.Log("Player 1 spawned");
             //set jump height.
             _jumpHeight = _player1JumpHeight;
             _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player1TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
@@ -175,7 +205,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         }
         else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
         {
-            Debug.Log("Player 2 spawned");
             //set jump height.
             _jumpHeight = _player2JumpHeight;
             _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player2TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
@@ -234,6 +263,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
             //...make the player jump and set isJumpPressed to false (gravity is positive so the
             //player will 'jump' to a certain height.
             _velocity.y += Mathf.Sqrt(_jumpHeight * _gravity);
+            if(_jumpHeight > origJumpHeight) _jumpHeight = origJumpHeight; //resets the jump height
             _isJumpPressed = false;
         }
         _velocity.y -= _gravity * Time.deltaTime; //otherwise make sure that gravity is negative
@@ -316,4 +346,14 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker
         //updates the player rotation. the Vector3 passsed had to be adjusted since the x, y and z and different that the actual player WASD directional inputs translation.
         _playerTransform.rotation = Quaternion.LookRotation(new Vector3(_direction.z, _direction.y, _direction.x * -1));
     }
+
+    /// <summary>
+    /// IAbility taker interface attached, it helps in manupulating jump height when jump enhancer is acquired please let it stay public
+    /// </summary>
+    /// <returns></returns>
+    public float GetJumpHeight() => _jumpHeight;
+   
+
+    public void SetHeight(float j) => _jumpHeight = j;
+   
 }

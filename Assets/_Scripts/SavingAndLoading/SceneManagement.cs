@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,8 +7,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: November 13th, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: November 24th, 2024
  * 
  * 
  * Program Description: 
@@ -42,8 +41,9 @@ using UnityEngine.SceneManagement;
  *          -Continued to add saving capabilities for score points and taco points to be reset etc.
  *          -Added more comments.
  *          -Added mutli and single player delete options
- *          
- *
+ *      -> November 24th, 2024:
+ *          -Added the static SceneManagementUtils inner class.
+ *          -Adjusted for tutorial navigation
  */
 
 public class SceneManagement : MonoBehaviour
@@ -53,6 +53,7 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
+        PlayerPrefs.SetInt("HasDoneTutorial", 0); //Resets the tutorial condition everytime a player quits.
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
@@ -68,7 +69,10 @@ public class SceneManagement : MonoBehaviour
         SaveManager.Instance.ResetCurrentScores(); //reset current scores just in case
 
         ReInitializeStaticVariables();
-        SceneManager.LoadScene(MenuCanvasController.isTestingScene ? "TestingStaticScene" : "Game_Scene");
+
+        if (MenuCanvasController.isTestingScene) SceneManager.LoadScene("TestingStaticScene");
+        else if (PlayerPrefs.GetInt("HasDoneTutorial") == 1) SceneManager.LoadScene("Game_Scene");
+        else SceneManager.LoadScene("Tutorial");
     }
 
     /// <summary>
@@ -145,5 +149,13 @@ public class SceneManagement : MonoBehaviour
         SpawnManagerABL.totalHazardsCount = 0;
         SpawnManagerABL.totalItemsCount = 0;
         NavMeshManager.isInitialize = false;
+    }
+
+    //Utility class used to manage scenes.
+    public static class SceneManagementUtils {
+        public static bool IsCurrentScene(string name) {
+            Debug.Log("Scene: " + name);
+            return SceneManager.GetActiveScene().name == name;
+        }
     }
 }
