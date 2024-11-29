@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d424a261f587c498ace3a7c398df10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fpsCounterText: {fileID: 0}
+  _franeRateText: {fileID: 0}
+  _targetFrameRate: 60

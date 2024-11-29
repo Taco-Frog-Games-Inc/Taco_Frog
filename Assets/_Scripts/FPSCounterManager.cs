@@ -19,6 +19,8 @@ using UnityEngine;
  * Revision History:
  *      -> November 28th, 2024:
  *          -Created this script and fully implemented it.
+ *      -> November 29th 2024:
+ *          -Improved the FPS counter
  */
 
 public class FPSCounterManager : PersistGenericSingleton<FPSCounterManager>
@@ -45,7 +47,7 @@ public class FPSCounterManager : PersistGenericSingleton<FPSCounterManager>
 
         if(_time >= _timeBetweenFrameCount)
         {
-            int frameRate = Mathf.RoundToInt(_frameCount / _time); //get the framerate by dividing the frameCount (how many frames occured in the update) by the actual time that has occured
+            float frameRate = Mathf.Round((_frameCount / _time) * 10f) / 10f; //get the framerate by dividing the frameCount (how many frames occured in the update) by the actual time that has occured
 
             _franeRateText.text = $"FPS: {frameRate.ToString()}"; //display the frameRate
 
