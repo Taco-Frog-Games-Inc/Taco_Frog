@@ -68,8 +68,6 @@ public class MapGenerator : MonoBehaviour
     {
         _height = PlayerPrefs.GetInt("mapHeight");
         _length = PlayerPrefs.GetInt("mapLength");
-      
-      
     }
 
     /// <summary>
