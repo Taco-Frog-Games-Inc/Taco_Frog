@@ -3694,6 +3694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minimap
       objectReference: {fileID: 0}
+    - target: {fileID: 2250993742230497459, guid: aeb6ac76047ab6e4292304d56a4f6503, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2417678034021282555, guid: aeb6ac76047ab6e4292304d56a4f6503, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 820
@@ -3815,6 +3819,10 @@ PrefabInstance:
     - target: {fileID: 2250993742230497459, guid: aeb6ac76047ab6e4292304d56a4f6503, type: 3}
       propertyPath: m_Name
       value: Minimap
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250993742230497459, guid: aeb6ac76047ab6e4292304d56a4f6503, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2417678034021282555, guid: aeb6ac76047ab6e4292304d56a4f6503, type: 3}
       propertyPath: m_AnchoredPosition.x

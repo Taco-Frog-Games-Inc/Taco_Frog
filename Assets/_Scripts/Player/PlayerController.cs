@@ -34,6 +34,8 @@ using UnityEngine.UI;
  *          -Adapted to reset TacoScore
  *      -> November 24th, 2024:
  *          -Adjusted for minimap functionality.
+ *      -> November 30th. 2024:
+ *          -Added scene change fade.
  */
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
@@ -108,6 +110,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
             //make sure score is updated before death (scene call)
             SaveManager.Instance.UpdateCurrentScore();
             SaveManager.Instance.ResetTacoScore();
+            SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
             SceneManager.LoadScene("LoseScreen");
             }
         }
