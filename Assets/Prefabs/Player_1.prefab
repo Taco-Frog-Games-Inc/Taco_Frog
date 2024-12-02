@@ -146,9 +146,11 @@ MonoBehaviour:
   _player2TongueAttackpointDistance: 6
   _tongueAttackpoint: {fileID: 559455662788229151}
   health: 100
+  activeScreen: {fileID: 0}
   p1Head: {fileID: 2992561641327040082}
   p2Head: {fileID: 7179828222480633151}
   _animator: {fileID: 2376021078121730620}
+  minimapTexture: {fileID: 8400000, guid: 3d6703087e720804fb1c23ff01111883, type: 2}
 --- !u!143 &318434927917487421
 CharacterController:
   m_ObjectHideFlags: 0
