@@ -19,6 +19,11 @@ TagManager:
   - Slider
   - SpawnManager
   - Minimap
+  - Lava
+  - Water
+  - SpearHead
+  - Projectile
+  - PlayerParticles
   layers:
   - Default
   - TransparentFX

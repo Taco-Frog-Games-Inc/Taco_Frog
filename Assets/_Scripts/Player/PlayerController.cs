@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 /*
  * Source File Name: PlayerController.cs
@@ -10,8 +11,8 @@ using UnityEngine.UI;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified by: Alexander Maynard
+ * Last Modified Date: December 2nd, 2024
  * 
  * Program Description: 
  *      
@@ -36,6 +37,9 @@ using UnityEngine.UI;
  *          -Adjusted for minimap functionality.
  *      -> November 30th. 2024:
  *          -Added scene change fade.
+ *          -Added small delay before death for paticles to take effect (if needed).
+ *      -> December 2nd, 2024:
+ *          -Disabled player input when health reaches 0.
  */
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
@@ -81,6 +85,10 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
 
     public RenderTexture minimapTexture;
 
+
+    //player Input refrence
+    [SerializeField] private PlayerInput _playerInput;
+
     public int Health { get { return health; } set { if (value > 0) health = value; } }
 
     //to ger reference to original jump height helps in reseting height after using ability
@@ -107,14 +115,23 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
              activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
             if (Health == 0)
             {
-            //make sure score is updated before death (scene call)
-            SaveManager.Instance.UpdateCurrentScore();
-            SaveManager.Instance.ResetTacoScore();
-            SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
-            SceneManager.LoadScene("LoseScreen");
+                _playerInput.enabled = false;
+                Invoke("LoadSceneAfterDeath", 1f);
             }
         }
        
+    }
+
+    /// <summary>
+    /// To allow delays for particles to take effect
+    /// </summary>
+    public void LoadSceneAfterDeath()
+    {
+        //make sure score is updated before death (scene call)
+        SaveManager.Instance.UpdateCurrentScore();
+        SaveManager.Instance.ResetTacoScore();
+        SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
+        SceneManager.LoadScene("LoseScreen");
     }
 
     public int Score { get { return _score; } set { if (value > 0) _score = value; } }

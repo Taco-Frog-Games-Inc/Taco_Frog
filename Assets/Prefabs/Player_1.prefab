@@ -41,6 +41,8 @@ Transform:
   - {fileID: 8363839267151566086}
   - {fileID: 6101173822551512677}
   - {fileID: 3984471624798188086}
+  - {fileID: 4319805219507608762}
+  - {fileID: 7869914663954436830}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5707190794997696484
@@ -110,7 +112,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -146,9 +148,12 @@ MonoBehaviour:
   _player2TongueAttackpointDistance: 6
   _tongueAttackpoint: {fileID: 559455662788229151}
   health: 100
+  activeScreen: {fileID: 0}
   p1Head: {fileID: 2992561641327040082}
   p2Head: {fileID: 7179828222480633151}
   _animator: {fileID: 2376021078121730620}
+  minimapTexture: {fileID: 0}
+  _playerInput: {fileID: 1428916439888989168}
 --- !u!143 &318434927917487421
 CharacterController:
   m_ObjectHideFlags: 0
@@ -573,6 +578,144 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &8422560393391891731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7869914663954436830}
+  - component: {fileID: 5262740197789711724}
+  - component: {fileID: 3577871010319146327}
+  m_Layer: 0
+  m_Name: SplashDetection
+  m_TagString: PlayerParticles
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7869914663954436830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8422560393391891731}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5491260989430058866}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5262740197789711724
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8422560393391891731}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3577871010319146327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8422560393391891731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887f75bed5cc51446860025ed0b231a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lavaColor: {r: 1, g: 0.553, b: 0, a: 1}
+  _waterColor: {r: 0.072445706, g: 0.22415271, b: 0.41509432, a: 1}
+  _bloodColor: {r: 0.9150943, g: 0.18560876, b: 0.18560876, a: 1}
+  _enemyBloodColor: {r: 0.3679245, g: 0.09253048, b: 0.08851013, a: 1}
+  _splashParticleSystem: {fileID: 4856810530421946972}
+--- !u!1001 &705278872600054189
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5491260989430058866}
+    m_Modifications:
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713314208245747126, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+      propertyPath: m_Name
+      value: PlayerSplashParticles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+--- !u!4 &4319805219507608762 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3619381792681432343, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+  m_PrefabInstance: {fileID: 705278872600054189}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4856810530421946972 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5381656506075132913, guid: d7b82a37618813143b5512a45ceaf0cf, type: 3}
+  m_PrefabInstance: {fileID: 705278872600054189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3108297239383609517
 PrefabInstance:
   m_ObjectHideFlags: 0
