@@ -35,6 +35,7 @@ using UnityEngine.SceneManagement;
  *          -Removed unused OnTriggerEnter implementation
  *          -Moved TakeDamage() from long and short ranged controllers to here.
  */
+[RequireComponent(typeof(AudioSource))]
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, IDamager
 {
 
@@ -58,9 +59,10 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
     [SerializeField] protected internal int health = 100;
     public int Health { get { return health;  } set { if (value > 0) health = value; } }
     [SerializeField] private int damageToApply;
-
+   
     private int _defaultDamageToApply = 10;
     private bool isTestingScene;
+   
     public int DamageToApply { get { return _defaultDamageToApply; } set { if (value > 0) _defaultDamageToApply = value; } }
     private void Awake() { stateMachine = new(); }
     public void Start() {
@@ -71,6 +73,7 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
 
         cosEnemyFOVover2InRAD = Mathf.Cos(EnemyFOV / 2f * Mathf.Deg2Rad); 
         navMeshAgent = GetComponent<NavMeshAgent>();
+       
     }
     public void FixedUpdate() { stateMachine.FixedUpdate(); }
     
@@ -119,12 +122,14 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
     /// <param name="damage"></param>
     public void TakeDamage(int damage) {
         health -= damage;
+       
         if (Health < 0) health = 0;
         if (Health == 0)
         {
             if (SceneManagement.SceneManagementUtils.IsCurrentScene("Tutorial"))
                 TutorialManager.conditions.EnemyKilled++;
             Destroy(gameObject);
+           
         }
     }
 }

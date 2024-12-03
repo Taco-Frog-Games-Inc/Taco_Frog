@@ -25,13 +25,20 @@ public class PlayerDamager : MonoBehaviour, IDamager
 {
     private int _damageToApply;
     public int DamageToApply { get { return _damageToApply; } set { if (value > 0) _damageToApply = value; } }
-
+    private AudioSource _ads;
+    [SerializeField] AudioClip _aclip, _aSecClip;
+    [SerializeField] JumpSoundChannel _jmpSnd;
     /// <summary>
     /// Parts of the IDamager contract.
     /// Checks if the other collider is implementing the IDamageTaker interface.
     /// It if does, calls the TakeDamage() of the IDamageTaker interface.
     /// </summary>
     /// <param name="other"></param>
+    /// 
+    void Start()
+    {
+        _ads = GetComponent<AudioSource>();
+    }
     public void OnTriggerEnter(Collider other) {
         GameObject parent = gameObject.transform.parent.gameObject;
         if (gameObject.CompareTag("EnemySquasher") && other.gameObject.CompareTag("EnemyHead") &&
@@ -48,12 +55,14 @@ public class PlayerDamager : MonoBehaviour, IDamager
     /// <param name="other"></param>
     private void DoEnemyHead_Damage(Collider other) {
         GameObject enemy = other.transform.parent.transform.parent.gameObject;
-
+       // _ads.PlayOneShot(_aSecClip);
         if (enemy.GetComponent<ShortRangeEnemy>()) _damageToApply = 50;
         else if (enemy.GetComponent<LongRangedEnemy>()) _damageToApply = 100;
 
         IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
         damageTaker?.TakeDamage(DamageToApply);
+        
+
     }
 
     /// <summary>
@@ -69,5 +78,10 @@ public class PlayerDamager : MonoBehaviour, IDamager
 
         IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
         damageTaker?.TakeDamage(DamageToApply);
+        EnemyGotDamageSound();
+    }
+     public void EnemyGotDamageSound()
+    {
+         _ads.PlayOneShot(_aclip);
     }
 }

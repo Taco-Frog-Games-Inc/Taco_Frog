@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
 
     //to ger reference to original jump height helps in reseting height after using ability
     private float origJumpHeight; 
-
+    private AudioManager _playerAudio;
     InvincibilityUI _invUI;
     /// <summary>
     /// Parts of the IDamageTaker
@@ -110,6 +110,8 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         else if(!_invUI.transform.GetChild(0).gameObject.activeSelf)
         {
              health -= damage;
+             _playerAudio.PlayGettingDamage();
+            // _particleSys.Play();
              if (Health < 0) health = 0;
 
              activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
@@ -171,7 +173,8 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
         _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
         origJumpHeight = _jumpHeight;
-        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();                
+        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();  
+         _playerAudio = GetComponent<AudioManager>();              
     }
 
     /// <summary>
@@ -283,6 +286,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
             //...make the player jump and set isJumpPressed to false (gravity is positive so the
             //player will 'jump' to a certain height.
             _velocity.y += Mathf.Sqrt(_jumpHeight * _gravity);
+             _playerAudio.PlayJumping();
             if(_jumpHeight > origJumpHeight) _jumpHeight = origJumpHeight; //resets the jump height
             _isJumpPressed = false;
         }
@@ -316,6 +320,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         {
             _canAttack = false;
             EnableTongueAttack(); //enable the tongue attack
+            _playerAudio.PlayAttack();
             Invoke(nameof(DisableTongueAttack), 0.5f); //call disable on a delay
         }
     }
@@ -375,5 +380,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
    
 
     public void SetHeight(float j) => _jumpHeight = j;
+    public void PlayJumpEnhanceSound() => _playerAudio.PlayGetJumpEnhance();
+    public void PlayDrownDeath()=> _playerAudio.PlayDrownDeath();
    
 }

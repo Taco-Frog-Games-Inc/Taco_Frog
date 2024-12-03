@@ -30,11 +30,18 @@ public class SplashParticleManager : MonoBehaviour
     [SerializeField] private Color _enemyBloodColor;
     [SerializeField] private ParticleSystem _splashParticleSystem;
     [SerializeField] private EnemyHealth _enemyhealth;
-
+   
+   
     /// <summary>
     /// On a collision decide what hit the player. Then passs a color the the ChangeColor method.
     /// </summary>
     /// <param name="other"></param>
+    /// 
+
+    void Start()
+    {
+       
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Water"))
@@ -52,7 +59,9 @@ public class SplashParticleManager : MonoBehaviour
         //check so that player components don't cause particles to play on start.
         else if (!this.gameObject.CompareTag("PlayerParticles") && (other.gameObject.CompareTag("Tongue") || other.gameObject.CompareTag("EnemySquasher")))
         {
+           
             ChangeColor(_enemyBloodColor);
+        
         }
     }
 
@@ -67,4 +76,6 @@ public class SplashParticleManager : MonoBehaviour
         _splashParticleSystem.Clear();
         _splashParticleSystem.Play();
     }
+
+   
 }

@@ -1,4 +1,7 @@
+using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
+
 /*
  * Source File Name: Hazard.cs
  * Author Name: Audrey Bernier Larose
@@ -22,7 +25,7 @@ public class Hazard : MonoBehaviour, IDamager
     [Header("Properties")]
     [SerializeField] private int _damageToApply;
     public int DamageToApply { get { return _damageToApply; } set { if (value > 0) _damageToApply = value; } }
-
+    [SerializeField] DrownChannel _drChannel;
     /// <summary>
     /// Parts of the IDamager contract.
     /// Checks if the other collider is implementing the IDamageTaker interface.
@@ -31,6 +34,7 @@ public class Hazard : MonoBehaviour, IDamager
     /// <param name="other"></param>
     public void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player")) {
+            _drChannel.Invoke(true);
             IDamageTaker damageTaker = other.GetComponent<IDamageTaker>();
             damageTaker?.TakeDamage(DamageToApply);
         }
