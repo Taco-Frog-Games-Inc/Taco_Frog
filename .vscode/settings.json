@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Taco_Frog_Github_2.sln"
+    "dotnet.defaultSolution": "Taco_Frog_mn.sln"
 }
