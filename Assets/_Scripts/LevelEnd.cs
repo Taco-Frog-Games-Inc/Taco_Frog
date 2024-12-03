@@ -2,13 +2,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /*
- * Source File Name: PlayerController.cs
+ * Source File Name: LevelEnd.cs
  * Author Name: Alexander Maynard
  * Student Number: 301170707
  * Creation Date: October 3rd, 2024
  * 
- * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 10th, 2024
+ * Last Modified by: Alexander Maynard
+ * Last Modified Date: November 30th, 2024
  * 
  * 
  * Program Description: 
@@ -22,6 +22,8 @@ using UnityEngine.SceneManagement;
  *          -Added check for the player so that level end isn't called by everything.
  *      -> November 10th, 2024:
  *          -Adjusted for multiplayer. 
+ *      -> November 30th, 2024:
+ *          -Added scene transition fade
  */
 
 public class LevelEnd : MonoBehaviour
@@ -42,6 +44,7 @@ public class LevelEnd : MonoBehaviour
             //update the score before the next scene change
             SaveManager.Instance.UpdateCurrentScore();
             //.. increment saving logic if it's selected? --> iteration 2. For now just need level end bringing the player to the win screen.
+            SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
             SceneManager.LoadScene("WinScreen"); //load the win screen
         }
     }

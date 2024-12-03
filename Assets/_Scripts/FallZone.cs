@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
  * Creation Date: October 5th, 2024
  * 
  * Last Modified by: Alexander Maynard
- * Last Modified Date: October 5th, 2024
+ * Last Modified Date: November 30th, 2024
  * 
  * Program Description: 
  *      
@@ -17,6 +17,8 @@ using UnityEngine.SceneManagement;
  * Revision History:
  *      -> October 3rd, 2024:
  *          -Created this script and fully implemented it for now (until iteration 2)
+ *      -> November 30th, 2024:
+ *          -Added scene transition fade
  */
 
 public class FallZone : MonoBehaviour
@@ -29,6 +31,7 @@ public class FallZone : MonoBehaviour
         {
             //make sure score is updated properly before death (scene transition)
             SaveManager.Instance.UpdateCurrentScore();
+            SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
             SceneManager.LoadScene("LoseScreen"); //load the lose screen for now... Iteration 2 this will need to be updated.
         }
     }

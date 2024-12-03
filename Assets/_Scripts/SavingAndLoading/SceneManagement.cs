@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,8 +8,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified by: Alexander Maynard
+ * Last Modified Date: November 30th, 2024
  * 
  * 
  * Program Description: 
@@ -44,6 +45,8 @@ using UnityEngine.SceneManagement;
  *      -> November 24th, 2024:
  *          -Added the static SceneManagementUtils inner class.
  *          -Adjusted for tutorial navigation
+ *      -> November 30th, 2024:
+ *          -Added scene change fade
  */
 
 public class SceneManagement : MonoBehaviour
@@ -70,6 +73,8 @@ public class SceneManagement : MonoBehaviour
 
         ReInitializeStaticVariables();
 
+        SceneChangeFade.Instance.AddSceneFade();
+
         if (MenuCanvasController.isTestingScene) SceneManager.LoadScene("TestingStaticScene");
         else if (PlayerPrefs.GetInt("HasDoneTutorial") == 1) SceneManager.LoadScene("Game_Scene");
         else SceneManager.LoadScene("Tutorial");
@@ -80,6 +85,7 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void Options()
     {
+        SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
         SceneManager.LoadScene("Options");
     }
 
@@ -88,6 +94,8 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void LeaveOrBack()
     {
+        SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
+
         //don't save and call the main menu scene
         SceneManager.LoadScene("Main_Menu");
     }
@@ -97,6 +105,8 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void SaveAndLeave()
     {
+        SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
+
         //save the point score and amount of tacos
         SaveManager.Instance.SaveData();
         //code for  back to main
@@ -108,6 +118,8 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void SingleplayerChosen()
     {
+        SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
+
         ReInitializeStaticVariables();
         SceneManager.LoadScene("Open_Game_Scene");
         PlayerPrefs.SetInt("NumbOfPlayer", 1);
@@ -119,6 +131,8 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void MultiplayerChosen()
     {
+        SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
+
         ReInitializeStaticVariables();
         SceneManager.LoadScene("Open_Game_Scene_multiplayer");
         PlayerPrefs.SetInt("NumbOfPlayer", 2);
@@ -141,6 +155,9 @@ public class SceneManagement : MonoBehaviour
         SaveManager.Instance.SetNextMapSize();
         
         ReInitializeStaticVariables();
+
+        SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
+
         SceneManager.LoadScene("Game_Scene");
     }
 

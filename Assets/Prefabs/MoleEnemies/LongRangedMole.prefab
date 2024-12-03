@@ -432,6 +432,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6300511353863743299}
+  - {fileID: 7336400848461369895}
   - {fileID: 4308892581745560646}
   - {fileID: 134992183631993817}
   m_Father: {fileID: 0}
@@ -461,7 +463,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &5448129675490008201
 BoxCollider:
@@ -1931,6 +1933,79 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4539206697761459533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7336400848461369895}
+  - component: {fileID: 4332457886380867056}
+  - component: {fileID: 4716017218605431954}
+  m_Layer: 0
+  m_Name: EnemySplashDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7336400848461369895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539206697761459533}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.768, z: -0.161}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3940987690973906252}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4332457886380867056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539206697761459533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887f75bed5cc51446860025ed0b231a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lavaColor: {r: 1, g: 0.553, b: 0, a: 1}
+  _waterColor: {r: 0.072445706, g: 0.22415271, b: 0.41509432, a: 1}
+  _bloodColor: {r: 0.9150943, g: 0.18560876, b: 0.18560876, a: 1}
+  _enemyBloodColor: {r: 0.468, g: 0, b: 0, a: 1}
+  _splashParticleSystem: {fileID: 3457134168105877925}
+--- !u!136 &4716017218605431954
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539206697761459533}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &4621648345594268715
 GameObject:
   m_ObjectHideFlags: 0
@@ -3324,3 +3399,74 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &7949385904013874817
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3940987690973906252}
+    m_Modifications:
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.458
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732106082953959204, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8353971040500754787, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+      propertyPath: m_Name
+      value: EnemySplashParticles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+--- !u!198 &3457134168105877925 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4732106082953959204, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+  m_PrefabInstance: {fileID: 7949385904013874817}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6300511353863743299 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4124749622178722242, guid: 733ae8b5ec393b84a9e427376bfd7beb, type: 3}
+  m_PrefabInstance: {fileID: 7949385904013874817}
+  m_PrefabAsset: {fileID: 0}
