@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageToApply: 100
+  _drChannel: {fileID: 11400000, guid: f7ae600923e6d9e4587b5ee1a462fff8, type: 2}
 --- !u!54 &317141047833900469
 Rigidbody:
   m_ObjectHideFlags: 0

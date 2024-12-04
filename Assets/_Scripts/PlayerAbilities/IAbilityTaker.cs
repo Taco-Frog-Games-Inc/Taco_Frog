@@ -7,8 +7,7 @@ public interface IAbilityTaker
     
     float GetJumpHeight();
    void SetHeight(float j);
-   // bool IsJumpPressed();
-   //void Run();
+   
 }
 interface IInvincibility
 {
@@ -41,7 +40,7 @@ public abstract class Ability : MonoBehaviour, IAbilityTaker
 }
 
 
-class JumpAbility :  Ability
+public class JumpAbility :  Ability
 {
     private float jumpBoost, origHeight;
     private bool _isActivated;
