@@ -7,7 +7,7 @@ using UnityEngine;
  * Creation Date:  November 30th, 2024
  * 
  * Last Modified by: Alexander Maynard
- * Last Modified Date: December 2nd, 2024
+ * Last Modified Date: December 4th, 2024
  * 
  * 
  * Program Description: 
@@ -19,6 +19,8 @@ using UnityEngine;
  *          -Created the initial calling of particles for the player (no colors yet).
  *      -> December 2nd, 2024:
  *          -Updated the script to change particle colors based on what the player hits.
+ *      -> December 4th, 2024:
+ *          -Fixed broken particle effects.
  */
 
 
@@ -46,22 +48,21 @@ public class SplashParticleManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Water"))
         {
-            ChangeColor(_waterColor);
+            PlayParticlesWithColor(_waterColor);
         }
         else if (other.gameObject.CompareTag("Lava"))
         {
-            ChangeColor(_lavaColor);
+            PlayParticlesWithColor(_lavaColor);
         }
-        else if (other.gameObject.CompareTag("SpearHead") || other.gameObject.CompareTag("Projectile"))
+        //check so that enemy components don't cause particles to play on start.
+        else if ((!this.gameObject.CompareTag("EnemyParticles") && other.gameObject.CompareTag("SpearHead")) || (!this.gameObject.CompareTag("EnemyParticles") && other.gameObject.CompareTag("Projectile")))
         {
-            ChangeColor(_bloodColor);
+            PlayParticlesWithColor(_bloodColor);
         }
         //check so that player components don't cause particles to play on start.
-        else if (!this.gameObject.CompareTag("PlayerParticles") && (other.gameObject.CompareTag("Tongue") || other.gameObject.CompareTag("EnemySquasher")))
+        else if ((!this.gameObject.CompareTag("PlayerParticles") && (other.gameObject.CompareTag("Tongue")) || (!this.gameObject.CompareTag("PlayerParticles") && other.gameObject.CompareTag("EnemySquasher"))))
         {
-           
-            ChangeColor(_enemyBloodColor);
-        
+            PlayParticlesWithColor(_enemyBloodColor);
         }
     }
 
@@ -69,13 +70,11 @@ public class SplashParticleManager : MonoBehaviour
     /// Changes the color of the particles with the color passed in 
     /// </summary>
     /// <param name="color">color that is going to be applied the partcile effect</param>
-    private void ChangeColor(Color color)
+    private void PlayParticlesWithColor(Color color)
     {
         var main = _splashParticleSystem.main;
         main.startColor = new ParticleSystem.MinMaxGradient(color);
         _splashParticleSystem.Clear();
         _splashParticleSystem.Play();
     }
-
-   
 }

@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301166198
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified by: Alexander Maynard
+ * Last Modified Date: December 4th, 2024
  * 
  * 
  * Program Description: 
@@ -34,6 +34,8 @@ using UnityEngine.SceneManagement;
  *      -> November 24th, 2024:
  *          -Removed unused OnTriggerEnter implementation
  *          -Moved TakeDamage() from long and short ranged controllers to here.
+ *      -> December 4th, 2024:
+ *          -Added delay before death of the enemy so that particles can still play upon enemy 'death'
  */
 [RequireComponent(typeof(AudioSource))]
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, IDamager
@@ -62,6 +64,8 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
    
     private int _defaultDamageToApply = 10;
     private bool isTestingScene;
+
+    [SerializeField] private GameObject _attackPoint; //point where the enemy will attack. This will be disabled on death 
    
     public int DamageToApply { get { return _defaultDamageToApply; } set { if (value > 0) _defaultDamageToApply = value; } }
     private void Awake() { stateMachine = new(); }
@@ -128,8 +132,20 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
         {
             if (SceneManagement.SceneManagementUtils.IsCurrentScene("Tutorial"))
                 TutorialManager.conditions.EnemyKilled++;
-            Destroy(gameObject);
            
+            Invoke("DestroyEnemy", 1f); //create delay for gameobject so the particles may occur
+            //make sure the enemy can't do anything.
+            //code here
+            _attackPoint.SetActive(false);
         }
+    }
+
+    /// <summary>
+    /// Method to destory the enemy. 
+    /// It will be used as a delay for the particle effects to happen before death.
+    /// </summary>
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
 }

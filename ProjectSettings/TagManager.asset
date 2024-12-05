@@ -24,6 +24,7 @@ TagManager:
   - SpearHead
   - Projectile
   - PlayerParticles
+  - EnemyParticles
   layers:
   - Default
   - TransparentFX

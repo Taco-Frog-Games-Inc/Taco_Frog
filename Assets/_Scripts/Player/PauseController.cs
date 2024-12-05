@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /*
  * Source File Name: PauseController.cs
@@ -8,7 +7,7 @@ using UnityEngine.SceneManagement;
  * Creation Date: October 3rd, 2024
  * 
  * Last Modified by: Alexander Maynard
- * Last Modified Date: October 3rd, 2024
+ * Last Modified Date: December 4th, 2024
  * 
  * 
  * Program Description: 
@@ -16,8 +15,10 @@ using UnityEngine.SceneManagement;
  *      This script turns the in-game pause menu on/off each time one of the players presses 'ESC'.
  * 
  * Revision History:
- *      -> October #rd, 2024:
+ *      -> October 3rd, 2024:
  *          -Created this script and fully implemented it.
+ *      -> December 4th, 2024:
+ *          -Removed unecessary methods.
  */
 
 public class PauseController : MonoBehaviour
@@ -57,14 +58,5 @@ public class PauseController : MonoBehaviour
                 _isPaused = false;
                 break;
         }
-    }
-
-    /// <summary>
-    /// Button option to reset the Timescale when the player wants to go back to the main menu from pause.
-    /// </summary>
-    public void LeaveAndResetTime()
-    {
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene("Main_Menu");
     }
 }
