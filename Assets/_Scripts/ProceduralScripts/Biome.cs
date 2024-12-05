@@ -9,7 +9,7 @@ using UnityEngine.AI;
  * Creation Date: October 12th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 10th, 2024
+ * Last Modified Date: December 5th, 2024
  * 
  * 
  * Program Description: 
@@ -25,6 +25,8 @@ using UnityEngine.AI;
  *          -Created a way to spawn items, and hazards randomly on biomes.
  *      -> November 10th, 2024:
  *          -Changed the item variable to a list of items.
+ *      -> December 5h, 2024:
+ *          -Adjusted for difficulty
  */
 public class Biome : MonoBehaviour
 {
@@ -43,29 +45,23 @@ public class Biome : MonoBehaviour
 
     private bool isMapGeneratorComplete = false;
     private bool isInitialed = false;
-    private SpawnManagerABL manager;
 
     /// <summary>
     /// Initializes this script's variables and subscribes to the spawner publisher
     /// </summary>
     private void OnEnable()
-    {
-        
+    {        
         Subscribe();
         path = GameObject.Find("Path");
-        Debug.Log(path);
         spawnPoint = gameObject.transform.GetChild(0).gameObject;
         Vector3 worldPosition = spawnPoint.transform.position;        
 
         GameObject waypoint = Instantiate(spawnPoint, worldPosition, Quaternion.identity);
         waypoint.transform.SetParent(path.transform, false);
-        manager = spawnerManager.GetComponent<SpawnManagerABL>();
-         Debug.Log("Function called!!");
     }
 
     private void Update()
-    {
-      
+    {      
         if (IsReadyForCoroutine()) {
             
             StartCoroutine(SpawnAgentsAfterBake());
@@ -112,9 +108,8 @@ public class Biome : MonoBehaviour
     private void OnSpawning()
     {
         float randomNumber = Random.Range(0f, 101f);
-        Debug.Log("Function called!!");
         //Enemies
-        if (randomNumber > 60 && SpawnManagerABL.totalEnemyCount < manager.MaxEnemyCount)
+        if (randomNumber > (100 - SpawnManagerABL.SpawnChances) && SpawnManagerABL.totalEnemyCount < SpawnManagerABL.MaxEnemyCount)
         {
             enemyTypesArray = enemyTypes.ToArray();
             GameObject enemy = enemyTypesArray[Random.Range(0, 2)];
@@ -122,18 +117,17 @@ public class Biome : MonoBehaviour
 
             if (path.transform.childCount > 0) {
                 InstantiateOnTop(enemy);
-                Debug.Log("Function called!!");
                 SpawnManagerABL.totalEnemyCount++;
             }
         }
         //Items
-        if (randomNumber > 40 && SpawnManagerABL.totalItemsCount < manager.MaxItemCount && !occupiedLocations.Contains(gameObject.transform.position)) {
+        if (randomNumber > 40 && SpawnManagerABL.totalItemsCount < SpawnManagerABL.MaxItemCount && !occupiedLocations.Contains(gameObject.transform.position)) {
             InstantiateOnTop(items[Random.Range(0, 3)]);
             SpawnManagerABL.totalItemsCount++;
         }
 
         //Hazards
-        if (randomNumber > 40 && SpawnManagerABL.totalHazardsCount < manager.MaxHazardCount && !occupiedLocations.Contains(gameObject.transform.position)) {
+        if (randomNumber > 40 && SpawnManagerABL.totalHazardsCount < SpawnManagerABL.MaxHazardCount && !occupiedLocations.Contains(gameObject.transform.position)) {
             InstantiateOnTop(spikes);
             SpawnManagerABL.totalHazardsCount++;
         }
@@ -146,7 +140,6 @@ public class Biome : MonoBehaviour
     /// <param name="platform"></param>
     private void InstantiateOnTop(GameObject toSpawn)
     {
-         Debug.Log("Function called!!");
         if (toSpawn != null)
         {
             Vector3 biomePosition = transform.position;

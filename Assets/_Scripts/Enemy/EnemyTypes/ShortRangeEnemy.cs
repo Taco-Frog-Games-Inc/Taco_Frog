@@ -6,7 +6,7 @@ using UnityEngine;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified Date: December 5th, 2024
  * 
  * 
  * Program Description: 
@@ -22,6 +22,8 @@ using UnityEngine;
  *          - Initialize nextWayPointIndex to a random waypont.
  *      -> November 24th, 2024:
  *          -Moved TakeDamage() to EnemyController
+ *      -> December 5th, 2024:
+ *          -Adjusted for difficulty
  */
 
 public class ShortRangeEnemy : EnemyController
@@ -34,6 +36,7 @@ public class ShortRangeEnemy : EnemyController
         stateMachine.AddState(new DyingState(this, stateMachine));
 
         nextWayPointIndex = Random.Range(0, path.transform.childCount);
+        navMeshAgent.speed *= SpawnManagerABL.EnemySpeed;
     }
 
     public override void Attack() { }

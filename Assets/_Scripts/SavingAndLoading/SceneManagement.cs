@@ -1,6 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /*
  * Source File Name: SceneManagement.cs
@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: December 4th, 2024
+ * Last Modified by: Audre Bernier Larose
+ * Last Modified Date: December 5th, 2024
  * 
  * 
  * Program Description: 
@@ -49,10 +49,29 @@ using UnityEngine.SceneManagement;
  *          -Added scene change fade
  *      -> December 4th, 2024:
  *          -Make sure timeScale is set properly for pause menu when leaving the scene.
+ *      -> December 5th, 2024:
+ *          -Adjusted for difficulty
  */
 
 public class SceneManagement : MonoBehaviour
 {
+    public static Difficulty difficultyLevel;
+
+    [SerializeField] private Button easyBtn;
+    [SerializeField] private Button mediumBtn;
+    [SerializeField] private Button hardBtn;
+    [SerializeField] private SpawnManagerABL manager;
+
+    private void Start() {
+        easyBtn?.onClick.AddListener(delegate { OnDifficultySelected(Difficulty.Easy); });
+        mediumBtn?.onClick.AddListener(delegate { OnDifficultySelected(Difficulty.Medium); });
+        hardBtn?.onClick.AddListener(delegate { OnDifficultySelected(Difficulty.Hard); });
+    }
+
+    private void OnDifficultySelected(Difficulty difficulty) {
+        difficultyLevel = difficulty;
+    }
+
     /// <summary>
     /// Quits the game.
     /// </summary>
@@ -176,8 +195,13 @@ public class SceneManagement : MonoBehaviour
     //Utility class used to manage scenes.
     public static class SceneManagementUtils {
         public static bool IsCurrentScene(string name) {
-            Debug.Log("Scene: " + name);
             return SceneManager.GetActiveScene().name == name;
         }
     }
+}
+
+public enum Difficulty {
+    Easy,
+    Medium,
+    Hard
 }
