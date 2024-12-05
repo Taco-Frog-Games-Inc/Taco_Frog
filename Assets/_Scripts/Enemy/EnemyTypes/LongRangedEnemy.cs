@@ -7,7 +7,7 @@ using UnityEngine;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified Date: December 5th, 2024
  * 
  * 
  * Program Description: 
@@ -27,6 +27,8 @@ using UnityEngine;
  *          -Added animator transitions to this enemy for multiple animations to be played based on the state of the enemy.
  *      -> November 24th, 2024:
  *          -Moved TakeDamage() to EnemyController
+ *      -> December 5th, 2024:
+ *          -Adjusted for difficulty
  */
 
 public class LongRangedEnemy : EnemyController
@@ -43,6 +45,7 @@ public class LongRangedEnemy : EnemyController
         stateMachine.AddState(new DyingState(this, stateMachine));
 
         nextWayPointIndex = Random.Range(0, path.transform.childCount);
+        navMeshAgent.speed *= SpawnManagerABL.EnemySpeed;
     }
 
     public override void Attack() { Shoot(); }
