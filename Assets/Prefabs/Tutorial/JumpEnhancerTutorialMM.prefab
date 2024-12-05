@@ -5209,6 +5209,7 @@ GameObject:
   - component: {fileID: 5576270294271604453}
   - component: {fileID: 4815485805620524277}
   - component: {fileID: 3176352992101281948}
+  - component: {fileID: 8221029183855438540}
   m_Layer: 0
   m_Name: JumpEnhancerTutorialMM
   m_TagString: Untagged
@@ -5224,7 +5225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8200986083665822414}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 30, y: 0, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5267,3 +5268,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instruction: This is a one-time consumable that allows you to jump extra high.
+--- !u!114 &8221029183855438540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200986083665822414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4cfe722af052742af7c14b90f1615f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpBoost: 35
+  _jumpChannel: {fileID: 11400000, guid: 9c3fded483bc69c4f97ed930ae6d3ac2, type: 2}
