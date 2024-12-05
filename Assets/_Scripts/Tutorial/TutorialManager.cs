@@ -8,7 +8,7 @@ using TMPro;
  * Creation Date: November 24th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified Date: December 5th, 2024
  * 
  * 
  * Program Description: 
@@ -18,6 +18,8 @@ using TMPro;
  * Revision History:
  *      -> November 24th, 2024:
  *          -Created this script and fully implemented it.
+ *      -> December 5th, 2024:
+ *          -Adjusted to accomodate the test scene.
  */
 
 public class TutorialManager : MonoBehaviour {
@@ -50,6 +52,10 @@ public class TutorialManager : MonoBehaviour {
     /// Initializes the instructions.
     /// </summary>
     private void Start() {
+        if (SceneManagement.SceneManagementUtils.IsCurrentScene("TestScene")) {
+            instructionText = "Static Scene";
+            return;
+        }
         if (PlayerPrefs.GetInt("NumbOfPlayer") == 2)
             instructionText = string.Format("{0,-30}{1,30}", "Player 1:", "Player 2:") + "\n" +
                               string.Format("{0,-30}{1,30}", "Use WASD to move", "Left stick to move") + "\n" +
