@@ -508,6 +508,7 @@ MonoBehaviour:
   path: {fileID: 0}
   health: 100
   damageToApply: 1
+  _attackPoint: {fileID: 5312612742376411918}
   taco: {fileID: 3771223191844507866, guid: 10a8c683e0228604c833a989e637bab2, type: 3}
   _animator: {fileID: 6728443963877543939}
 --- !u!195 &9194625420076267700
@@ -2058,7 +2059,7 @@ GameObject:
   - component: {fileID: 4716017218605431954}
   m_Layer: 0
   m_Name: EnemySplashDetection
-  m_TagString: Untagged
+  m_TagString: EnemyParticles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

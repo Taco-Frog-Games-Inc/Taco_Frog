@@ -125,7 +125,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
                 Invoke("LoadSceneAfterDeath", 1f);
             }
         }
-       
     }
 
     /// <summary>

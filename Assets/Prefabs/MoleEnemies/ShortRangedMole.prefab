@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 5195256962043378808}
   m_Layer: 0
   m_Name: EnemySplashDetection
-  m_TagString: Untagged
+  m_TagString: EnemyParticles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -656,7 +656,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0fa0536f29ea81c42abdd84091fbbb3d, type: 2}
+  - {fileID: 2100000, guid: c4842709d4a7e44448c78b3f24690edb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1446,6 +1446,7 @@ MonoBehaviour:
   path: {fileID: 0}
   health: 150
   damageToApply: 1
+  _attackPoint: {fileID: 2363030572683966251}
 --- !u!82 &4578070453699063205
 AudioSource:
   m_ObjectHideFlags: 0

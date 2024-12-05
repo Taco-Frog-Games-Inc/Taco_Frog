@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Alexander Maynard
- * Last Modified Date: November 30th, 2024
+ * Last Modified Date: December 4th, 2024
  * 
  * 
  * Program Description: 
@@ -47,6 +47,8 @@ using UnityEngine.SceneManagement;
  *          -Adjusted for tutorial navigation
  *      -> November 30th, 2024:
  *          -Added scene change fade
+ *      -> December 4th, 2024:
+ *          -Make sure timeScale is set properly for pause menu when leaving the scene.
  */
 
 public class SceneManagement : MonoBehaviour
@@ -94,6 +96,8 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void LeaveOrBack()
     {
+        Time.timeScale = 1.0f; //make sure timescale is still 1 for the pause menu
+
         SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
 
         //don't save and call the main menu scene
@@ -105,6 +109,7 @@ public class SceneManagement : MonoBehaviour
     /// </summary>
     public void SaveAndLeave()
     {
+        Time.timeScale = 1.0f; //make sure timescale is still 1 for the pause menu
         SceneChangeFade.Instance.AddSceneFade(); //scene transition fade
 
         //save the point score and amount of tacos
