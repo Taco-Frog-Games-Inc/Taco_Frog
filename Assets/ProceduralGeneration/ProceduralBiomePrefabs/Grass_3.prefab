@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 8019008791565555997}
   m_Layer: 7
   m_Name: Tree
-  m_TagString: Untagged
+  m_TagString: DecorativeElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 3763606090253003846}
   m_Layer: 7
   m_Name: Rocks
-  m_TagString: Untagged
+  m_TagString: DecorativeElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1223,7 +1223,7 @@ GameObject:
   - component: {fileID: 8850571824870424178}
   m_Layer: 7
   m_Name: Tree (1)
-  m_TagString: Untagged
+  m_TagString: DecorativeElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1423,7 +1423,7 @@ GameObject:
   - component: {fileID: 116545069146624318}
   m_Layer: 7
   m_Name: Tree (2)
-  m_TagString: Untagged
+  m_TagString: DecorativeElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

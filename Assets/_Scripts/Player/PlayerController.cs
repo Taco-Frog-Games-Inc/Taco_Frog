@@ -11,8 +11,8 @@ using UnityEngine.Windows;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: December 2nd, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: December 4th, 2024
  * 
  * Program Description: 
  *      
@@ -40,6 +40,8 @@ using UnityEngine.Windows;
  *          -Added small delay before death for paticles to take effect (if needed).
  *      -> December 2nd, 2024:
  *          -Disabled player input when health reaches 0.
+ *      -> December 4th, 2024:
+ *          -Adjusted for minimap UI on player 2
  */
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
@@ -83,7 +85,9 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     //player animator for animations
     [SerializeField] private Animator _animator;
 
+    [Header("UI Related")]
     public RenderTexture minimapTexture;
+    [SerializeField] private Sprite player2MM;
 
 
     //player Input refrence
@@ -117,7 +121,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
              activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
             if (Health == 0)
             {
-                _playerInput.enabled = false;
+                //_playerInput.enabled = false;
                 Invoke("LoadSceneAfterDeath", 1f);
             }
         }
@@ -177,6 +181,10 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
          _playerAudio = GetComponent<AudioManager>();              
     }
 
+    private void SetPlayerMMIcon() {
+        gameObject.transform.GetChild(4).GetComponent<SpriteRenderer>().sprite = player2MM;        
+    }
+
     /// <summary>
     /// Sets up the proper camera texture for player 2's minimap.
     /// </summary>
@@ -184,7 +192,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         if (gameObject.transform.parent.name == "Player2") {
             GameObject cam = gameObject.transform.parent.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
             cam.GetComponent<Camera>().targetTexture = minimapTexture;
-            gameObject.transform.parent.transform.GetChild(0).transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.black;
+            SetPlayerMMIcon();
         }
     }
 
