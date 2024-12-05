@@ -5058,7 +5058,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.14, y: 2, z: 0}
-  m_LocalScale: {x: 25, y: 25, z: 25}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5576270294271604453}
@@ -5104,8 +5104,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.44150943, g: 0.48068216, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d9edae57bdb9f014184a9f95d0d28ba8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5208,7 +5208,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5576270294271604453}
   - component: {fileID: 4815485805620524277}
-  - component: {fileID: 8820453863278818744}
   - component: {fileID: 3176352992101281948}
   m_Layer: 0
   m_Name: JumpEnhancerTutorialMM
@@ -5255,19 +5254,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0162516, y: 0.777833, z: 1.1623573}
   m_Center: {x: 0.13538693, y: 1.4417694, z: 0.044006348}
---- !u!114 &8820453863278818744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8200986083665822414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f438b353def944a46bcba062ea2c4e47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _jumpBoost: 35
 --- !u!114 &3176352992101281948
 MonoBehaviour:
   m_ObjectHideFlags: 0
