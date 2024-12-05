@@ -8,7 +8,7 @@ using UnityEngine;
  * Creation Date: November 28th, 2024
  * 
  * Last Modified by: Alexander Maynard
- * Last Modified Date: November 28th, 2024
+ * Last Modified Date: December 4th, 2024
  * 
  * 
  * Program Description: 
@@ -21,19 +21,31 @@ using UnityEngine;
  *          -Created this script and fully implemented it.
  *      -> November 29th 2024:
  *          -Improved the FPS counter
+ *      -> December 4th, 2024:
+ *          -Added a variable fps based on quality settings.
  */
 
 public class FPSCounterManager : PersistGenericSingleton<FPSCounterManager>
 {
     [SerializeField] private TextMeshProUGUI _franeRateText; //text to display the frameRate
-    [SerializeField] private int _targetFrameRate = 30;
     private float _timeBetweenFrameCount = 1f; //make sure that we are checking every second
     private float _time; // keep track of current time
     private int _frameCount; //keep track of the frame count
 
     private void Start()
     {
-        Application.targetFrameRate = _targetFrameRate; //set the target fps --> 30 was chosen for mow so that we don't have many frame dips compared to a target of 60fps
+        //set fps to 60 if qaulity settings are from very low to medium 
+        if (QualitySettings.GetQualityLevel() == 0 || QualitySettings.GetQualityLevel() == 1 || QualitySettings.GetQualityLevel() == 2)
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
+        }
+        //set fps to 30 if quality settings are from very high to ultra 
+        else if (QualitySettings.GetQualityLevel() == 3 || QualitySettings.GetQualityLevel() == 5 || QualitySettings.GetQualityLevel() == 5)
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 30;
+        }
     }
     /// <summary>
     /// Using the update loop to track the game's frames oer second by dividing the 
