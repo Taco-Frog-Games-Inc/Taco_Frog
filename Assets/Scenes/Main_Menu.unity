@@ -760,6 +760,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427b017e862e20a47934478b1ca1678e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  easyBtn: {fileID: 0}
+  mediumBtn: {fileID: 0}
+  hardBtn: {fileID: 0}
+  manager: {fileID: 0}
 --- !u!1001 &7518117549747201533
 PrefabInstance:
   m_ObjectHideFlags: 0

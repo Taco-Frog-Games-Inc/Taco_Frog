@@ -30,8 +30,9 @@ public class AudioManager : AudioBase
     public void PlayAttack() => PlayOneShotclipForPlayer(2);
     public void PlayPowerUpInv() => PlayOneShotclipForPlayer(3);
     public void PlayGettingDamage() => PlayOneShotclipForPlayer(4);
-     public void PlayGetJumpEnhance() => PlayOneShotclipForPlayer(5);
-     public void PlayDrownDeath() => PlayOneShotclipForPlayer(6);
+    public void PlayGetJumpEnhance() => PlayOneShotclipForPlayer(5);
+    public void PlayDrownDeath() => PlayOneShotclipForPlayer(6);
+    public void PlayPickUpSound() => PlayOneShotclipForPlayer(7);
    
     public  void PlayOneShotclipForPlayer(int value)
     {

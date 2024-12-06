@@ -453,6 +453,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d7e0811968e286646b0c35c8ee6cc3f8, type: 3}
   - {fileID: 8300000, guid: e586b8d5328d7a84c9b5c7c032bc48a8, type: 3}
   - {fileID: 8300000, guid: 5845c047722f6a14d9d4c8c6ba39282d, type: 3}
+  - {fileID: 8300000, guid: 878ca184e08c0bc4cb56634ac9363489, type: 3}
 --- !u!114 &6412573427695829691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,7 +581,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aclip: {fileID: 8300000, guid: fc0eead5221999b4eabf7412116dcc54, type: 3}
   _aSecClip: {fileID: 8300000, guid: 06380a2432a258940b9a1a25ce274d09, type: 3}
-  _jmpSnd: {fileID: 0}
 --- !u!82 &2191175462044430354
 AudioSource:
   m_ObjectHideFlags: 0
@@ -829,7 +829,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aclip: {fileID: 8300000, guid: fc0eead5221999b4eabf7412116dcc54, type: 3}
   _aSecClip: {fileID: 0}
-  _jmpSnd: {fileID: 0}
 --- !u!54 &3775793935245648285
 Rigidbody:
   m_ObjectHideFlags: 0
