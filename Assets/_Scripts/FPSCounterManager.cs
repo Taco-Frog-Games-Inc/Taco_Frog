@@ -7,8 +7,8 @@ using UnityEngine;
  * Student Number: 301170707
  * Creation Date: November 28th, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: December 4th, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: December 6th, 2024
  * 
  * 
  * Program Description: 
@@ -23,6 +23,8 @@ using UnityEngine;
  *          -Improved the FPS counter
  *      -> December 4th, 2024:
  *          -Added a variable fps based on quality settings.
+ *      -> December 6th, 2024:
+ *          -Adjusted to accept multiplayer.
  */
 
 public class FPSCounterManager : PersistGenericSingleton<FPSCounterManager>
@@ -34,8 +36,10 @@ public class FPSCounterManager : PersistGenericSingleton<FPSCounterManager>
 
     private void Start()
     {
-        //set fps to 60 if qaulity settings are from very low to medium 
-        if (QualitySettings.GetQualityLevel() == 0 || QualitySettings.GetQualityLevel() == 1 || QualitySettings.GetQualityLevel() == 2)
+            if (gameObject.transform.parent.name == "Player2") _franeRateText.text = "";
+
+            //set fps to 60 if qaulity settings are from very low to medium 
+            if (QualitySettings.GetQualityLevel() == 0 || QualitySettings.GetQualityLevel() == 1 || QualitySettings.GetQualityLevel() == 2)
         {
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
@@ -61,7 +65,7 @@ public class FPSCounterManager : PersistGenericSingleton<FPSCounterManager>
         {
             float frameRate = Mathf.Round((_frameCount / _time) * 10f) / 10f; //get the framerate by dividing the frameCount (how many frames occured in the update) by the actual time that has occured
 
-            _franeRateText.text = $"FPS: {frameRate.ToString()}"; //display the frameRate
+            if (gameObject.transform.parent.name == "Player1") _franeRateText.text = $"FPS: {frameRate.ToString()}"; //display the frameRate
 
             _time -= _timeBetweenFrameCount; //not resetting due to timing might being sligthly off.
             _frameCount = 0; //reset the frameCount

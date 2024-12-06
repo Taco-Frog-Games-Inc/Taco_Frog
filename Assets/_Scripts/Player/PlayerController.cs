@@ -12,7 +12,7 @@ using UnityEngine.Windows;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: December 4th, 2024
+ * Last Modified Date: December 6th, 2024
  * 
  * Program Description: 
  *      
@@ -42,6 +42,8 @@ using UnityEngine.Windows;
  *          -Disabled player input when health reaches 0.
  *      -> December 4th, 2024:
  *          -Adjusted for minimap UI on player 2
+ *      -> December 6th, 2024:
+ *          -Added pickup sound
  */
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
@@ -152,10 +154,12 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
             case ItemTypeEnum.Diamond:
                 string diamondText = activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;                
                 activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(diamondText) + points).ToString();
+                _playerAudio.PlayPickUpSound();
                 break;
             case ItemTypeEnum.Coin:
                 string coinText = activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;
                 activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(coinText) + points).ToString();
+                _playerAudio.PlayPickUpSound();
                 break;
         }        
     }
