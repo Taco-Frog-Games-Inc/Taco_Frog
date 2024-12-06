@@ -27,7 +27,7 @@ public class PlayerDamager : MonoBehaviour, IDamager
     public int DamageToApply { get { return _damageToApply; } set { if (value > 0) _damageToApply = value; } }
     private AudioSource _ads;
     [SerializeField] AudioClip _aclip, _aSecClip;
-    [SerializeField] JumpSoundChannel _jmpSnd;
+ 
     /// <summary>
     /// Parts of the IDamager contract.
     /// Checks if the other collider is implementing the IDamageTaker interface.

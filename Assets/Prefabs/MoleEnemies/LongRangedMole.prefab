@@ -511,6 +511,7 @@ MonoBehaviour:
   _attackPoint: {fileID: 5312612742376411918}
   taco: {fileID: 3771223191844507866, guid: 10a8c683e0228604c833a989e637bab2, type: 3}
   _animator: {fileID: 6728443963877543939}
+  _aClip: {fileID: 8300000, guid: 4251670c75ef6a64b8d51a77148b6c54, type: 3}
 --- !u!195 &9194625420076267700
 NavMeshAgent:
   m_ObjectHideFlags: 0
