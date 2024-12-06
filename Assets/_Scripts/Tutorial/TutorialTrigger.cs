@@ -36,6 +36,7 @@ public class TutorialTrigger : MonoBehaviour {
         
         if (other.name.Contains("Player")) {
             currObj = gameObject.name;
+            if (currObj == "InvincibilitypickupTutorialMM" && PlayerPrefs.GetInt("NumbOfPlayer") == 2) instruction = "This is an invincibility potion that shields both players for up to 100 damage.";
             TutorialManager.instructionText = instruction;
             if (!gameObject.name.Equals("LevelEndTacoTutorialMM") && prevObj != currObj) {
                 TutorialManager.conditions.CollectableItems++;

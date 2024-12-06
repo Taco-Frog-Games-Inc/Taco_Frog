@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d75f703e933cfd4baf688073a7497e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instruction: This is an invincibility potion that lasts 30 seconds.
+  instruction: This is an invincibility potion that shields you for up to 100 damage.
 --- !u!1 &3504698003242281253
 GameObject:
   m_ObjectHideFlags: 0
