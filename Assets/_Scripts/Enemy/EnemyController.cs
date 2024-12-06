@@ -39,7 +39,7 @@ using UnityEngine.SceneManagement;
  *      -> December 5th, 2024: 
  *          -Tutorial bug fix
  */
-[RequireComponent(typeof(AudioSource))]
+
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, IDamager
 {
 
@@ -67,7 +67,7 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
     private int _defaultDamageToApply = 10;
     private bool isTestingScene;
     private bool _isDead = false;
-
+   
     [SerializeField] private GameObject _attackPoint; //point where the enemy will attack. This will be disabled on death 
    
     public int DamageToApply { get { return _defaultDamageToApply; } set { if (value > 0) _defaultDamageToApply = value; } }
@@ -80,6 +80,7 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
 
         cosEnemyFOVover2InRAD = Mathf.Cos(EnemyFOV / 2f * Mathf.Deg2Rad); 
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
        
     }
     public void FixedUpdate() { stateMachine.FixedUpdate(); }

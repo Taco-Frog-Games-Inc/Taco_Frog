@@ -1447,6 +1447,7 @@ MonoBehaviour:
   health: 150
   damageToApply: 1
   _attackPoint: {fileID: 2363030572683966251}
+  _aClip: {fileID: 8300000, guid: d3dfe7662759dd64689b0cc979dae993, type: 3}
 --- !u!82 &4578070453699063205
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1457,7 +1458,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d3dfe7662759dd64689b0cc979dae993, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -31,12 +31,15 @@ using UnityEngine;
  *          -Adjusted for difficulty
  */
 
+[RequireComponent(typeof(AudioSource))]
 public class LongRangedEnemy : EnemyController
 {
     [Header("Shooting-Related")]
     [SerializeField] private GameObject taco;
     [SerializeField] private Animator _animator;
+    [SerializeField] AudioClip _aClip;
 
+    private AudioSource _adSrce;
     new void Start() {
         base.Start();
         stateMachine.AddState(new RoamingState(this, stateMachine));
@@ -46,6 +49,7 @@ public class LongRangedEnemy : EnemyController
 
         nextWayPointIndex = Random.Range(0, path.transform.childCount);
         navMeshAgent.speed *= SpawnManagerABL.EnemySpeed;
+        _adSrce = GetComponent<AudioSource>();
     }
 
     public override void Attack() { Shoot(); }
@@ -64,6 +68,7 @@ public class LongRangedEnemy : EnemyController
     /// Instantiate a bullet at the spawner level of the long-ranged enemy.
     /// </summary>
     private void DoShooting() {
+        _adSrce.PlayOneShot(_aClip);
         Instantiate(taco, gameObject.transform.GetChild(0).transform.GetChild(0).transform.position, Quaternion.identity);
     }
 }

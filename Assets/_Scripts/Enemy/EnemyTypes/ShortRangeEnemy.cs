@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 /*
  * Source File Name: ShortRangeEnemy.cs
@@ -25,9 +26,11 @@ using UnityEngine;
  *      -> December 5th, 2024:
  *          -Adjusted for difficulty
  */
-
+[RequireComponent(typeof(AudioSource))]
 public class ShortRangeEnemy : EnemyController
 {   
+    [SerializeField] AudioClip _aClip;
+     private AudioSource _adSrce;
     new void Start() {
         base.Start();
         stateMachine.AddState(new RoamingState(this, stateMachine));
@@ -37,9 +40,20 @@ public class ShortRangeEnemy : EnemyController
 
         nextWayPointIndex = Random.Range(0, path.transform.childCount);
         navMeshAgent.speed *= SpawnManagerABL.EnemySpeed;
+        _adSrce = GetComponent<AudioSource>();
     }
 
-    public override void Attack() { }
+    public override void Attack() 
+    {
+       _adSrce.Play();
+     }
 
-    public override void StopAttack() { }
+    public override void StopAttack() { _adSrce.Stop();}
+
+
+    IEnumerator AttackSound()
+    {
+        yield return new WaitForSeconds(2f);
+        
+    }
 }
