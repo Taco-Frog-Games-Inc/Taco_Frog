@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 /*
  * Source File Name: SpawnManagerABL.cs
@@ -79,13 +80,20 @@ public static class Globals {
     };
 
     private static Dictionary<string, int> dataDiffValueDict = new() {
-        { nameof(SpawnManagerABL.MaxItemCount), 6 },
-        { nameof(SpawnManagerABL.MaxEnemyCount), 2 },
-        { nameof(SpawnManagerABL.MaxHazardCount), 2 },
+        { nameof(SpawnManagerABL.MaxItemCount), CalcRatio(6) },
+        { nameof(SpawnManagerABL.MaxEnemyCount), CalcRatio(2) },
+        { nameof(SpawnManagerABL.MaxHazardCount), CalcRatio(2) },
         { nameof(SpawnManagerABL.SpawnChances), 30 },
         { nameof(SpawnManagerABL.EnemySpeed), 1 }
     };
 
     public static Dictionary<Difficulty, int> DataDiffMultiplierDict { get { return dataDiffMultiplierDict; } }
     public static Dictionary<string, int> DataDiffValueDict { get { return dataDiffValueDict; } }
+
+    private static int CalcRatio(int original) {
+        int originalMapSize = 25;
+        int res = (MapGenerator.Height * MapGenerator.Length) * original;
+
+        return (int)Mathf.Ceil(res / originalMapSize);
+    }
 }
