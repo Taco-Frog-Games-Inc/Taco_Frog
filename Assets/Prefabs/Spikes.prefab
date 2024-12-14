@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageToApply: 5
+  _drChannel: {fileID: 11400000, guid: f7ae600923e6d9e4587b5ee1a462fff8, type: 2}
 --- !u!1001 &51632346868221516
 PrefabInstance:
   m_ObjectHideFlags: 0
