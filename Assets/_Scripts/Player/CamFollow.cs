@@ -45,13 +45,4 @@ public class CamFollow : MonoBehaviour
             transform.position = smoothedPosition;
         }
     }
-
-    /// <summary>
-    /// Follow the player's exact position.
-    /// </summary>
-    /*private void FixedUpdate()
-    {
-        transform.position = new Vector3(_playerTransfom.position.x, transform.position.y, _playerTransfom.position.z);
-    }
-    */
 }

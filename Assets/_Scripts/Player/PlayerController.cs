@@ -47,14 +47,17 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
 {
+
     //Scriptable player data
     public List<PlayerData> playerDataList;
     public PlayerData playerData;
 
+    [SerializeField] private Camera _cam;
     //variables needed for moving
     private CharacterController _characterController;
     private Vector2 _input;
     private Vector3 _direction;
+    private Vector3 _relativeDirection;
     [SerializeField] private float speed;
     [SerializeField] private Transform _playerTransform;
 
@@ -207,7 +210,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
 
-        _characterController.Move(_direction * speed * Time.deltaTime);
+        _characterController.Move(_relativeDirection * speed * Time.deltaTime);
 
         Move();
         Jump();
@@ -238,14 +241,29 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     /// <summary>
     /// Moves the player based on the updated inputs x and y.
     /// </summary>
-    private void Move() {
-        _direction = new Vector3(_input.x, 0.0f, _input.y);
+    private void Move()
+    {
+        _direction = new Vector3(_input.x, 0.0f, _input.y).normalized;
+
+        // Convert the input direction to be relative to the camera
+        Vector3 cameraForward = _cam.transform.forward; 
+        Vector3 cameraRight = _cam.transform.right; 
+        // Flatten the vectors to ignore the Y component
+        cameraForward.y = 0; cameraRight.y = 0; 
+        cameraForward.Normalize(); cameraRight.Normalize(); 
+        // Adjust the direction based on the camera's orientation
+        _relativeDirection = _direction.x * cameraRight + _direction.z * cameraForward; 
+
+
 
         if (_characterController.velocity.x == 0 && _characterController.velocity.z == 0)
-            _animator.SetBool("isWalking", false);            
-        
+        {
+            _animator.SetBool("isWalking", false);
+        }
         else if (_characterController.velocity.x != 0 || _characterController.velocity.z != 0)
-            _animator.SetBool("isWalking", true);        
+        {
+            _animator.SetBool("isWalking", true);
+        }
     }
 
     /// <summary>
@@ -359,7 +377,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         if (_input.sqrMagnitude == 0) return; //check to make sure that the player doesn't reset their rotation
 
         //updates the player rotation. the Vector3 passsed had to be adjusted since the x, y and z and different that the actual player WASD directional inputs translation.
-        _playerTransform.rotation = Quaternion.LookRotation(new Vector3(_direction.z, _direction.y, _direction.x * -1));
+        _playerTransform.rotation = Quaternion.LookRotation(new Vector3(_relativeDirection.z, _relativeDirection.y, _relativeDirection.x * -1));
     }
 
     /// <summary>
