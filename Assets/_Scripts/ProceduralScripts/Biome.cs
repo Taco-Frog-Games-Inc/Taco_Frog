@@ -43,7 +43,6 @@ public class Biome : MonoBehaviour
     private GameObject path;    
     private GameObject[] enemyTypesArray;
 
-    private bool isMapGeneratorComplete = false;
     private bool isInitialed = false;
 
     /// <summary>
@@ -51,7 +50,7 @@ public class Biome : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {        
-        Subscribe();
+        //Subscribe();
         path = GameObject.Find("Path");
         spawnPoint = gameObject.transform.GetChild(0).gameObject;
         Vector3 worldPosition = spawnPoint.transform.position;        
@@ -94,12 +93,12 @@ public class Biome : MonoBehaviour
     /// <summary>
     /// Subscribes to the spawner publisher
     /// </summary>
-    public void Subscribe() { spawnerPublisher.GetComponent<SpawnerPublisher>().SpawningEvent += MapGeneratorComplete; }
+    //public void Subscribe() { spawnerPublisher.GetComponent<SpawnerPublisher>().SpawningEvent += MapGeneratorComplete; }
 
     /// <summary>
     /// Called once the spawner publisher emits
     /// </summary>
-    private void MapGeneratorComplete() { isMapGeneratorComplete = true; }
+    //private void MapGeneratorComplete() { isMapGeneratorComplete = true; }
 
     /// <summary>
     /// Spawns an enemy on the biome if the random number is greater than 90.

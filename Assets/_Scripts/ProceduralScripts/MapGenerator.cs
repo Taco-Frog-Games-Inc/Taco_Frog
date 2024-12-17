@@ -78,8 +78,7 @@ public class MapGenerator : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        //set the initial size of the map
-       
+        //set the initial size of the map       
          _levelMap = new GameObject[_height, _length];
         //offsets for 'seed' to be randomized
         _offsetX = Random.Range(10000, 50000);
@@ -89,12 +88,14 @@ public class MapGenerator : MonoBehaviour
         Vector3 pos = new(transform.GetChild(0).transform.position.x, 2f, transform.GetChild(0).transform.position.z);
         GameObject player1 = Instantiate(player, pos, Quaternion.identity);
         player1.name = "Player1";
+        player1.transform.GetChild(0).gameObject.GetComponent<PlayerController>().InitPlayer();
         
         if (PlayerPrefs.GetInt("NumbOfPlayer") == 2) {        
             Vector3 pos2 = new(transform.GetChild(0).transform.position.x - 2f, 2f, transform.GetChild(0).transform.position.z);
             GameObject player2 = Instantiate(player, pos2, Quaternion.identity);
-            player2.name = "Player2";            
-        }
+            player2.name = "Player2";
+            player2.transform.GetChild(0).gameObject.GetComponent<PlayerController>().InitPlayer();
+        }        
     }
 
     /// <summary>

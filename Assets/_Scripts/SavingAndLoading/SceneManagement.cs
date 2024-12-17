@@ -185,6 +185,11 @@ public class SceneManagement : MonoBehaviour
         SceneManager.LoadScene("Game_Scene");
     }
 
+    public void OnStoreSelected(bool isStore) {
+        gameObject.transform.GetChild(3).gameObject.SetActive(!isStore);
+        gameObject.transform.GetChild(4).gameObject.SetActive(isStore);
+    }
+
     private void ReInitializeStaticVariables() {
         SpawnManagerABL.totalEnemyCount = 0;
         SpawnManagerABL.totalHazardsCount = 0;

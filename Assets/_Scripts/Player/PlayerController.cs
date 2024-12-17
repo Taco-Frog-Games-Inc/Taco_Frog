@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.UI;
-using UnityEngine.Windows;
+using System.Collections.Generic;
 
 /*
  * Source File Name: PlayerController.cs
@@ -48,6 +47,11 @@ using UnityEngine.Windows;
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
 {
+
+    //Scriptable player data
+    public List<PlayerData> playerDataList;
+    public PlayerData playerData;
+
     [SerializeField] private Camera _cam;
     //variables needed for moving
     private CharacterController _characterController;
@@ -59,9 +63,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
 
     //variables needed for jumping
     private float _gravity = 9.81f;
-    [SerializeField] float _player1JumpHeight = 10.0f; //for p1
-    [SerializeField] float _player2JumpHeight = 6.0f; //for p2
-    [SerializeField] private float _jumpHeight;
+    private float _jumpHeight;
     [SerializeField] public Vector3 _velocity;
     [SerializeField] private bool _isJumpPressed;
     [SerializeField] Transform _groundCheck;
@@ -73,8 +75,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     private bool _canAttack = true;
     private bool _isAttacking = false;
     [SerializeField] private LineRenderer _tongueAttackLineRenderer;
-    [SerializeField] private float _player1TongueAttackpointDistance; //for p1
-    [SerializeField] private float _player2TongueAttackpointDistance; //for p2
     [SerializeField] private GameObject _tongueAttackpoint;
     private CapsuleCollider _tongueAttackCollider;
 
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     [SerializeField] private Animator _animator;
 
     [Header("UI Related")]
-    public RenderTexture minimapTexture;
+    //public RenderTexture minimapTexture;
     [SerializeField] private Sprite player2MM;
 
 
@@ -111,23 +111,17 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     public void TakeDamage(int damage)
     {
         //if ability is active player will not get damage if deactivated player will receive damage
-        if(_invUI.transform.GetChild(0).gameObject.activeSelf)
-        {
+        if(_invUI.transform.GetChild(0).gameObject.activeSelf)        
             _invUI.ReduceSliderValue(damage);
-        }
-        else if(!_invUI.transform.GetChild(0).gameObject.activeSelf)
-        {
+        
+        else if(!_invUI.transform.GetChild(0).gameObject.activeSelf) {
              health -= damage;
              _playerAudio.PlayGettingDamage();
-            // _particleSys.Play();
              if (Health < 0) health = 0;
 
              activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
             if (Health == 0)
-            {
-                //_playerInput.enabled = false;
-                Invoke("LoadSceneAfterDeath", 1f);
-            }
+                Invoke("LoadSceneAfterDeath", 1f);            
         }
     }
 
@@ -152,6 +146,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     /// <param name="points"></param>
     public void IncreaseScore(int points, ItemTypeEnum itemType) { 
         _score += points;
+        playerData.moneyValue += points;
         switch (itemType) {
             case ItemTypeEnum.Diamond:
                 string diamondText = activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;                
@@ -166,11 +161,9 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         }        
     }
 
-    /// <summary>
-    /// OnAwake get the CharacterController Component
-    /// </summary>
-    private void Awake()
-    {
+    public void InitPlayer() {
+        SetPlayerData();
+
         //set the p1 and p2 stat differences
         SetPlayerStats();
         _characterController = GetComponent<CharacterController>();
@@ -182,8 +175,17 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
         _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
         origJumpHeight = _jumpHeight;
-        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();  
-         _playerAudio = GetComponent<AudioManager>();              
+        _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();
+        _playerAudio = GetComponent<AudioManager>();
+    }
+
+    private void SetPlayerData() {
+        foreach (PlayerData data in playerDataList) {
+            if (data.name == gameObject.transform.parent.name) {
+                playerData = data;
+                return;
+            }            
+        }
     }
 
     private void SetPlayerMMIcon() {
@@ -193,10 +195,10 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     /// <summary>
     /// Sets up the proper camera texture for player 2's minimap.
     /// </summary>
-    private void Start() {
+    private void Start() {       
         if (gameObject.transform.parent.name == "Player2") {
             GameObject cam = gameObject.transform.parent.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
-            cam.GetComponent<Camera>().targetTexture = minimapTexture;
+            cam.GetComponent<Camera>().targetTexture = playerData.minimapTexture;
             SetPlayerMMIcon();
         }
     }
@@ -215,41 +217,25 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         TongueAttack();
         UpdatePlayerRotation();
 
-        if (_characterController.velocity.y > 0)
-            _animator.SetBool("isJumping", true);
-        else if(_characterController.velocity.y == 0)
-            _animator.SetBool("isJumping", false);
+        if (_characterController.velocity.y > 0) _animator.SetBool("isJumping", true);
+        else if(_characterController.velocity.y == 0) _animator.SetBool("isJumping", false);
     }
 
     /// <summary>
     /// makes sure that the player abilities are slightly different
     /// </summary>
-    private void SetPlayerStats()
-    { 
+    public void SetPlayerStats() {
+        //set jump height.
+        _jumpHeight = playerData.jumpHeight;
+        _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-playerData.tongueAttackLength, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
+        _tongueAttackLineRenderer.positionCount = 2;
+        _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0.45f, 0)); //first tongue attack position
+        _tongueAttackLineRenderer.SetPosition(1, new Vector3(-playerData.tongueAttackLength, 0.45f, 0)); //second tongue attack position
+        
         //check if p1
-        if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
-        {
-            //set jump height.
-            _jumpHeight = _player1JumpHeight;
-            _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player1TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
-            _tongueAttackLineRenderer.positionCount = 2;
-            _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0.45f, 0)); //first tongue attack position
-            _tongueAttackLineRenderer.SetPosition(1, new Vector3(-_player1TongueAttackpointDistance, 0.45f, 0)); //second tongue attack position
-
-            p1Head.SetActive(true);
-
-        }
-        else if (GameObject.FindGameObjectsWithTag("Player").Length == 2)
-        {
-            //set jump height.
-            _jumpHeight = _player2JumpHeight;
-            _tongueAttackpoint.transform.SetLocalPositionAndRotation(new Vector3(-_player2TongueAttackpointDistance, _tongueAttackpoint.transform.localPosition.y, _tongueAttackpoint.transform.localPosition.z), _tongueAttackpoint.transform.localRotation); //set attack point
-            _tongueAttackLineRenderer.positionCount = 2;
-            _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0.45f, 0)); //first tongue attack position
-            _tongueAttackLineRenderer.SetPosition(1, new Vector3(-_player2TongueAttackpointDistance, 0.45f, 0)); //second tongue attack position
-
-            p2Head.SetActive(true);
-        }
+        if (GameObject.FindGameObjectsWithTag("Player").Length == 1) p1Head.SetActive(true);
+        
+        else if (GameObject.FindGameObjectsWithTag("Player").Length == 2) p2Head.SetActive(true);        
     }
 
     /// <summary>
