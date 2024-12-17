@@ -25,6 +25,10 @@ public class PauseController : MonoBehaviour
 {
     //refrence to the pause menu ui
     [SerializeField] private GameObject _pauseMenu;
+    private PlayerController _playerController;
+    private GameObject player1;
+    private GameObject player2;
+
     //check to ensure we know when the pause menu is paused or not
     private bool _isPaused = false;
 
@@ -34,7 +38,10 @@ public class PauseController : MonoBehaviour
     void Start()
     {
         //make sure the pause menu is off at the start
-        _pauseMenu.SetActive(false);   
+        _pauseMenu.SetActive(false);
+        _playerController = transform.GetComponent<PlayerController>();
+        player1 = GameObject.Find("Player1");
+        if(PlayerPrefs.GetInt("NumbOfPlayer") == 2) player2 = GameObject.Find("Player2");
     }
 
     /// <summary>
@@ -50,12 +57,19 @@ public class PauseController : MonoBehaviour
                 Time.timeScale = 0.0f;
                 _pauseMenu.SetActive(true);
                 _isPaused = true;
+                _playerController.playerData.hasPressedPause = true;
+                player1.transform.GetChild(0).GetComponent<PlayerController>().activeScreen.SetActive(false);
+                if (PlayerPrefs.GetInt("NumbOfPlayer") == 2) player2.transform.GetChild(0).GetComponent<PlayerController>().activeScreen.SetActive(false);
+
                 break;
             //if pasued then resume the game it and de-activate the menu
             case true:
                 Time.timeScale = 1.0f;
                 _pauseMenu.SetActive(false);
                 _isPaused = false;
+                _playerController.playerData.hasPressedPause = false;
+                player1.transform.GetChild(0).GetComponent<PlayerController>().activeScreen.SetActive(true);
+                if (PlayerPrefs.GetInt("NumbOfPlayer") == 2) player2.transform.GetChild(0).GetComponent<PlayerController>().activeScreen.SetActive(true);
                 break;
         }
     }

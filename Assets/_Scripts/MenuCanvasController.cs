@@ -74,7 +74,7 @@ public class MenuCanvasController : MonoBehaviour
                     splitScreenHUDRight.SetActive(true);
                     splitScreenHUDLeft.SetActive(false);
                     SetActiveScreen(player, splitScreenHUDRight);
-                    player.GetComponent<PlayerController>().activeScreen.transform.GetChild(5).transform.GetChild(1).GetComponent<RawImage>().texture = player.GetComponent<PlayerController>().minimapTexture;
+                    player.GetComponent<PlayerController>().activeScreen.transform.GetChild(5).transform.GetChild(1).GetComponent<RawImage>().texture = player.GetComponent<PlayerController>().playerData.minimapTexture;
                 }
             }
 
@@ -87,7 +87,8 @@ public class MenuCanvasController : MonoBehaviour
         HUD.SetActive(true);
         splitScreenHUDLeft.SetActive(false);
         splitScreenHUDRight.SetActive(false);
-        SetActiveScreen(player, HUD);       
+        SetActiveScreen(player, HUD);
+        //player.GetComponent<PlayerController>().activeScreen.transform.GetChild(5).transform.GetChild(1).GetComponent<RawImage>().texture = player.GetComponent<PlayerController>().playerData.minimapTexture;
     }
 
     private void SetActiveScreen(GameObject player, GameObject activeScreen) {
