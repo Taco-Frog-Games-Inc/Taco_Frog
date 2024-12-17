@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Player1
   jumpHeight: 15
-  tongueAttackLength: 11
+  tongueAttackLength: 21
   speed: 6
-  hasPressedPause: 0
+  hasPressedPause: 1
   health: 3
-  moneyValue: 70
+  moneyValue: 50
   minimapTexture: {fileID: 8400000, guid: 21bab13ffb7cf7042b2b1b9ac35fe86e, type: 2}
