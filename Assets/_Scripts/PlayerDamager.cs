@@ -7,7 +7,7 @@ using UnityEngine;
  * Creation Date: October 14th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: October 16th, 2024
+ * Last Modified Date: December 6th, 2024
  * 
  * 
  * Program Description: 
@@ -20,6 +20,8 @@ using UnityEngine;
  *      -> October 16th, 2024:
  *          -Segregated large function into smaller ones
  *          -Added damage applied to different enemy types.
+ *      -> December 6th, 2024:
+ *          -Added enemy sound when damaged by jump.
  */
 public class PlayerDamager : MonoBehaviour, IDamager
 {
@@ -27,7 +29,7 @@ public class PlayerDamager : MonoBehaviour, IDamager
     public int DamageToApply { get { return _damageToApply; } set { if (value > 0) _damageToApply = value; } }
     private AudioSource _ads;
     [SerializeField] AudioClip _aclip, _aSecClip;
-    [SerializeField] JumpSoundChannel _jmpSnd;
+ 
     /// <summary>
     /// Parts of the IDamager contract.
     /// Checks if the other collider is implementing the IDamageTaker interface.
@@ -55,14 +57,12 @@ public class PlayerDamager : MonoBehaviour, IDamager
     /// <param name="other"></param>
     private void DoEnemyHead_Damage(Collider other) {
         GameObject enemy = other.transform.parent.transform.parent.gameObject;
-       // _ads.PlayOneShot(_aSecClip);
         if (enemy.GetComponent<ShortRangeEnemy>()) _damageToApply = 50;
         else if (enemy.GetComponent<LongRangedEnemy>()) _damageToApply = 100;
 
         IDamageTaker damageTaker = enemy.GetComponent<IDamageTaker>();
         damageTaker?.TakeDamage(DamageToApply);
-        
-
+        EnemyGotDamageSound();
     }
 
     /// <summary>

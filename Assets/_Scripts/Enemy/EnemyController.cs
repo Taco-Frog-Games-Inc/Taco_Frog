@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
  * Student Number: 301166198
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: December 4th, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: December 5th, 2024
  * 
  * 
  * Program Description: 
@@ -36,8 +36,10 @@ using UnityEngine.SceneManagement;
  *          -Moved TakeDamage() from long and short ranged controllers to here.
  *      -> December 4th, 2024:
  *          -Added delay before death of the enemy so that particles can still play upon enemy 'death'
+ *      -> December 5th, 2024: 
+ *          -Tutorial bug fix
  */
-[RequireComponent(typeof(AudioSource))]
+
 public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, IDamager
 {
 
@@ -64,7 +66,8 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
    
     private int _defaultDamageToApply = 10;
     private bool isTestingScene;
-
+    private bool _isDead = false;
+   
     [SerializeField] private GameObject _attackPoint; //point where the enemy will attack. This will be disabled on death 
    
     public int DamageToApply { get { return _defaultDamageToApply; } set { if (value > 0) _defaultDamageToApply = value; } }
@@ -77,6 +80,7 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
 
         cosEnemyFOVover2InRAD = Mathf.Cos(EnemyFOV / 2f * Mathf.Deg2Rad); 
         navMeshAgent = GetComponent<NavMeshAgent>();
+        
        
     }
     public void FixedUpdate() { stateMachine.FixedUpdate(); }
@@ -130,13 +134,15 @@ public abstract class EnemyController : MonoBehaviour, IAttack, IDamageTaker, ID
         if (Health < 0) health = 0;
         if (Health == 0)
         {
-            if (SceneManagement.SceneManagementUtils.IsCurrentScene("Tutorial"))
+            if (SceneManagement.SceneManagementUtils.IsCurrentScene("Tutorial") && !_isDead) {
                 TutorialManager.conditions.EnemyKilled++;
+                _isDead = true;
+            }            
            
             Invoke("DestroyEnemy", 1f); //create delay for gameobject so the particles may occur
             //make sure the enemy can't do anything.
             //code here
-            _attackPoint.SetActive(false);
+            _attackPoint.SetActive(false);            
         }
     }
 

@@ -11,8 +11,8 @@ using UnityEngine.Windows;
  * Student Number: 301170707
  * Creation Date: October 2nd, 2024
  * 
- * Last Modified by: Alexander Maynard
- * Last Modified Date: December 2nd, 2024
+ * Last Modified by: Audrey Bernier Larose
+ * Last Modified Date: December 6th, 2024
  * 
  * Program Description: 
  *      
@@ -40,14 +40,20 @@ using UnityEngine.Windows;
  *          -Added small delay before death for paticles to take effect (if needed).
  *      -> December 2nd, 2024:
  *          -Disabled player input when health reaches 0.
+ *      -> December 4th, 2024:
+ *          -Adjusted for minimap UI on player 2
+ *      -> December 6th, 2024:
+ *          -Added pickup sound
  */
 
 public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbilityTaker
 {
+    [SerializeField] private Camera _cam;
     //variables needed for moving
     private CharacterController _characterController;
     private Vector2 _input;
     private Vector3 _direction;
+    private Vector3 _relativeDirection;
     [SerializeField] private float speed;
     [SerializeField] private Transform _playerTransform;
 
@@ -83,7 +89,9 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     //player animator for animations
     [SerializeField] private Animator _animator;
 
+    [Header("UI Related")]
     public RenderTexture minimapTexture;
+    [SerializeField] private Sprite player2MM;
 
 
     //player Input refrence
@@ -117,7 +125,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
              activeScreen.transform.GetChild(1).GetChild(health).gameObject.SetActive(false);
             if (Health == 0)
             {
-                _playerInput.enabled = false;
+                //_playerInput.enabled = false;
                 Invoke("LoadSceneAfterDeath", 1f);
             }
         }
@@ -148,10 +156,12 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
             case ItemTypeEnum.Diamond:
                 string diamondText = activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;                
                 activeScreen.transform.GetChild(2).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(diamondText) + points).ToString();
+                _playerAudio.PlayPickUpSound();
                 break;
             case ItemTypeEnum.Coin:
                 string coinText = activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text;
                 activeScreen.transform.GetChild(3).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = (int.Parse(coinText) + points).ToString();
+                _playerAudio.PlayPickUpSound();
                 break;
         }        
     }
@@ -176,6 +186,10 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
          _playerAudio = GetComponent<AudioManager>();              
     }
 
+    private void SetPlayerMMIcon() {
+        gameObject.transform.GetChild(4).GetComponent<SpriteRenderer>().sprite = player2MM;        
+    }
+
     /// <summary>
     /// Sets up the proper camera texture for player 2's minimap.
     /// </summary>
@@ -183,7 +197,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         if (gameObject.transform.parent.name == "Player2") {
             GameObject cam = gameObject.transform.parent.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject;
             cam.GetComponent<Camera>().targetTexture = minimapTexture;
-            gameObject.transform.parent.transform.GetChild(0).transform.GetChild(4).GetComponent<SpriteRenderer>().color = Color.black;
+            SetPlayerMMIcon();
         }
     }
 
@@ -194,7 +208,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
 
-        _characterController.Move(_direction * speed * Time.deltaTime);
+        _characterController.Move(_relativeDirection * speed * Time.deltaTime);
 
         Move();
         Jump();
@@ -243,17 +257,26 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     /// </summary>
     private void Move()
     {
-        _direction = new Vector3(_input.x, 0.0f, _input.y);
+        _direction = new Vector3(_input.x, 0.0f, _input.y).normalized;
+
+        // Convert the input direction to be relative to the camera
+        Vector3 cameraForward = _cam.transform.forward; 
+        Vector3 cameraRight = _cam.transform.right; 
+        // Flatten the vectors to ignore the Y component
+        cameraForward.y = 0; cameraRight.y = 0; 
+        cameraForward.Normalize(); cameraRight.Normalize(); 
+        // Adjust the direction based on the camera's orientation
+        _relativeDirection = _direction.x * cameraRight + _direction.z * cameraForward; 
+
+
 
         if (_characterController.velocity.x == 0 && _characterController.velocity.z == 0)
         {
             _animator.SetBool("isWalking", false);
-            //Debug.Log("Not moving");
         }
         else if (_characterController.velocity.x != 0 || _characterController.velocity.z != 0)
         {
             _animator.SetBool("isWalking", true);
-            //Debug.Log("Moving");
         }
     }
 
@@ -368,7 +391,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         if (_input.sqrMagnitude == 0) return; //check to make sure that the player doesn't reset their rotation
 
         //updates the player rotation. the Vector3 passsed had to be adjusted since the x, y and z and different that the actual player WASD directional inputs translation.
-        _playerTransform.rotation = Quaternion.LookRotation(new Vector3(_direction.z, _direction.y, _direction.x * -1));
+        _playerTransform.rotation = Quaternion.LookRotation(new Vector3(_relativeDirection.z, _relativeDirection.y, _relativeDirection.x * -1));
     }
 
     /// <summary>

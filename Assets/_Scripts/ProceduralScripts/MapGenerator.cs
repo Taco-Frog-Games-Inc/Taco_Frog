@@ -39,8 +39,8 @@ public class MapGenerator : MonoBehaviour
     //variables to for the map
     #region Map Related Fields
     [Header("Map related fields")]
-    [SerializeField] private int _height;
-    [SerializeField] private int _length;
+    [SerializeField] private static int _height;
+    [SerializeField] private static int _length;
     [SerializeField] private float _perlinNoiseScale = 4.0f; //4 seems to be the most natural for our use case
     [SerializeField] private GameObject _mapParent; //gameobject that will parent the biomes for the map.
     private float _offsetX, _offsetZ; //for seed randomization
@@ -63,6 +63,9 @@ public class MapGenerator : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private GameObject player;
+
+    public static int Height { get { return _height; } }
+    public static int Length { get { return _length; } }
     private void Awake()
     {
         _height = PlayerPrefs.GetInt("mapHeight");

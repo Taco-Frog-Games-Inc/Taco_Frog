@@ -186,18 +186,6 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4158141743825434445, guid: 215107dbad73dba439db8047fda38233, type: 3}
-      propertyPath: _gulpClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7d9994ca95d5a2743a8e1c03113d1a24, type: 3}
-    - target: {fileID: 4158141743825434445, guid: 215107dbad73dba439db8047fda38233, type: 3}
-      propertyPath: _deactivate
-      value: 
-      objectReference: {fileID: 8300000, guid: 40725c3bca4d1ab4fb4c17d036780c49, type: 3}
-    - target: {fileID: 4158141743825434445, guid: 215107dbad73dba439db8047fda38233, type: 3}
-      propertyPath: _powerReduce
-      value: 
-      objectReference: {fileID: 8300000, guid: e35b5609353e4b740bb44b6e6e70cca8, type: 3}
     - target: {fileID: 8629873744799197640, guid: 215107dbad73dba439db8047fda38233, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

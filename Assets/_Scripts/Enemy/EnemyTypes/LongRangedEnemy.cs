@@ -7,7 +7,7 @@ using UnityEngine;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified Date: December 5th, 2024
  * 
  * 
  * Program Description: 
@@ -27,14 +27,19 @@ using UnityEngine;
  *          -Added animator transitions to this enemy for multiple animations to be played based on the state of the enemy.
  *      -> November 24th, 2024:
  *          -Moved TakeDamage() to EnemyController
+ *      -> December 5th, 2024:
+ *          -Adjusted for difficulty
  */
 
+[RequireComponent(typeof(AudioSource))]
 public class LongRangedEnemy : EnemyController
 {
     [Header("Shooting-Related")]
     [SerializeField] private GameObject taco;
     [SerializeField] private Animator _animator;
+    [SerializeField] AudioClip _aClip;
 
+    private AudioSource _adSrce;
     new void Start() {
         base.Start();
         stateMachine.AddState(new RoamingState(this, stateMachine));
@@ -43,6 +48,8 @@ public class LongRangedEnemy : EnemyController
         stateMachine.AddState(new DyingState(this, stateMachine));
 
         nextWayPointIndex = Random.Range(0, path.transform.childCount);
+        navMeshAgent.speed *= SpawnManagerABL.EnemySpeed;
+        _adSrce = GetComponent<AudioSource>();
     }
 
     public override void Attack() { Shoot(); }
@@ -61,6 +68,7 @@ public class LongRangedEnemy : EnemyController
     /// Instantiate a bullet at the spawner level of the long-ranged enemy.
     /// </summary>
     private void DoShooting() {
+        _adSrce.PlayOneShot(_aClip);
         Instantiate(taco, gameObject.transform.GetChild(0).transform.GetChild(0).transform.position, Quaternion.identity);
     }
 }

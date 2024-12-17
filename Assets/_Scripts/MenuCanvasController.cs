@@ -10,7 +10,7 @@ using UnityEngine.UI;
  * Creation Date: October 14th, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified Date: December 4th, 2024
  * 
  * 
  * Program Description: 
@@ -28,6 +28,8 @@ using UnityEngine.UI;
  *          -Adapted to set TacoScore
  *      -> November 24th, 2024:
  *          -Adjusted for minimap
+ *      -> December 4th, 2024:
+ *          -Adjusted for accepting particle effects
  */
 public class MenuCanvasController : MonoBehaviour
 {
@@ -72,7 +74,7 @@ public class MenuCanvasController : MonoBehaviour
                     splitScreenHUDRight.SetActive(true);
                     splitScreenHUDLeft.SetActive(false);
                     SetActiveScreen(player, splitScreenHUDRight);
-                    player.GetComponent<PlayerController>().activeScreen.transform.GetChild(5).transform.GetChild(0).GetComponent<RawImage>().texture = player.GetComponent<PlayerController>().minimapTexture;
+                    player.GetComponent<PlayerController>().activeScreen.transform.GetChild(5).transform.GetChild(1).GetComponent<RawImage>().texture = player.GetComponent<PlayerController>().minimapTexture;
                 }
             }
 

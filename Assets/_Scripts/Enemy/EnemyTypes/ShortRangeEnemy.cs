@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 /*
  * Source File Name: ShortRangeEnemy.cs
@@ -6,7 +7,7 @@ using UnityEngine;
  * Creation Date: October 2nd, 2024
  * 
  * Last Modified by: Audrey Bernier Larose
- * Last Modified Date: November 24th, 2024
+ * Last Modified Date: December 5th, 2024
  * 
  * 
  * Program Description: 
@@ -22,10 +23,14 @@ using UnityEngine;
  *          - Initialize nextWayPointIndex to a random waypont.
  *      -> November 24th, 2024:
  *          -Moved TakeDamage() to EnemyController
+ *      -> December 5th, 2024:
+ *          -Adjusted for difficulty
  */
-
+[RequireComponent(typeof(AudioSource))]
 public class ShortRangeEnemy : EnemyController
 {   
+    [SerializeField] AudioClip _aClip;
+     private AudioSource _adSrce;
     new void Start() {
         base.Start();
         stateMachine.AddState(new RoamingState(this, stateMachine));
@@ -34,9 +39,21 @@ public class ShortRangeEnemy : EnemyController
         stateMachine.AddState(new DyingState(this, stateMachine));
 
         nextWayPointIndex = Random.Range(0, path.transform.childCount);
+        navMeshAgent.speed *= SpawnManagerABL.EnemySpeed;
+        _adSrce = GetComponent<AudioSource>();
     }
 
-    public override void Attack() { }
+    public override void Attack() 
+    {
+       _adSrce.Play();
+     }
 
-    public override void StopAttack() { }
+    public override void StopAttack() { _adSrce.Stop();}
+
+
+    IEnumerator AttackSound()
+    {
+        yield return new WaitForSeconds(2f);
+        
+    }
 }
