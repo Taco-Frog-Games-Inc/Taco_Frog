@@ -217,11 +217,33 @@
                 },
                 {
                     "name": "",
+                    "id": "a5f3e8d8-75a8-4c6a-9de9-9b6db19a6b9d",
+                    "path": "<DualShockGamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PS2",
+                    "action": "CamMoveRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "da18b0ed-3196-43d0-be14-854c3fa05125",
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard1",
+                    "action": "CamMoveLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc7e6474-9671-4b8e-a835-511777f90928",
+                    "path": "<DualShockGamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PS2",
                     "action": "CamMoveLeft",
                     "isComposite": false,
                     "isPartOfComposite": false

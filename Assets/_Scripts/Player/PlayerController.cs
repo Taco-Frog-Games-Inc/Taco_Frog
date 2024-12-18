@@ -259,16 +259,15 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     {
         _direction = new Vector3(_input.x, 0.0f, _input.y).normalized;
 
-        // Convert the input direction to be relative to the camera
+        // get cam forward and right
         Vector3 cameraForward = _cam.transform.forward; 
-        Vector3 cameraRight = _cam.transform.right; 
-        // Flatten the vectors to ignore the Y component
-        cameraForward.y = 0; cameraRight.y = 0; 
-        cameraForward.Normalize(); cameraRight.Normalize(); 
-        // Adjust the direction based on the camera's orientation
+        Vector3 cameraRight = _cam.transform.right;
+        // set y values of the Vector3 so that theya re ignored
+        cameraForward.y = 0;
+        cameraRight.y = 0; 
+
+        // set the relative redirection based on the camera's orientation (camera forward and right)
         _relativeDirection = _direction.x * cameraRight + _direction.z * cameraForward; 
-
-
 
         if (_characterController.velocity.x == 0 && _characterController.velocity.z == 0)
         {
@@ -400,9 +399,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     /// <returns></returns>
     public float GetJumpHeight() => _jumpHeight;
    
-
     public void SetHeight(float j) => _jumpHeight = j;
     public void PlayJumpEnhanceSound() => _playerAudio.PlayGetJumpEnhance();
     public void PlayDrownDeath()=> _playerAudio.PlayDrownDeath();
-   
 }
