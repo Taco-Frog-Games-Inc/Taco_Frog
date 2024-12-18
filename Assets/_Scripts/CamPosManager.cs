@@ -13,19 +13,12 @@ public class CamPosManager : MonoBehaviour
     private bool _moveCamRight = false;
     private bool _moveCamLeft = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //_cam.transform.position = _camPositions[_currentCam].transform.position;
-        //_cam.transform.rotation = _camPositions[0].transform.rotation;
-    }
-
     // Update is called once per frame
     void Update()
     {
         _cam.transform.position = _camPositions[_currentCam].transform.position;
         _cam.transform.rotation = _camPositions[_currentCam].transform.rotation;
-        
+
         MoveCam();
     }
 
