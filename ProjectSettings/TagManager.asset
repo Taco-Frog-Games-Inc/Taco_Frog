@@ -25,6 +25,7 @@ TagManager:
   - Projectile
   - PlayerParticles
   - EnemyParticles
+  - DecorativeElements
   layers:
   - Default
   - TransparentFX
