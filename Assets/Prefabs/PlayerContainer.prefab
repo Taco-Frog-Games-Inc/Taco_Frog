@@ -1420,35 +1420,10 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4284175966104917314}
-  - component: {fileID: 7960981568326138191}
-  - component: {fileID: 3743838892663739290}
-  m_Layer: 0
-  m_Name: MinimapCam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4284175966104917314
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3116066355494669888}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.38268346, y: -0, z: -0, w: 0.9238795}
-  m_LocalPosition: {x: 0, y: 18.950466, z: -7.3539095}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1928554878231633001}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!20 &7960981568326138191
-Camera:
+  m_GameObject: {fileID: 2124711784761518244}
+  m_CullTransparentMesh: 1
+--- !u!114 &7861315078520179185
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7855,24 +7830,57 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6134025947208713128}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1673029000692959083}
-  - {fileID: 1928554878231633001}
-  - {fileID: 167841574712940221}
-  - {fileID: 5269016065295120490}
-  - {fileID: 2878711003878252945}
-  - {fileID: 1560958897155863226}
-  - {fileID: 2980493808035070176}
-  - {fileID: 1986621584990232540}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6574615384892439560
+  m_GameObject: {fileID: 7512806911708594018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.21568628, g: 0.5803922, b: 0.43137255, a: 1}
+    m_PressedColor: {r: 0.26607338, g: 0.6981132, b: 0.52158076, a: 1}
+    m_SelectedColor: {r: 0.26666668, g: 0.69803923, b: 0.52156866, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 3824506228478426686}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 564063359173877912}
+        m_TargetAssemblyTypeName: Item, GameCode
+        m_MethodName: OnSelection_Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &7566794247583705274
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8033,8 +8041,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7819020568201470317}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 11.4, z: -8.2}
+  m_LocalRotation: {x: 0.27059802, y: 0.6532815, z: -0.27059802, w: 0.6532815}
+  m_LocalPosition: {x: -8.199982, y: 11.400009, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8317,18 +8325,27 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7819020568201470317}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.9238796}
-  m_LocalPosition: {x: 0, y: 11.4, z: -8.200004}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 8031380191952130716}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4284175966104917314}
-  m_Father: {fileID: 1661935000823682256}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
---- !u!20 &7476581151097513773
-Camera:
+  - {fileID: 5822953856119814308}
+  - {fileID: 2616403337015144}
+  - {fileID: 13108528018427214}
+  - {fileID: 3890994486078655741}
+  - {fileID: 6305437241921091506}
+  - {fileID: 1564955833961706663}
+  m_Father: {fileID: 167841574712940221}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 495, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &8069223398528732148
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9872,13 +9889,9 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6887251168828514382, guid: aeb6ac76047ab6e4292304d56a4f6503, type: 3}
-      propertyPath: m_PresetInfoIsWorld
+    - target: {fileID: 5885566449363388760, guid: 4ed1245255222754e9884d45fd1758a3, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9112546901672351306, guid: aeb6ac76047ab6e4292304d56a4f6503, type: 3}
-      propertyPath: m_Color.b
-      value: 0.6745098
       objectReference: {fileID: 0}
     - target: {fileID: 5885566449363388760, guid: 4ed1245255222754e9884d45fd1758a3, type: 3}
       propertyPath: m_AnchorMin.y
@@ -10558,10 +10571,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cam: {fileID: 7819020568201470317}
   _camPositions:
-  - {fileID: 3493848042152710530}
-  - {fileID: 2623249938239721793}
-  - {fileID: 2608782722540441038}
-  - {fileID: 4435044355089651285}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &6691789987578344430
 PrefabInstance:
   m_ObjectHideFlags: 0
