@@ -25,7 +25,7 @@ public class PauseController : MonoBehaviour
 {
     //refrence to the pause menu ui
     [SerializeField] private GameObject _pauseMenu;
-    private PlayerController _playerController;
+    [SerializeField] private PlayerController _playerController;
     private GameObject player1;
     private GameObject player2;
 

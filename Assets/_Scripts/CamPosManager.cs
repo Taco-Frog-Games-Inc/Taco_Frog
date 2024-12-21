@@ -16,8 +16,8 @@ public class CamPosManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //_cam.transform.position = _camPositions[_currentCam].transform.position;
-        //_cam.transform.rotation = _camPositions[_currentCam].transform.rotation;
+        _cam.transform.position = _camPositions[_currentCam].transform.position;
+        _cam.transform.rotation = _camPositions[_currentCam].transform.rotation;
 
         MoveCam();
     }

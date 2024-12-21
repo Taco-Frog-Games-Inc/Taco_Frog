@@ -134,11 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8c769231973bf45b952ac83b307244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDataList: []
+  playerData: {fileID: 0}
+  _cam: {fileID: 0}
+  _characterController: {fileID: 318434927917487421}
   speed: 6
   _playerTransform: {fileID: 5491260989430058866}
-  _player1JumpHeight: 10
-  _player2JumpHeight: 6
-  _jumpHeight: 6
   _velocity: {x: 0, y: 0, z: 0}
   _isJumpPressed: 0
   _groundCheck: {fileID: 8363839267151566086}
@@ -148,15 +149,12 @@ MonoBehaviour:
     m_Bits: 7296
   _isGrounded: 0
   _tongueAttackLineRenderer: {fileID: 8576138489008067616}
-  _player1TongueAttackpointDistance: 4
-  _player2TongueAttackpointDistance: 6
   _tongueAttackpoint: {fileID: 559455662788229151}
   health: 100
   activeScreen: {fileID: 0}
   p1Head: {fileID: 2992561641327040082}
   p2Head: {fileID: 7179828222480633151}
   _animator: {fileID: 2376021078121730620}
-  minimapTexture: {fileID: 8400000, guid: 3d6703087e720804fb1c23ff01111883, type: 2}
   player2MM: {fileID: 0}
   _playerInput: {fileID: 1428916439888989168}
 --- !u!143 &318434927917487421

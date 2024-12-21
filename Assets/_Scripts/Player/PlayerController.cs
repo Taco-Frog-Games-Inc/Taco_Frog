@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
 
     [SerializeField] private Camera _cam;
     //variables needed for moving
-    private CharacterController _characterController;
+    [SerializeField] private CharacterController _characterController;
     private Vector2 _input;
     private Vector3 _direction;
     private Vector3 _relativeDirection;
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
 
     //to ger reference to original jump height helps in reseting height after using ability
     private float origJumpHeight; 
-    private AudioManager _playerAudio;
+    [SerializeField] private AudioManager _playerAudio;
     InvincibilityUI _invUI;
     /// <summary>
     /// Parts of the IDamageTaker
@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
             //...make the player jump and set isJumpPressed to false (gravity is positive so the
             //player will 'jump' to a certain height.
             _velocity.y += Mathf.Sqrt(_jumpHeight * _gravity);
-             _playerAudio.PlayJumping();
+            _playerAudio.PlayJumping();
             if(_jumpHeight > origJumpHeight) _jumpHeight = origJumpHeight; //resets the jump height
             _isJumpPressed = false;
         }

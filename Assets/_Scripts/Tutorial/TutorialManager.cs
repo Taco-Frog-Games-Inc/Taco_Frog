@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 /*
  * Source File Name: TutorialManager.cs
@@ -27,6 +28,8 @@ public class TutorialManager : MonoBehaviour {
     [Header("Tutorial Objects")]
     [SerializeField] private GameObject player;
     [SerializeField] private TMP_Text instruction;
+    private GameObject _player1;
+    private GameObject _player2;
 
     public static (int EnemyKilled, int CollectableItems) conditions = (0, 0);
     public static string instructionText = string.Empty;
@@ -38,14 +41,18 @@ public class TutorialManager : MonoBehaviour {
     /// </summary>
     void Awake() {        
         Vector3 pos = new(transform.position.x, 2f, transform.position.z);
-        GameObject player1 = Instantiate(player, pos, Quaternion.identity);
-        player1.name = "Player1";
+        _player1 = Instantiate(player, pos, Quaternion.identity);
+        _player1.name = "Player1";
+        _player1.transform.GetChild(0).gameObject.GetComponent<PlayerController>().InitPlayer();
+        _player1.SetActive(false);
 
         if (PlayerPrefs.GetInt("NumbOfPlayer") == 2) {
             Vector3 pos2 = new(transform.position.x - 2f, 2f, transform.position.z);
-            GameObject player2 = Instantiate(player, pos2, Quaternion.identity);
-            player2.name = "Player2";
-        }        
+            _player2 = Instantiate(player, pos2, Quaternion.identity);
+            _player2.name = "Player2";
+            _player2.transform.GetChild(0).gameObject.GetComponent<PlayerController>().InitPlayer();
+            _player2.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -79,6 +86,15 @@ public class TutorialManager : MonoBehaviour {
     /// </summary>
     private void SetInstructionText() {
         transform.GetChild(0).gameObject.SetActive(true);
+        if (PlayerPrefs.GetInt("NumbOfPlayer") == 2)
+        {
+            _player1.SetActive(false);
+            _player2.SetActive(false);
+        }
+        else
+        {
+            _player1.SetActive(false);
+        }
         instruction.text = instructionText;
         Time.timeScale = 0.0f;
     }
@@ -88,6 +104,15 @@ public class TutorialManager : MonoBehaviour {
     /// </summary>
     public void OnOkay_Pressed() {
         transform.GetChild(0).gameObject.SetActive(false);
+        if (PlayerPrefs.GetInt("NumbOfPlayer") == 2)
+        {
+            _player1.SetActive(true);
+            _player2.SetActive(true);
+        }
+        else
+        {
+            _player1.SetActive(true);
+        }
         instructionText = string.Empty;
         Time.timeScale = 1.0f;
     }
