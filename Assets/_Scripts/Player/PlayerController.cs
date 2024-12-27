@@ -232,10 +232,9 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         _tongueAttackLineRenderer.SetPosition(0, new Vector3(0, 0.45f, 0)); //first tongue attack position
         _tongueAttackLineRenderer.SetPosition(1, new Vector3(-playerData.tongueAttackLength, 0.45f, 0)); //second tongue attack position
         
-        //check if p1
-        if (GameObject.FindGameObjectsWithTag("Player").Length == 1) p1Head.SetActive(true);
-        
-        else if (GameObject.FindGameObjectsWithTag("Player").Length == 2) p2Head.SetActive(true);        
+        //check if p1 or p2 to set the proper player head design
+        if (this.gameObject.transform.parent.name == "Player1" || PlayerPrefs.GetInt("NumbOfPlayer") == 1) p1Head.SetActive(true);
+        else p2Head.SetActive(true);
     }
 
     /// <summary>
