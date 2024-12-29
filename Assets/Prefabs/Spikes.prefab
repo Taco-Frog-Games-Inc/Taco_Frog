@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1053a29740210d4eb4d67d0fafb1b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageToApply: 5
+  _damageToApply: 1
   _drChannel: {fileID: 11400000, guid: f7ae600923e6d9e4587b5ee1a462fff8, type: 2}
 --- !u!1001 &51632346868221516
 PrefabInstance:
