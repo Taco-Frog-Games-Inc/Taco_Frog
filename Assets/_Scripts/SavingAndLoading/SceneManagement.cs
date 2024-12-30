@@ -1,3 +1,5 @@
+using Codice.CM.Common;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -61,6 +63,9 @@ public class SceneManagement : MonoBehaviour
     [SerializeField] private Button mediumBtn;
     [SerializeField] private Button hardBtn;
     [SerializeField] private SpawnManagerABL manager;
+
+    public List<PlayerData> playerDataList;
+
 
     private void Start() {
         easyBtn?.onClick.AddListener(delegate { OnDifficultySelected(Difficulty.Easy); });
@@ -168,6 +173,20 @@ public class SceneManagement : MonoBehaviour
     public void DeletePlayerSaves()
     {
         SaveManager.Instance.DeletePlayerSaveData();
+        
+        //reset p1 stats
+        playerDataList[0].jumpHeight = 15;
+        playerDataList[0].tongueAttackLength = 8;
+        playerDataList[0].speed = 6;
+        playerDataList[0].health = 3;
+        playerDataList[0].moneyValue = 0;
+
+        //reset p2 stats
+        playerDataList[1].jumpHeight = 12;
+        playerDataList[1].tongueAttackLength = 11;
+        playerDataList[1].speed = 6;
+        playerDataList[1].health = 3;
+        playerDataList[1].moneyValue = 0;
     }
 
     /// <summary>
