@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     private Vector2 _input;
     private Vector3 _direction;
     private Vector3 _relativeDirection;
-    [SerializeField] private float speed;
     [SerializeField] private Transform _playerTransform;
 
     //variables needed for jumping
@@ -93,14 +92,13 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     //public RenderTexture minimapTexture;
     [SerializeField] private Sprite player2MM;
 
-
     //player Input refrence
     [SerializeField] private PlayerInput _playerInput;
 
     public int Health { get { return health; } set { if (value > 0) health = value; } }
 
     //to ger reference to original jump height helps in reseting height after using ability
-    private float origJumpHeight; 
+    //private float origJumpHeight; 
     [SerializeField] private AudioManager _playerAudio;
     InvincibilityUI _invUI;
     /// <summary>
@@ -174,7 +172,6 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
         //set the collider size and offset
         _tongueAttackCollider.height = -_tongueAttackpoint.transform.localPosition.x;
         _tongueAttackCollider.center = new Vector3(_tongueAttackCollider.height / 2, 0, 0);
-        origJumpHeight = _jumpHeight;
         _invUI = GameObject.FindWithTag("PowerUp").GetComponent<InvincibilityUI>();
         _playerAudio = GetComponent<AudioManager>();
     }
@@ -210,7 +207,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundMask);
 
-        _characterController.Move(_relativeDirection * speed * Time.deltaTime);
+        _characterController.Move(_relativeDirection * playerData.speed * Time.deltaTime);
 
         Move();
         Jump();
@@ -293,7 +290,7 @@ public class PlayerController : MonoBehaviour, IDamageTaker, IRewardTaker, IAbil
             //player will 'jump' to a certain height.
             _velocity.y += Mathf.Sqrt(_jumpHeight * _gravity);
             _playerAudio.PlayJumping();
-            if(_jumpHeight > origJumpHeight) _jumpHeight = origJumpHeight; //resets the jump height
+            if(_jumpHeight > playerData.jumpHeight) _jumpHeight = playerData.jumpHeight; //resets the jump height
             _isJumpPressed = false;
         }
         _velocity.y -= _gravity * Time.deltaTime; //otherwise make sure that gravity is negative
