@@ -4103,6 +4103,10 @@ MonoBehaviour:
   easyBtn: {fileID: 1777309211}
   mediumBtn: {fileID: 1306275491}
   hardBtn: {fileID: 581083995}
+  manager: {fileID: 0}
+  playerDataList:
+  - {fileID: 11400000, guid: a8d9a1e7bb8b34743a69ddcc437e7daa, type: 2}
+  - {fileID: 11400000, guid: f4a3c79d55fb61445a506501d9938849, type: 2}
 --- !u!114 &8955737896584724275
 MonoBehaviour:
   m_ObjectHideFlags: 0
