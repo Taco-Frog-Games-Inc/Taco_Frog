@@ -7,7 +7,6 @@ public class TutorialPlayerSpawner : MonoBehaviour
     private GameObject _player2;
     
     void Awake() {
-        PlayerPrefs.SetInt("NumbOfPlayer", 2);
         Vector3 pos = new(transform.position.x, 2f, transform.position.z);
         _player1 = Instantiate(player, pos, Quaternion.identity);
         _player1.name = "Player1";

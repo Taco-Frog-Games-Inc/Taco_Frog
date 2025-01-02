@@ -16,7 +16,7 @@ MonoBehaviour:
   jumpHeight: 15
   tongueAttackLength: 8
   speed: 6
-  hasPressedPause: 1
+  hasPressedPause: 0
   health: 3
   moneyValue: 0
   minimapTexture: {fileID: 8400000, guid: 21bab13ffb7cf7042b2b1b9ac35fe86e, type: 2}
